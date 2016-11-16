@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 public class ConsoleMenuRender implements MenuRenderManger {
 
-	private Scanner scanner;
 	private PrintStream printStream;
+	private MenuContext menuContext =  new MenuContextImpl();
+	private Scanner scanner;
 	
 	public ConsoleMenuRender(InputStream is,PrintStream os) {
-		scanner = new Scanner(is);
 		printStream =os;
+		this.scanner = new Scanner(is);
 	}
 
 	/* (non-Javadoc)
@@ -19,7 +20,7 @@ public class ConsoleMenuRender implements MenuRenderManger {
 	 */
 	@Override
 	public void renderMenu(Menu menu) {
-		menu.getRelatedAction().doAction(null);
+		menu.getRelatedAction().doAction(menuContext);
 		if (menu.getSubMenu().size() != 0) {
 			printStream.println(menu.getDescription());
 			int optionCount = 1;
@@ -39,7 +40,7 @@ public class ConsoleMenuRender implements MenuRenderManger {
 		for (Field<?> field : form.getFields()) {
 			printStream.print(String.format("	%s  :", field.getDescription()));
 			String lineFromConsole = "";
-			while (lineFromConsole.length() == 0) {
+			while (lineFromConsole.length() < 2) {
 				lineFromConsole = scanner.nextLine();
 			}
 			field.setValue(lineFromConsole);

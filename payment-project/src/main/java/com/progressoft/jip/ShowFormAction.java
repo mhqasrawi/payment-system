@@ -13,6 +13,7 @@ public class ShowFormAction implements Action {
 	@Override
 	public MenuContext doAction(MenuContext menuContext) {
 		renderManger.renderForm(form);
+		menuContext.put(MenuContext.FORM_VALUE, form);
 		return menuContext;
 
 	}

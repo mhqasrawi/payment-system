@@ -10,28 +10,39 @@ import com.progressoft.jip.payment.iban.IBANDTO;
 
 public class NewAccountAction implements Action {
 
-	private static final String FORM_VALUE = "FormValue";
+	
 	private Action action;
 	private AccountPersistenceService accountPersistenceService;
 	private Map<String, Object> values = new HashMap<>();
 
-	public NewAccountAction(Action action) {
+	public NewAccountAction(Action action, AccountPersistenceService accountPersistenceService) {
 		this.action = action;
+		this.accountPersistenceService = accountPersistenceService;
 	}
 
 	@Override
 	public MenuContext doAction(MenuContext menuContext) {
-		menuContext.put(FORM_VALUE, null);
+		menuContext.put(MenuContext.FORM_VALUE, null);
 		action.doAction(menuContext);
-		Form form = menuContext.get(FORM_VALUE);
+		Form form = menuContext.get(MenuContext.FORM_VALUE);
+		AccountDTOImpl accountDTO = new AccountDTOImpl();
 		for (Field field : form.getFields()) {
-			values.put(field.getName(), field.getValue());
+			if (field.getName().equals("accountNumber")) {
+				accountDTO.setAccountNumber((String) field.getValue());
+			} else if (field.getName().equals("iban")) {
+				accountDTO.setIban((IBANDTO) field.getValue());
+			} else if (field.getName().equals("accountName")) {
+				accountDTO.setAccountName((String) field.getValue());
+			} else if (field.getName().equals("currency")) {
+				accountDTO.setCurrency((Currency) field.getValue());
+			}
 		}
+		accountPersistenceService.save(accountDTO);
 		return menuContext;
 	}
 
 	private class AccountDTOImpl implements AccountDTO {
-		
+
 		private String accountNumber;
 		private IBANDTO iban;
 		private String accountName;
