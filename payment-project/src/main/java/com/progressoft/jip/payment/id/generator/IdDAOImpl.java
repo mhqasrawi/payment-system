@@ -20,15 +20,20 @@ public class IdDAOImpl implements IdDAO {
 
 	}
 
-	public void insert(String tableName) {
-		int incrementedId = this.update(tableName);
-		if (incrementedId > 0)
-			return;
+	public long insert(String tableName) {
+		int newId = this.update(tableName);
+		if (newId > 0)
+			return newId;
 		String sql = "insert into id_table values(?,?,?,?,?,?)";
 
-		long maxId = this.getMaxId(tableName) + 1;//
+		long maxId = this.getMaxId(tableName) + 1;
 		try {
-			this.queryRunner.update(sql, tableName, maxId);
+			int updated = this.queryRunner.update(sql, tableName, maxId);
+			if (updated == 0)
+				throw new DAOException("Error While Inserting the id for table: " + tableName);
+			else
+				return maxId;
+
 		} catch (SQLException e) {
 			throw new DAOException("Error While Inserting the id for table: " + tableName);
 		}
