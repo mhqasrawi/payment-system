@@ -29,17 +29,14 @@ public class MenuImpl implements Menu {
 		this.description = description;
 	}
 
-	@Override
 	public String getDescription() {
 		return description;
 	}
 
-	@Override
 	public List<Menu> getSubMenu() {
 		return subMenu;
 	}
 
-	@Override
 	public Action getRelatedAction() {
 		return action;
 	}

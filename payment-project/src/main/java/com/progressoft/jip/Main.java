@@ -28,18 +28,24 @@ public class Main {
 		iban.setName("iban");
 		form.addField(iban);
 
-		
 		Menu mainMenu = new MenuImpl("Choice Option",
-				Arrays.asList(new MenuImpl("Accses Your Account", Arrays.asList(new MenuImpl("Sub Menu From Account",
-						new NewAccountAction(new ShowFormAction(renderManger, form), jpaDummy))), (n) -> {
-							System.out.println("You Enter Accsess Your Account Option");
+				Arrays.asList(
+						new MenuImpl("Accses Your Account",
+								Arrays.asList(new MenuImpl("Sub Menu From Account",
+										new NewAccountAction(new ShowFormAction(renderManger, form), jpaDummy))),
+								(n) -> {
+									System.out.println("You Enter Accsess Your Account Option");
+									return null;
+								}),
+						new MenuImpl("Exit", c -> {
+							System.exit(0);
 							return null;
 						})));
 		renderManger.renderMenu(mainMenu);
 	}
 
 	static AccountPersistenceService jpaDummy = new AccountPersistenceService() {
-		
+
 		@Override
 		public AccountDTO save(AccountDTO accountDTO) {
 			System.out.println(accountDTO.getAccountName());
@@ -49,19 +55,19 @@ public class Main {
 			System.out.println(accountDTO.getIban());
 			return null;
 		}
-		
+
 		@Override
 		public AccountDTO getById(String id) {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 		@Override
 		public Iterable<AccountDTO> getAll() {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 		@Override
 		public AccountDTO getAccount(String accountNumber) {
 			// TODO Auto-generated method stub

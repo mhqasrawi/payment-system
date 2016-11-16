@@ -10,4 +10,8 @@ public interface MenuContext {
 
 	<T> T get(String key);
 
+	void pushMenuStack(Menu menu);
+	
+	Menu popMenuStack();
+
 }
