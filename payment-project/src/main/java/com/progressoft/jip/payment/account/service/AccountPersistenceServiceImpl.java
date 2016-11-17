@@ -1,6 +1,10 @@
 package com.progressoft.jip.payment.account.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.progressoft.jip.payment.account.AccountDTO;
+import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
@@ -19,23 +23,38 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 	}
 
 	public AccountDTO getAccount(String accountNumber) {
-
-		return this.accountDAO.get(accountNumber, ibanServiceImpl);
+		AccountDTO account = accountDAO.get(accountNumber);
+		AccountDTOImpl accountDTO = getIBAN(account);
+		return accountDTO;
 	}
 
 	public AccountDTO getById(String id) {
-		return this.accountDAO.getById(id, ibanServiceImpl);
+		AccountDTO account = accountDAO.getById(id);
+		AccountDTOImpl accountDTO = getIBAN(account);
+		return accountDTO;
 
 	}
 
 	public AccountDTO save(AccountDTO accountDTO) {
-
 		saveIBAN(accountDTO);
 		return this.accountDAO.save(accountDTO);
 	}
 
 	public Iterable<AccountDTO> getAll() {
-		return this.accountDAO.getAll(ibanServiceImpl);
+		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
+		Iterable<AccountDTO> accountsDTO = this.accountDAO.getAll();
+
+		for (AccountDTO account : accountsDTO) {
+			accounts.add(getIBAN(account));
+		}
+		return accounts;
+	}
+
+	private AccountDTOImpl getIBAN(AccountDTO accountDTO2) {
+		AccountDTOImpl accountDTO = new AccountDTOImpl(accountDTO2);
+		IBANDTO ibanById = ibanServiceImpl.getIBANById(accountDTO.getAccountNumber());
+		accountDTO.setIbandto(ibanById);
+		return accountDTO;
 	}
 
 	private void saveIBAN(AccountDTO account) {

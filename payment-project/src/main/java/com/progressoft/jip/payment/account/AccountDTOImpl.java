@@ -2,6 +2,7 @@ package com.progressoft.jip.payment.account;
 
 import java.util.Currency;
 
+import com.progressoft.jip.payment.customer.CustomerDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 
 public class AccountDTOImpl implements AccountDTO {
@@ -12,8 +13,23 @@ public class AccountDTOImpl implements AccountDTO {
 	private String accountName;
 	private Currency currency;
 	private AccountStatus accountStatus;
+	private CustomerDTO customerDTO;
 
 	public AccountDTOImpl() {
+	}
+
+	public AccountDTOImpl(AccountDTO accountDTO) {
+		this.setAccountName(accountDTO.getAccountName());
+		this.setAccountNumber(accountDTO.getAccountNumber());
+		this.setAccountStatus(accountDTO.getAccountStatus());
+		this.setCurrency(accountDTO.getCurreny());
+		this.setIbandto(accountDTO.getIban());
+		this.setId(accountDTO.getId());
+		this.setCustomerDTO(accountDTO.getCustomerDTO());
+	}
+
+	public void setCustomerDTO(CustomerDTO customerDTO) {
+		this.customerDTO = customerDTO;
 	}
 
 	public void setId(long id) {
@@ -62,6 +78,10 @@ public class AccountDTOImpl implements AccountDTO {
 
 	public AccountStatus getAccountStatus() {
 		return this.accountStatus;
+	}
+
+	public CustomerDTO getCustomerDTO() {
+		return this.customerDTO;
 	}
 
 }
