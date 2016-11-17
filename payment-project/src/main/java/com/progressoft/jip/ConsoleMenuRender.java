@@ -14,6 +14,7 @@ public class ConsoleMenuRender implements MenuRenderManger {
 	public ConsoleMenuRender(InputStream is, PrintStream os) {
 		printStream = os;
 		this.scanner = new Scanner(is);
+		menuContext.put(MenuContext.MENU_RENDER_MANGER, this);
 	}
 
 	/*

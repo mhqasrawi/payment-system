@@ -37,6 +37,9 @@ public class MenuImpl implements Menu {
 		return subMenu;
 	}
 
+	protected void addSubMenu(Menu menu){
+		subMenu.add(menu);
+	}
 	public Action getRelatedAction() {
 		return action;
 	}

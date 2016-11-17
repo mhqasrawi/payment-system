@@ -22,7 +22,8 @@ public class FormImpl implements Form {
 		return description;
 	}
 
-	public void addField(Field<?> field) {
+	public FormImpl addField(Field<?> field) {
 		fields.add(field);
+		return this;
 	}
 }

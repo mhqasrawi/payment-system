@@ -14,8 +14,9 @@ public abstract class AbstractField<T> implements Field<T> {
 		return name;
 	}
 
-	public void setName(String name) {
+	public AbstractField<T> setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	/* (non-Javadoc)
@@ -36,8 +37,9 @@ public abstract class AbstractField<T> implements Field<T> {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public AbstractField<T> setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	
