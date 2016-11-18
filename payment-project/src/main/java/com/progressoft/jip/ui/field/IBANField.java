@@ -1,4 +1,4 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.field;
 
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
@@ -11,15 +11,16 @@ public class IBANField extends AbstractField<IBANDTO> {
 	}
 
 	@Override
-	public void setValue(String value) {
+	public AbstractField<IBANDTO> setValue(String value) {
 		IBANDTOImpl iban = new IBANDTOImpl();
 		iban.setIBANValue(value);
 		ibanValidator.validate(iban);
 		this.value = iban;
+		return this;
 	}
 
 	private class IBANDTOImpl implements IBANDTO {
-		private String countryCode;
+
 		private String ibanValue;
 
 		public void setIBANValue(String iban) {
@@ -33,7 +34,7 @@ public class IBANField extends AbstractField<IBANDTO> {
 
 		@Override
 		public String getCountryCode() {
-			return null;
+			return ibanValue.substring(0,2);
 		}
 
 		@Override

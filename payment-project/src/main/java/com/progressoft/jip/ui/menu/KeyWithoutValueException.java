@@ -1,4 +1,4 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.menu;
 
 public class KeyWithoutValueException extends RuntimeException {
 

@@ -4,16 +4,23 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ConsoleMenuRender implements MenuRenderManger {
+import com.progressoft.jip.ui.field.Field;
+import com.progressoft.jip.ui.form.Form;
+import com.progressoft.jip.ui.menu.Menu;
+import com.progressoft.jip.ui.menu.MenuContext;
+import com.progressoft.jip.ui.menu.MenuRenderManger;
+
+public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderManger<T> {
 
 	private PrintStream printStream;
-	private MenuContext menuContext = new MenuContextImpl();
+	private T menuContext ;
 	private Scanner scanner;
-	private Menu mainMenu;
+	private Menu<T> mainMenu;
 
-	public ConsoleMenuRender(InputStream is, PrintStream os) {
+	public ConsoleMenuRender(InputStream is, PrintStream os,T menuContext) {
 		printStream = os;
 		this.scanner = new Scanner(is);
+		this.menuContext = menuContext;
 		menuContext.put(MenuContext.MENU_RENDER_MANGER, this);
 	}
 
@@ -24,12 +31,13 @@ public class ConsoleMenuRender implements MenuRenderManger {
 	 * com.progressoft.jip.MenuRenderManger#renderMenu(com.progressoft.jip.Menu)
 	 */
 	@Override
-	public void renderMenu(Menu menu) {
+	public void renderMenu(Menu<T> menu) {
 		this.mainMenu = menu;
 		showMenu(menu);
 	}
 
-	private void showMenu(Menu menu) {
+	@SuppressWarnings("unchecked")
+	private void showMenu(Menu<T> menu) {
 		doMenuAction(menu);
 		if (menu.getSubMenu().size() != 0) {
 			printDescreption(menu);
@@ -41,9 +49,9 @@ public class ConsoleMenuRender implements MenuRenderManger {
 		}
 	}
 
-	private void showSubMenu(Menu menu) {
+	private void showSubMenu(Menu<T> menu) {
 		int optionCount = 1;
-		for (Menu subMenu : menu.getSubMenu()) {
+		for (Menu<T> subMenu : menu.getSubMenu()) {
 			printStream.println(String.format("	%d - %s", optionCount++, subMenu.getDescription()));
 		}
 		if (mainMenu != menu) {
@@ -51,11 +59,12 @@ public class ConsoleMenuRender implements MenuRenderManger {
 		}
 	}
 
-	private void doMenuAction(Menu menu) {
-		menu.getRelatedAction().doAction(menuContext);
+	private void doMenuAction(Menu<T> menu) {
+		menu.doAction(menuContext);
 	}
 
-	private boolean showChoosenSubMenu(Menu menu, int subMenuNumber) {
+	@SuppressWarnings("unchecked")
+	private boolean showChoosenSubMenu(Menu<T> menu, int subMenuNumber) {
 		if (subMenuNumber - 1 > menu.getSubMenu().size()) {
 			printStream.println("Invalid Input Please Try Again");
 			return false;
@@ -64,7 +73,7 @@ public class ConsoleMenuRender implements MenuRenderManger {
 			showMenu(menuContext.popMenuStack());
 			return false;
 		}
-		Menu subMenu = menu.getSubMenu().get(subMenuNumber - 1);
+		Menu<T> subMenu = menu.getSubMenu().get(subMenuNumber - 1);
 		menuContext.pushMenuStack(menu);
 		showMenu(subMenu);
 		return true;
@@ -75,7 +84,7 @@ public class ConsoleMenuRender implements MenuRenderManger {
 		return subMenuNumber;
 	}
 
-	private void printDescreption(Menu menu) {
+	private void printDescreption(Menu<T> menu) {
 		printStream.println(menu.getDescription());
 	}
 

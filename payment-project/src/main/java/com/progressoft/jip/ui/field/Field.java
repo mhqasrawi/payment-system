@@ -1,4 +1,4 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.field;
 
 public interface Field<T> {
 
@@ -6,7 +6,7 @@ public interface Field<T> {
 
 	T getValue();
 	
-	void setValue(String value);
+	AbstractField<T> setValue(String value);
 
 	String getDescription();
 

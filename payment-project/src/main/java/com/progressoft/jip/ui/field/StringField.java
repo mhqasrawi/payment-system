@@ -1,10 +1,11 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.field;
 
 public class StringField extends AbstractField<String> {
 
 	@Override
-	public void setValue(String value) {
+	public AbstractField<String> setValue(String value) {
 		this.value = value;
+		return this;
 	}
 
 }

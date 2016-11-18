@@ -1,8 +1,10 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.menu;
 
-public interface MenuRenderManger {
+import com.progressoft.jip.ui.form.Form;
 
-	void renderMenu(Menu menu);
+public interface MenuRenderManger<T extends MenuContext> {
+
+	void renderMenu(Menu<T> menu);
 
 	void renderForm(Form form);
 }

@@ -1,26 +1,29 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.menu;
 
 import java.util.Collections;
 import java.util.List;
 
-public class MenuImpl implements Menu {
+import com.progressoft.jip.ui.action.Action;
+import com.progressoft.jip.ui.action.NullableAction;
+
+public class MenuImpl<T extends MenuContext> implements Menu<T> {
 
 	private String description;
-	private List<Menu> subMenu = Collections.emptyList();
-	private Action action = NullableAction.INSTANCE;
+	private List<Menu<T>> subMenu = Collections.emptyList();
+	private Action<T> action = NullableAction.INSTANCE;
 
-	public MenuImpl(String description, List<Menu> subMenu, Action action) {
+	public MenuImpl( String description, List<Menu<T>> subMenu, Action<T> action) {
 		this.action = action;
 		this.subMenu = subMenu;
 		this.description = description;
 	}
 
-	public MenuImpl(String description, Action action) {
+	public MenuImpl(String description, Action<T> action) {
 		this.action = action;
 		this.description = description;
 	}
 
-	public MenuImpl(String description, List<Menu> subMenu) {
+	public MenuImpl(String description, List<Menu<T>> subMenu) {
 		this.description = description;
 		this.subMenu = subMenu;
 	}
@@ -33,15 +36,17 @@ public class MenuImpl implements Menu {
 		return description;
 	}
 
-	public List<Menu> getSubMenu() {
+	public List<Menu<T>> getSubMenu() {
 		return subMenu;
 	}
 
-	protected void addSubMenu(Menu menu){
+	protected void addSubMenu(Menu<T> menu) {
 		subMenu.add(menu);
 	}
-	public Action getRelatedAction() {
-		return action;
+
+	@Override
+	public void doAction(T t) {
+		action.doAction(t);
 	}
 
 }

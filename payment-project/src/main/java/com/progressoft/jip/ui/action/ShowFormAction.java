@@ -1,6 +1,9 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.action;
 
-public class ShowFormAction implements Action {
+import com.progressoft.jip.ui.form.Form;
+import com.progressoft.jip.ui.menu.MenuContext;
+
+public class ShowFormAction<T extends MenuContext> implements Action<T> {
 
 	private Form form;
 
@@ -9,7 +12,7 @@ public class ShowFormAction implements Action {
 	}
 
 	@Override
-	public MenuContext doAction(MenuContext menuContext) {
+	public T doAction(T menuContext) {
 		menuContext.getMenuMenager().renderForm(form);
 		menuContext.put(MenuContext.FORM_VALUE, form);
 		return menuContext;

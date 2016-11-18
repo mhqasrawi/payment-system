@@ -1,13 +1,13 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.menu;
 
 import java.util.List;
 
-public interface Menu {
+public interface Menu<T extends MenuContext> {
 
     String getDescription();
 
-    List<Menu> getSubMenu();
+    List<Menu<T>> getSubMenu();
 
-    Action getRelatedAction();
+    void doAction(T t);
 
 }

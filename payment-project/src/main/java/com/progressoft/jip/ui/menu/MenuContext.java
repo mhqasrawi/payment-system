@@ -1,10 +1,10 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.menu;
 
 public interface MenuContext {
-
-	public static final String MENU_RENDER_MANGER = "MENU_RENDER_MANGER";
+	
 	public static final String FORM_VALUE = "FormValue";
-	public static final String ACCOUNT_DTO = "ACCOUNT_DTO"; 
+	public static final String MENU_RENDER_MANGER = "MENU_RENDER_MANGER";
+	 
 
 	void put(String key, Object value);
 
@@ -12,8 +12,10 @@ public interface MenuContext {
 
 	void pushMenuStack(Menu menu);
 
+	@SuppressWarnings("rawtypes")
 	Menu popMenuStack();
 	
+	@SuppressWarnings("rawtypes")
 	default MenuRenderManger getMenuMenager(){
 		return get(MENU_RENDER_MANGER);
 	}

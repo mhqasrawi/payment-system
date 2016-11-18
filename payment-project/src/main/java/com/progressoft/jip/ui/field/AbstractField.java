@@ -1,4 +1,4 @@
-package com.progressoft.jip;
+package com.progressoft.jip.ui.field;
 
 public abstract class AbstractField<T> implements Field<T> {
 
@@ -27,7 +27,7 @@ public abstract class AbstractField<T> implements Field<T> {
 		return value;
 	}
 
-	abstract public void setValue(String value) ;
+	abstract public AbstractField<T> setValue(String value) ;
 	
 	/* (non-Javadoc)
 	 * @see com.progressoft.jip.Filed#getDescription()
