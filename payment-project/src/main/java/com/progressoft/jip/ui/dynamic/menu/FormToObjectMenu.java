@@ -4,44 +4,61 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.progressoft.jip.ui.action.Action;
 import com.progressoft.jip.ui.action.ShowFormAction;
 import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
+import com.progressoft.jip.ui.menu.Menu;
 import com.progressoft.jip.ui.menu.MenuContext;
 import com.progressoft.jip.ui.menu.MenuImpl;
 
-public class FormToObjectMenu<T extends MenuContext,V> extends MenuImpl<T> {
+public class FormToObjectMenu<MENU_CONTEXT extends MenuContext, INTERFACE_TYPE> extends MenuImpl<MENU_CONTEXT> {
 
-	private FormToObjectMenu(String description, Form form, Class<?> interfaceClass,
-			Consumer<V> objectProssingStratege) {
-		super( description, new FormToObjectAction<T,V>(form, interfaceClass, objectProssingStratege));
+	FormToObjectMenu(String description,List<Menu<MENU_CONTEXT>> subMenu, Form form, Class<?> interfaceClass,
+			ObjectProcessingStrategy<MENU_CONTEXT,INTERFACE_TYPE> defaultObjectProvider) {
+		super(description,subMenu,
+				new FormToObjectAction<MENU_CONTEXT, INTERFACE_TYPE>(form, interfaceClass, defaultObjectProvider));
 	}
 
-	private static class FormToObjectAction<V extends MenuContext,V2> implements Action<V> {
-		
+	FormToObjectMenu(String description,List<Menu<MENU_CONTEXT>> subMenu,  Form form, Class<?> interfaceClass,
+			ObjectProcessingStrategy<MENU_CONTEXT,INTERFACE_TYPE> objectProssingStratege, Function<MENU_CONTEXT,INTERFACE_TYPE>  defaultObjectProvider) {
+		super(description,subMenu,
+				new FormToObjectAction<MENU_CONTEXT, INTERFACE_TYPE>(form, interfaceClass, objectProssingStratege)
+						.setDefaultObjectStrategy(defaultObjectProvider));
+	}
+
+	static class FormToObjectAction<MENU_CONTEXT extends MenuContext, INTERFACE_TYPE> implements Action<MENU_CONTEXT> {
+
 		private Map<String, Object> values = new HashMap<>();
 		private Form form;
 		private Class<?> interfaceClass;
-		private Consumer<V2> objectProssingStratege;
+		private ObjectProcessingStrategy<MENU_CONTEXT, INTERFACE_TYPE> objectProssingStratege;
+		private Function<MENU_CONTEXT,INTERFACE_TYPE>  defaultObjectProvider;
 
-		public FormToObjectAction(Form form, Class<?> interfaceClass, Consumer<V2> objectProssingStratege) {
+		public FormToObjectAction(Form form, Class<?> interfaceClass,
+				ObjectProcessingStrategy<MENU_CONTEXT, INTERFACE_TYPE> objectProssingStratege) {
 			this.form = form;
 			this.interfaceClass = interfaceClass;
 			this.objectProssingStratege = objectProssingStratege;
 		}
 
+		private FormToObjectAction<MENU_CONTEXT, INTERFACE_TYPE> setDefaultObjectStrategy(Function<MENU_CONTEXT,INTERFACE_TYPE> defaultObjectProvider) {
+			this.defaultObjectProvider = defaultObjectProvider;
+			return this;
+		}
+
 		@Override
-		public V doAction(V menuContext) {
-			(new ShowFormAction<V>(form)).doAction(menuContext);
+		public MENU_CONTEXT doAction(MENU_CONTEXT menuContext) {
+			(new ShowFormAction<MENU_CONTEXT>(form)).doAction(menuContext);
 			for (Field<?> field : form.getAllFields()) {
 				values.put(field.getName(), field.getValue());
 			}
 			@SuppressWarnings("unchecked")
-			V2 newProxyInstance = ((V2) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+			INTERFACE_TYPE newProxyInstance = ((INTERFACE_TYPE) Proxy.newProxyInstance(this.getClass().getClassLoader(),
 					new Class[] { interfaceClass }, new InvocationHandler() {
 
 						@Override
@@ -50,11 +67,13 @@ public class FormToObjectMenu<T extends MenuContext,V> extends MenuImpl<T> {
 							Object value = values.get(variableName);
 							if (value != null) {
 								return value;
+							} else if (defaultObjectProvider != null) {
+								return method.invoke(defaultObjectProvider.apply(menuContext), args);
 							}
 							return null;
 						}
 
-						private String getVariableName(Method method) {
+						protected String getVariableName(Method method) {
 							String name = method.getName();
 							char firstChar = Character.toLowerCase(name.charAt(3));
 							String variableName = firstChar + name.substring(4);
@@ -62,44 +81,10 @@ public class FormToObjectMenu<T extends MenuContext,V> extends MenuImpl<T> {
 						}
 
 					}));
-			objectProssingStratege.accept(newProxyInstance);
+			objectProssingStratege.process(menuContext, newProxyInstance);
 			return menuContext;
 		}
 
-	}
-
-	public static class FormToObjectBuilder<T extends MenuContext,V> {
-
-		private String description;
-		private Form form;
-		private Class<?> interfaceClass;
-		private Consumer<V> objectProssingStratege;
-
-		
-
-		public FormToObjectBuilder<T,V> setDescription(String description) {
-			this.description = description;
-			return this;
-		}
-
-		public FormToObjectBuilder<T,V> setForm(Form form) {
-			this.form = form;
-			return this;
-		}
-
-		public FormToObjectBuilder<T,V> setInterfaceType(Class<?> interfaceClass) {
-			this.interfaceClass = interfaceClass;
-			return this;
-		}
-
-		public FormToObjectBuilder<T,V> setProcessingStrategy(Consumer<V> objectProssingStratege) {
-			this.objectProssingStratege = objectProssingStratege;
-			return this;
-		}
-
-		public FormToObjectMenu<T,V> build() {
-			return new FormToObjectMenu<T,V>(description, form, interfaceClass, objectProssingStratege);
-		}
 	}
 
 }

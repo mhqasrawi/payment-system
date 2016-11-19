@@ -13,8 +13,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		context.put(MenuContext.MENU_RENDER_MANGER, renderManger);
-		MainMenu mainMenu = new MainMenu(Arrays.asList(Menus.PICKUP_ACCOUNT_MENU.build(), Menus.ADD_NEW_ACCOUNT_MENU.build(),
-				new MenuImpl<PaymentMenuContext>("Exit", (c) -> {
+		MainMenu mainMenu = new MainMenu(Arrays.asList(MenusDefenation.PICKUP_ACCOUNT_MENU,
+				MenusDefenation.ADD_NEW_ACCOUNT_MENU, new MenuImpl<PaymentMenuContext>("Exit", (c) -> {
 					System.exit(0);
 					return c;
 				})));

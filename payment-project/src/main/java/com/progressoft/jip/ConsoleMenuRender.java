@@ -13,11 +13,11 @@ import com.progressoft.jip.ui.menu.MenuRenderManger;
 public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderManger<T> {
 
 	private PrintStream printStream;
-	private T menuContext ;
+	private T menuContext;
 	private Scanner scanner;
 	private Menu<T> mainMenu;
 
-	public ConsoleMenuRender(InputStream is, PrintStream os,T menuContext) {
+	public ConsoleMenuRender(InputStream is, PrintStream os, T menuContext) {
 		printStream = os;
 		this.scanner = new Scanner(is);
 		this.menuContext = menuContext;
@@ -36,16 +36,27 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 		showMenu(menu);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void showMenu(Menu<T> menu) {
-		doMenuAction(menu);
-		if (menu.getSubMenu().size() != 0) {
-			printDescreption(menu);
-			showSubMenu(menu);
-			while (!showChoosenSubMenu(menu, getEnteredOption()))
-				;
-		}else{
-			showMenu(menuContext.popMenuStack());
+		showMenu(menu, false);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void showMenu(Menu<T> menu, boolean skipAction) {
+		try {
+			if (!skipAction) {
+				doMenuAction(menu);
+			}
+			if (menu.getSubMenu().size() != 0) {
+				printDescreption(menu);
+				showSubMenu(menu);
+				while (!showChoosenSubMenu(menu, getEnteredOption()))
+					;
+			} else {
+				showMenu(menuContext.popMenuStack(), true);
+			}
+		} catch (RuntimeException exception) {
+			exception.printStackTrace(printStream);
+			showMenu(menuContext.popMenuStack(), true);
 		}
 	}
 

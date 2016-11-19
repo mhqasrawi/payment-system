@@ -1,18 +1,22 @@
 package com.progressoft.jip;
 
+import java.util.Arrays;
+
+import com.progressoft.jip.payment.PaymentPurpose;
+import com.progressoft.jip.payment.PaymentPurposeDAO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
-import com.progressoft.jip.ui.dynamic.menu.FormToObjectMenu.FormToObjectBuilder;
+import com.progressoft.jip.ui.dynamic.menu.ObjectProcessingStrategy;
 import com.progressoft.jip.ui.dynamic.menu.preemtivewrapper.StringContainer;
-import com.progressoft.jip.ui.field.AccountStatusField;
-import com.progressoft.jip.ui.field.CurrencyField;
-import com.progressoft.jip.ui.field.IBANField;
-import com.progressoft.jip.ui.field.LongField;
-import com.progressoft.jip.ui.field.StringField;
-import com.progressoft.jip.ui.form.FormImpl;
+import com.progressoft.jip.ui.menu.Menu;
 
-public class Menus {
+public class MenusDefenation {
 
+	private static final String PIKUP_ACCOUNT_MENU_DESCRIPTION = "Pikup Account";
+
+	private static final String INSERT_NEW_ACCOUNT_MENU_DESCRIPTION = "Insert New Account";
+	private static final PaymentPurposeDAO paymentPurposeService = null;
+	
 	static AccountPersistenceService jpaDummy = new AccountPersistenceService() {
 
 		private AccountDTO accountDTO;
@@ -44,25 +48,42 @@ public class Menus {
 		}
 	};
 
-	public static FormImpl NEW_ACCOUNT_FORM = new FormImpl("Create New Account")
-			.addField(new StringField().setDescription("Enter Account Number").setName("accountNumber"))
-			.addField(new StringField().setDescription("Enter Account Name").setName("accountName"))
-			.addField(new CurrencyField().setDescription("Enter Currency").setName("curreny"))
-			.addField(new IBANField(System.out::println).setDescription("Enter IBAN").setName("iban"))
-			.addHiddenField(new LongField().setDescription("").setName("id").setValue("1"))
-			.addHiddenField(new AccountStatusField().setDescription("").setName("accountStatus").setValue("ACTIVE"));
+	public static ObjectProcessingStrategy<PaymentMenuContext, AccountDTO> UPDATE_ACCOUNT_INFO = (
+			PaymentMenuContext menuContext, AccountDTO accountDTO) -> {
+		jpaDummy.save(accountDTO);
+		menuContext.setCurrentAccount(accountDTO);
+	};
 
-	public static FormToObjectBuilder<PaymentMenuContext, AccountDTO> ADD_NEW_ACCOUNT_MENU = new FormToObjectBuilder<PaymentMenuContext, AccountDTO>()
-			.setDescription("Insert New Account").setForm(NEW_ACCOUNT_FORM).setInterfaceType(AccountDTO.class)
-			.setProcessingStrategy(jpaDummy::save);
+	public static Menu<PaymentMenuContext> ADD_NEW_PAYMENT_PURPOSE = new PaymentFormToObjectBuilderImpl<PaymentPurpose>()
+			.setDescription("Insert New Payment Purpose").setForm(FormsDefenation.NEW_PAYMENT_PRPOSE_FORM)
+			.setInterfaceType(PaymentPurpose.class).setProcessingStrategy((menuContext, paymentPurpose) -> {
+				paymentPurposeService.save(paymentPurpose);
+			}).build();
 
-	public static FormImpl PICKUP_ACCOUNT_FORM = new FormImpl("Pikup Account")
-			.addField(new StringField().setDescription("Enter Account Number").setName(StringContainer.VALUE_NAME));
+	public static Menu<PaymentMenuContext> EDIT_ACCOUNT_NAME_MENU = new PaymentFormToObjectBuilderImpl<AccountDTO>()
+			.setDescription("Edit Account Name").setForm(FormsDefenation.EDIT_ACCOUNT_NAME_FORM)
+			.setInterfaceType(AccountDTO.class).setProcessingStrategy((menuContext, accountDTO) -> {
+				jpaDummy.save(accountDTO);
+				menuContext.setCurrentAccount(accountDTO);
+			}).buildEditMenu((context) -> context.getCurrentAccount());
 
-	public static FormToObjectBuilder<PaymentMenuContext, StringContainer> PICKUP_ACCOUNT_MENU = new FormToObjectBuilder<PaymentMenuContext, StringContainer>()
-			.setDescription("Pikup Account").setForm(PICKUP_ACCOUNT_FORM).setInterfaceType(StringContainer.class)
-			.setProcessingStrategy((c) -> {
-				jpaDummy.getAccount(c.getString());
-			});
+	public static Menu<PaymentMenuContext> EDIT_ACCOUNT_CURRENCY_MENU = new PaymentFormToObjectBuilderImpl<AccountDTO>()
+			.setDescription("Edit Account Currency").setForm(FormsDefenation.EDIT_ACCOUNT_CURRENY_FORM)
+			.setInterfaceType(AccountDTO.class).setProcessingStrategy(UPDATE_ACCOUNT_INFO)
+			.buildEditMenu((context) -> context.getCurrentAccount());
+
+	public static Menu<PaymentMenuContext> ADD_NEW_ACCOUNT_MENU = new PaymentFormToObjectBuilderImpl<AccountDTO>()
+			.setDescription(INSERT_NEW_ACCOUNT_MENU_DESCRIPTION).setForm(FormsDefenation.NEW_ACCOUNT_FORM)
+			.setInterfaceType(AccountDTO.class).setProcessingStrategy(UPDATE_ACCOUNT_INFO).build();
+
+	public static Menu<PaymentMenuContext> PICKUP_ACCOUNT_MENU = new PaymentFormToObjectBuilderImpl<StringContainer>()
+			.setDescription(PIKUP_ACCOUNT_MENU_DESCRIPTION).setForm(FormsDefenation.PICKUP_ACCOUNT_FORM)
+			.setInterfaceType(StringContainer.class).setProcessingStrategy((menuContext, stringContainer) -> {
+				AccountDTO account = jpaDummy.getAccount(stringContainer.getString());
+				if (account == null) {
+					throw new RuntimeException("Can't find Account With Number " + stringContainer.getString());
+				}
+				menuContext.setCurrentAccount(account);
+			}).setSubMenu(Arrays.asList(EDIT_ACCOUNT_NAME_MENU, EDIT_ACCOUNT_CURRENCY_MENU)).build();
 
 }

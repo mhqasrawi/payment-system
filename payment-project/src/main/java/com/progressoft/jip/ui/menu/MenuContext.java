@@ -10,7 +10,7 @@ public interface MenuContext {
 
 	<T> T get(String key);
 
-	void pushMenuStack(Menu menu);
+	void pushMenuStack(@SuppressWarnings("rawtypes") Menu menu);
 
 	@SuppressWarnings("rawtypes")
 	Menu popMenuStack();

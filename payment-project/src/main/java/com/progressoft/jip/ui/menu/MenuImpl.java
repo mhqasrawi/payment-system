@@ -8,9 +8,9 @@ import com.progressoft.jip.ui.action.NullableAction;
 
 public class MenuImpl<T extends MenuContext> implements Menu<T> {
 
-	private String description;
-	private List<Menu<T>> subMenu = Collections.emptyList();
-	private Action<T> action = NullableAction.INSTANCE;
+	private final String description;
+	private final List<Menu<T>> subMenu ;
+	private final Action<T> action ;
 
 	public MenuImpl( String description, List<Menu<T>> subMenu, Action<T> action) {
 		this.action = action;
@@ -19,17 +19,16 @@ public class MenuImpl<T extends MenuContext> implements Menu<T> {
 	}
 
 	public MenuImpl(String description, Action<T> action) {
-		this.action = action;
-		this.description = description;
+		this(description,Collections.emptyList(),action);
 	}
 
+	@SuppressWarnings("unchecked")
 	public MenuImpl(String description, List<Menu<T>> subMenu) {
-		this.description = description;
-		this.subMenu = subMenu;
+		this(description,subMenu,NullableAction.INSTANCE);
 	}
 
 	public MenuImpl(String description) {
-		this.description = description;
+		this(description,Collections.emptyList());
 	}
 
 	public String getDescription() {
@@ -40,7 +39,7 @@ public class MenuImpl<T extends MenuContext> implements Menu<T> {
 		return subMenu;
 	}
 
-	protected void addSubMenu(Menu<T> menu) {
+	public void addSubMenu(Menu<T> menu) {
 		subMenu.add(menu);
 	}
 

@@ -8,7 +8,6 @@ import java.util.Map;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.ui.menu.KeyWithoutValueException;
 import com.progressoft.jip.ui.menu.Menu;
-import com.progressoft.jip.ui.menu.MenuContext;
 
 public class MenuContextImpl implements PaymentMenuContext {
 
@@ -20,6 +19,7 @@ public class MenuContextImpl implements PaymentMenuContext {
 		values.put(key, value);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T get(String key) {
 		Object value = values.get(key);
 		if (value == null) {
@@ -28,7 +28,8 @@ public class MenuContextImpl implements PaymentMenuContext {
 		return (T) value;
 	}
 
-	public void pushMenuStack(Menu menu) {
+	@SuppressWarnings("unchecked")
+	public void pushMenuStack(@SuppressWarnings("rawtypes") Menu menu) {
 		menuStack.push(menu);
 	}
 
