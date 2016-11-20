@@ -168,7 +168,6 @@ public class JDBCAccountDAO implements AccountDAO {
 				accountDTOImpl.setId((Long) accountMap.get("account_id"));
 				accountDTOImpl.setId((Long) accountMap.get("account_number"));
 
-				;
 				accountsDTO.add(accountDTOImpl);
 
 			}
