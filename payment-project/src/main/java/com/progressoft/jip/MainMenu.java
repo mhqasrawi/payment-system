@@ -7,10 +7,10 @@ import com.progressoft.jip.ui.menu.MenuImpl;
 
 public class MainMenu extends MenuImpl<PaymentMenuContext>{
 
-	private static final String CHOISE_OPTION = "Choise  Option : ";
+	private static final String CHOOSE_OPTION = "Choose  Option : ";
 
 	public MainMenu(List<Menu<PaymentMenuContext>> subMenu) {
-		super(CHOISE_OPTION,subMenu);
+		super(CHOOSE_OPTION,subMenu);
 	}
 
 

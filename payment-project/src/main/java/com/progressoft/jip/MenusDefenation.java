@@ -13,7 +13,6 @@ import com.progressoft.jip.ui.menu.Menu;
 public class MenusDefenation {
 
 	private static final String PIKUP_ACCOUNT_MENU_DESCRIPTION = "Pikup Account";
-
 	private static final String INSERT_NEW_ACCOUNT_MENU_DESCRIPTION = "Insert New Account";
 	private static final PaymentPurposeDAO paymentPurposeService = null;
 	
@@ -55,7 +54,7 @@ public class MenusDefenation {
 	};
 
 	public static Menu<PaymentMenuContext> ADD_NEW_PAYMENT_PURPOSE = new PaymentFormToObjectBuilderImpl<PaymentPurpose>()
-			.setDescription("Insert New Payment Purpose").setForm(FormsDefenation.NEW_PAYMENT_PRPOSE_FORM)
+			.setDescription("Insert New Payment Purpose").setForm(FormsDefenation.NEW_PAYMENT_PURPOSE_FORM)
 			.setInterfaceType(PaymentPurpose.class).setProcessingStrategy((menuContext, paymentPurpose) -> {
 				paymentPurposeService.save(paymentPurpose);
 			}).build();

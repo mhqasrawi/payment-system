@@ -15,11 +15,12 @@ public class FormsDefenation {
 
 	private static final String PAYMENT_DESCRIPTION = "description";
 
+	private static final String PAYMENT_SHORT_CODE = "shortCode";
+
+	
 	private static final String ENTER_PAYMENT_DESCRIPTION = "Enter Payment Description";
 
 	private static final String ENTER_PAYMENT_SHORT_CODE = "Enter Payment Short Code";
-
-	private static final String PAYMENT_SHORT_CODE = "shortCode";
 
 	private static final String CREATE_NEW_PAYMENT_PURPOSE = "Create New Payment Purpose";
 
@@ -49,11 +50,11 @@ public class FormsDefenation {
 			.addField(new IBANField(System.out::println).setDescription(ENTER_IBAN)
 					.setName(AccountDTOConstant.IBAN_ACCOUNT_DTO))
 			.addHiddenField(
-					new LongField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("1"))
+					new LongField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("0"))
 			.addHiddenField(new AccountStatusField().setDescription("")
 					.setName(AccountDTOConstant.ACCOUNT_STATUS_ACCOUNT_DTO).setValue(AccountStatus.ACTIVE.name()));
 
-	public static Form NEW_PAYMENT_PRPOSE_FORM = new FormImpl(CREATE_NEW_PAYMENT_PURPOSE)
+	public static Form NEW_PAYMENT_PURPOSE_FORM = new FormImpl(CREATE_NEW_PAYMENT_PURPOSE)
 			.addField(new StringField().setDescription(ENTER_PAYMENT_SHORT_CODE).setName(PAYMENT_SHORT_CODE))
 			.addField(new StringField().setDescription(ENTER_PAYMENT_DESCRIPTION).setName(PAYMENT_DESCRIPTION));
 	

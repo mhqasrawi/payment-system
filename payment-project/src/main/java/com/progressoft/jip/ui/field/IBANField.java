@@ -4,6 +4,7 @@ import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
 
 public class IBANField extends AbstractField<IBANDTO> {
+	
 	private IBANValidator ibanValidator;
 
 	public IBANField(IBANValidator ibanValidator) {
