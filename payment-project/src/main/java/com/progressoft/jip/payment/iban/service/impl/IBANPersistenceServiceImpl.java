@@ -6,26 +6,27 @@ import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
 
 public class IBANPersistenceServiceImpl implements IBANPersistenceService {
 
-    private IBANDAO ibandao;
+	private IBANDAO ibandao;
 
-    public IBANPersistenceServiceImpl(IBANDAO ibandao) {
+	public IBANPersistenceServiceImpl(IBANDAO ibandao) {
+		this.ibandao = ibandao;
 
-    }
+	}
 
-    public IBANDTO getIBAN(String iban) {
-	return null;
-    }
+	public IBANDTO getIBAN(String iban) {
+		return ibandao.get(iban);
+	}
 
-    public IBANDTO getIBANById(String id) {
-	return null;
-    }
+	public IBANDTO getIBANById(String id) {
+		return ibandao.getById(id);
+	}
 
-    public IBANDTO save(IBANDTO ibanDTO) {
-	return null;
-    }
+	public IBANDTO save(IBANDTO ibanDTO) {
+		return ibandao.save(ibanDTO);
+	}
 
-    public Iterable<IBANDTO> getAll() {
-	return null;
-    }
+	public Iterable<IBANDTO> getAll() {
+		return ibandao.getAll();
+	}
 
 }
