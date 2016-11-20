@@ -10,7 +10,7 @@ import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
 import com.progressoft.jip.payment.service.PaymentPersistenceService;
 
-public class Test {
+public class TestDB {
 
 	public static QueryRunner runner;
 	public static AccountPersistenceService accountPersistenceService;

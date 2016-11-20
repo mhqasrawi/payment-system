@@ -2,6 +2,10 @@ package com.progressoft.jip;
 
 import com.progressoft.jip.payment.account.AccountDTO.AccountStatus;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
+import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.payment.iban.impl.IBANFormatsFileReader;
+import com.progressoft.jip.payment.iban.impl.IBANFormatsReader;
+import com.progressoft.jip.payment.iban.impl.IBANValidatorImpl;
 import com.progressoft.jip.ui.dynamic.menu.preemtivewrapper.StringContainer;
 import com.progressoft.jip.ui.field.AccountStatusField;
 import com.progressoft.jip.ui.field.CurrencyField;
@@ -17,7 +21,6 @@ public class FormsDefenation {
 
 	private static final String PAYMENT_SHORT_CODE = "shortCode";
 
-	
 	private static final String ENTER_PAYMENT_DESCRIPTION = "Enter Payment Description";
 
 	private static final String ENTER_PAYMENT_SHORT_CODE = "Enter Payment Short Code";
@@ -40,6 +43,11 @@ public class FormsDefenation {
 
 	private static final String ENTER_ACCOUNT_NAME = "Enter Account Name";
 
+	private static final IBANFormatsReader reader = new IBANFormatsFileReader("C:/Users/u612/Desktop/Temp/IBAN_Formats.txt");
+	private static final IBANValidator ibanValidator = new IBANValidatorImpl(reader);
+	
+	
+	
 	public static Form NEW_ACCOUNT_FORM = new FormImpl(CREATE_NEW_ACCOUNT_FORM_DESCRIPTION)
 			.addField(new StringField().setDescription(ENTER_ACCOUNT_NUMBER)
 					.setName(AccountDTOConstant.ACCOUNT_NUMBER_ACCOUNT_DTO))
@@ -47,7 +55,7 @@ public class FormsDefenation {
 					.setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO))
 			.addField(
 					new CurrencyField().setDescription(ENTER_CURRENCY).setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO))
-			.addField(new IBANField(System.out::println).setDescription(ENTER_IBAN)
+			.addField(new IBANField(ibanValidator).setDescription(ENTER_IBAN)
 					.setName(AccountDTOConstant.IBAN_ACCOUNT_DTO))
 			.addHiddenField(
 					new LongField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("0"))
@@ -57,7 +65,7 @@ public class FormsDefenation {
 	public static Form NEW_PAYMENT_PURPOSE_FORM = new FormImpl(CREATE_NEW_PAYMENT_PURPOSE)
 			.addField(new StringField().setDescription(ENTER_PAYMENT_SHORT_CODE).setName(PAYMENT_SHORT_CODE))
 			.addField(new StringField().setDescription(ENTER_PAYMENT_DESCRIPTION).setName(PAYMENT_DESCRIPTION));
-	
+
 	public static Form PICKUP_ACCOUNT_FORM = new FormImpl(PICKUP_ACCOUNT_FORM_DESCRIPTION)
 			.addField(new StringField().setDescription(ENTER_ACCOUNT_NUMBER).setName(StringContainer.VALUE_NAME));
 
