@@ -12,7 +12,7 @@ public class Test {
 		validator.validate(iban);
 		System.out.println("IBAN is valid");
 	}
-	
+
 	public static class IBANDTOImpl implements IBANDTO {
 
 		private long id;
@@ -23,7 +23,7 @@ public class Test {
 			this.id = id;
 		}
 
-		public long getId() {
+		public Long getId() {
 			return id;
 		}
 
