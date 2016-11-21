@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import com.progressoft.jip.payment.PaymentPurpose;
-import com.progressoft.jip.payment.PaymentPurposeDAO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 import com.progressoft.jip.payment.account.service.AccountPersistenceServiceImpl;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
+import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 import com.progressoft.jip.ui.dynamic.menu.ObjectProcessingStrategy;
 import com.progressoft.jip.ui.dynamic.menu.preemtivewrapper.StringContainer;
 import com.progressoft.jip.ui.menu.Menu;
@@ -37,9 +37,9 @@ public class MenusDefenation {
 		menuContext.setCurrentAccount(jpaDummy.save(accountDTO));
 	};
 
-	public static Menu<PaymentMenuContext> ADD_NEW_PAYMENT_PURPOSE = new PaymentFormToObjectBuilderImpl<PaymentPurpose>()
+	public static Menu<PaymentMenuContext> ADD_NEW_PAYMENT_PURPOSE = new PaymentFormToObjectBuilderImpl<PaymentPurposeDTO>()
 			.setDescription("Insert New Payment Purpose").setForm(FormsDefenation.NEW_PAYMENT_PURPOSE_FORM)
-			.setInterfaceType(PaymentPurpose.class).setProcessingStrategy((menuContext, paymentPurpose) -> {
+			.setInterfaceType(PaymentPurposeDTO.class).setProcessingStrategy((menuContext, paymentPurpose) -> {
 				paymentPurposeService.save(paymentPurpose);
 			}).build();
 

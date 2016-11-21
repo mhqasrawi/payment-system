@@ -1,8 +1,11 @@
-package com.progressoft.jip.payment;
+package com.progressoft.jip.payment.purpose.dao.impl;
+
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public interface PaymentPurposeDAO {
 
-    PaymentPurpose get(String shortCode);
+	PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose);
 
-    void save(PaymentPurpose paymentPurpose);
+	PaymentPurposeDTO get(String shortCode);
+
 }
