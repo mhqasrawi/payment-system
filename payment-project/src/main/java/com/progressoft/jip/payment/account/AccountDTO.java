@@ -2,43 +2,48 @@ package com.progressoft.jip.payment.account;
 
 import java.util.Currency;
 
+import com.progressoft.jip.payment.customer.CustomerDTO;
 import com.progressoft.jip.payment.iban.DTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 
 public interface AccountDTO extends DTO {
 
-    String getAccountNumber();
+	String getAccountNumber();
 
-    IBANDTO getIban();
+	IBANDTO getIban();
 
-    String getAccountName();
+	String getAccountName();
 
-    Currency getCurreny();
+	CustomerDTO getCustomerDTO();
 
-    AccountStatus getAccountStatus();
+	Currency getCurreny();
 
-    public enum AccountStatus {
+	AccountStatus getAccountStatus();
 
-	ACTIVE(0), INACTIVE(1);
+	Long getIbanId();
 
-	private int index;
+	public enum AccountStatus {
 
-	private AccountStatus(int index) {
-	    this.index = index;
-	}
+		ACTIVE(0), INACTIVE(1);
 
-	public int getIndex() {
-	    return index;
-	}
+		private int index;
 
-	public AccountStatus getAccountStatus(int index) {
-	    for (AccountStatus accountStatus : values()) {
-		if (accountStatus.getIndex() == index) {
-		    return accountStatus;
+		private AccountStatus(int index) {
+			this.index = index;
 		}
-	    }
-	    return null;
+
+		public int getIndex() {
+			return index;
+		}
+
+		public AccountStatus getAccountStatus(int index) {
+			for (AccountStatus accountStatus : values()) {
+				if (accountStatus.getIndex() == index) {
+					return accountStatus;
+				}
+			}
+			return null;
+		}
 	}
-    }
 
 }
