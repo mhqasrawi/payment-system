@@ -24,17 +24,18 @@ import com.progressoft.jip.payment.id.generator.IdDAOImpl;
 
 public class JDBCAccountDAO implements AccountDAO {
 
-	private static final String DELETE_ACCOUNT_STATMENT = "delete from account WHERE account_number=?";
-	private static final String SELECT_ALL_ACCOUNT = "select  account_number , account_id , account_name,"
-			+ "account_currency,account_status , customer_name" + " from account";
-	private static final String UPDATE_ACCOUNT_STATMENT = "update account set account_no=? , account_name=?,account_currency=?,account_status =?,customer_name=? WHERE account_id=?";
-	private static final String INSERT_ACCOUNT_STATMENT = "insert into account (_id,account_no,account_name,account_currency,"
-			+ "account_status,customer_name)values(?,?,?,?,?,?)";
-	private static final String SELECT_STATMENT_BASED_ON_ACCOUNT_NUMBER = "select  account_id , account_name,"
-			+ "account_currency,account_status , customer_name" + " from account" + " WHERE account_number= ' ";
+	private static final String DELETE_ACCOUNT_STATMENT = "delete from account WHERE account_number" + "=?";
+
+	private static final String SELECT_ALL_ACCOUNT = "select  account_number , id , account_name,"
+			+ "account_currency,account_status , customer_name , iban_id" + " from account";
+	private static final String UPDATE_ACCOUNT_STATMENT = "update account set account_number=? , account_name=?,account_currency=?,account_status =?,customer_name=? WHERE id=?";
+	private static final String INSERT_ACCOUNT_STATMENT = "insert into account (id,account_number,account_name,account_currency,"
+			+ "account_status,customer_name,iban_id)values(?,?,?,?,?,?,?)";
+	private static final String SELECT_STATMENT_BASED_ON_ACCOUNT_NUMBER = "select  id , account_name,"
+			+ "account_currency,account_status , customer_name,iban_id" + " from account" + " WHERE account_number= '";
 	private static final String SELECT_STATMENT_BASED_ON_ACCOUNT_ID = "select  account_number , account_name,"
-			+ "account_currency,account_status,customer_name" + " from account" + " WHERE account_id= ' ";
-	private static final String SELECT_STATMENT_BASED_ON_CUSTOMER_NAME = "select  account_number , account_id , account_name,"
+			+ "account_currency,account_status,customer_name,iban_id" + " from account" + " WHERE id= ' ";
+	private static final String SELECT_STATMENT_BASED_ON_CUSTOMER_NAME = "select  account_number , id , account_name,"
 			+ "account_currency,account_status , customer_name" + " from account WHERE customer_name='";
 	private final QueryRunner queryRunner;
 	private final IdDAO idDAO;
@@ -46,18 +47,20 @@ public class JDBCAccountDAO implements AccountDAO {
 	}
 
 	public AccountDTO save(AccountDTO account) {
-		if (account.getId() > 0) {
+		System.out.println("Acc ID: " + account.getId());
+		if (account.getId() > 1) {
 			return updateIfExist(account);
 		}
 		try {
 			int status = account.getAccountStatus().getIndex();
-			long id = idDAO.insert(TABLE_NAME);
+			long id = idDAO.save(TABLE_NAME);
 			this.queryRunner.update(INSERT_ACCOUNT_STATMENT, id, account.getAccountNumber(), account.getAccountName(),
-					account.getCurreny().getCurrencyCode(), status, account.getCustomerDTO().getName());
+					account.getCurreny().getCurrencyCode(), status, account.getCustomerDTO().getName(),
+					account.getIban().getId());
 			AccountDTOImpl accountDTO = constructNewAccountDTO(account, id);
 			return accountDTO;
 		} catch (SQLException e) {
-			throw new DAOException("Error While Saving Account: " + account.getAccountName());
+			throw new DAOException("Error While Saving Account: " + account.getAccountName(), e);
 		}
 
 	}
@@ -73,9 +76,11 @@ public class JDBCAccountDAO implements AccountDAO {
 		accountDTO.setAccountNumber(account.getAccountNumber());
 		accountDTO.setAccountName(account.getAccountName());
 		accountDTO.setIbandto(account.getIban());
+		accountDTO.setIbanId(account.getIbanId());
 		accountDTO.setCurrency(account.getCurreny());
 		accountDTO.setAccountStatus(account.getAccountStatus());
 		accountDTO.setCustomerDTO(account.getCustomerDTO());
+		accountDTO.setIbanId(account.getIbanId());
 		return accountDTO;
 	}
 
@@ -85,7 +90,7 @@ public class JDBCAccountDAO implements AccountDAO {
 					account.getCurreny().getCurrencyCode(), account.getAccountStatus().getIndex(),
 					account.getCustomerDTO().getName(), account.getId());
 		} catch (SQLException e) {
-			throw new DAOException("Error While Updating Account: " + account.getAccountNumber());
+			throw new DAOException("Error While Updating Account: " + account.getAccountNumber(), e);
 		}
 	}
 
@@ -95,7 +100,7 @@ public class JDBCAccountDAO implements AccountDAO {
 			if (deleted == 0)
 				throw new DAOException("NO Account Deleted : " + accountNumber);
 		} catch (SQLException e) {
-			throw new DAOException("Error While Deleting Account : " + accountNumber);
+			throw new DAOException("Error While Deleting Account : " + accountNumber, e);
 		}
 		return true;
 	}
@@ -105,12 +110,14 @@ public class JDBCAccountDAO implements AccountDAO {
 
 		try {
 			Map<String, Object> account = this.queryRunner.query(sql, new MapHandler());
+			if (account == null)
+				throw new RuntimeException("No Account With Number " + accountNumber);
 			AccountDTOImpl accountDTO = populateAccountDTO(account);
 			accountDTO.setAccountNumber(accountNumber);
 
 			return accountDTO;
 		} catch (SQLException e) {
-			throw new DAOException("Error While Fetching Account Number: " + accountNumber);
+			throw new DAOException("Error While Fetching Account Number: " + accountNumber, e);
 		}
 
 	}
@@ -128,7 +135,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
 			}
 		} catch (SQLException e) {
-			throw new DAOException("cannot fetch account by id " + id);
+			throw new DAOException("cannot fetch account by id " + id, e);
 		}
 		throw new DAOException("Error While Fetching Account ID: " + id);
 	}
@@ -144,7 +151,7 @@ public class JDBCAccountDAO implements AccountDAO {
 				accountsDTO.add(accountDTOImpl);
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Error While Fetching All Accounts");
+			throw new DAOException("Error While Fetching All Accounts", e);
 		}
 
 		return new Iterable<AccountDTO>() {
@@ -162,9 +169,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		try {
 			List<Map<String, Object>> accounts = this.queryRunner.query(get_all_accounts, new MapListHandler());
 			for (Map<String, Object> accountMap : accounts) {
-
 				AccountDTOImpl accountDTOImpl = populateAccountDTO(accountMap);
-
 				accountDTOImpl.setId((Long) accountMap.get("account_id"));
 				accountDTOImpl.setId((Long) accountMap.get("account_number"));
 
@@ -172,7 +177,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Error While Fetching All Accounts for customer: " + customerName);
+			throw new DAOException("Error While Fetching All Accounts for customer: " + customerName, e);
 		}
 
 		return new Iterable<AccountDTO>() {
@@ -185,6 +190,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
 	private AccountDTOImpl populateAccountDTO(Map<String, Object> account) {
 		AccountDTOImpl accountDTO = new AccountDTOImpl();
+		accountDTO.setId(Long.parseLong(account.get("id").toString()));
 		accountDTO.setAccountName((String) account.get("account_name"));
 
 		Currency currency = Currency.getInstance((String) account.get("account_currency"));
@@ -196,6 +202,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		CustomerDTOImpl customerDTOImpl = new CustomerDTOImpl();
 		customerDTOImpl.setName((String) account.get("customer_name"));
 		accountDTO.setCustomerDTO(customerDTOImpl);
+		accountDTO.setIbanId(Long.parseLong(account.get("iban_id").toString()));
 		return accountDTO;
 
 	}

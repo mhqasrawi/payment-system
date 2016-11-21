@@ -8,4 +8,5 @@ public class AccountDTOConstant {
 	public static final String ID_NAME_ACCOUNT_DTO = "id";
 	public static final String ACCOUNT_STATUS_ACCOUNT_DTO = "accountStatus";
 	public static final String ACCOUNT_NAME_ACCOUNT_DTO = "accountName";
+	public static final String CUSTOMER_DTO_ACCOUNT_DTO = "customerDTO";
 }

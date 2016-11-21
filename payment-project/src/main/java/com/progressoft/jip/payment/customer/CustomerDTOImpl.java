@@ -6,7 +6,7 @@ public class CustomerDTOImpl implements CustomerDTO {
 
 	private String name;
 	private Iterable<AccountDTO> accounts;
-	private long id;
+	private Long id;
 
 	public void setName(String name) {
 		this.name = name;
@@ -20,7 +20,7 @@ public class CustomerDTOImpl implements CustomerDTO {
 		this.id = id;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

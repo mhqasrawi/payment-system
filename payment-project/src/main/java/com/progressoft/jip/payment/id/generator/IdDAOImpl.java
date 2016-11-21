@@ -1,11 +1,12 @@
 package com.progressoft.jip.payment.id.generator;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.MapHandler;
 
 import com.progressoft.jip.payment.DAOException;
 
@@ -20,13 +21,20 @@ public class IdDAOImpl implements IdDAO {
 
 	}
 
-	public long insert(String tableName) {
-		int newId = this.update(tableName);
-		if (newId > 0)
-			return newId;
-		String sql = "insert into id_table values(?,?,?,?,?,?)";
+	public long save(String tableName) {
+		long maxId = getMaxId(tableName) + 1;
 
-		long maxId = this.getMaxId(tableName) + 1;
+		if (maxId == 2) {
+			return insertNewTableID(tableName, maxId);
+		} else {
+			update(tableName, maxId);
+		}
+		return maxId;
+
+	}
+
+	private long insertNewTableID(String tableName, long maxId) {
+		String sql = "insert into id_table values(?,?)";
 		try {
 			int updated = this.queryRunner.update(sql, tableName, maxId);
 			if (updated == 0)
@@ -35,27 +43,28 @@ public class IdDAOImpl implements IdDAO {
 				return maxId;
 
 		} catch (SQLException e) {
-			throw new DAOException("Error While Inserting the id for table: " + tableName);
+			throw new DAOException("Error While Inserting the id for table: " + tableName, e);
 		}
 	}
 
-	public long getMaxId(String tableName) {
-		String sql = "select MAX(_id) from id_table WHERE table_name='" + tableName + "'";
+	private long getMaxId(String tableName) {
+		String sql = "select id from id_table WHERE table_name='" + tableName + "'";
 		try {
-			return this.queryRunner.query(sql, new BeanHandler<Long>(Long.class));
+			Map<String, Object> query = this.queryRunner.query(sql, new MapHandler());
+			long id = ((Integer) query.get("id")).longValue();
+			return id;
 
 		} catch (SQLException e) {
-			throw new DAOException("Error while reading max ID for table: " + tableName);
+			throw new DAOException("Error while reading max ID for table: " + tableName, e);
 		}
 	}
 
-	public int update(String tableName) {
-		String sql = "update id_table set _id=?";
-		long maxId = getMaxId(tableName) + 1;
+	public int update(String tableName, long maxId) {
+		String sql = "update id_table set id=? where table_name = ?";
 		try {
-			return this.queryRunner.update(sql, maxId);
+			return this.queryRunner.update(sql, maxId, tableName);
 		} catch (SQLException e) {
-			throw new DAOException("Error while updating id for table: " + tableName);
+			throw new DAOException("Error while updating id for table: " + tableName, e);
 		}
 
 	}

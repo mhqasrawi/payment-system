@@ -7,7 +7,7 @@ import com.progressoft.jip.ui.menu.MenuImpl;
 import com.progressoft.jip.ui.menu.MenuRenderManger;
 
 public class Main {
-	
+
 	public static PaymentMenuContext context = new MenuContextImpl();
 	public static MenuRenderManger<PaymentMenuContext> renderManger = new ConsoleMenuRender<PaymentMenuContext>(
 			System.in, System.out, context);

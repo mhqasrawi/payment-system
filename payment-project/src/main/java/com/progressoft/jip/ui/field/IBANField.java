@@ -29,13 +29,13 @@ public class IBANField extends AbstractField<IBANDTO> {
 		}
 
 		@Override
-		public long getId() {
-			return 0;
+		public Long getId() {
+			return Long.getLong("1");
 		}
 
 		@Override
 		public String getCountryCode() {
-			return ibanValue.substring(0,2);
+			return ibanValue.substring(0, 2);
 		}
 
 		@Override

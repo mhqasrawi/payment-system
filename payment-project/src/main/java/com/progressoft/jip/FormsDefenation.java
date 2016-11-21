@@ -9,6 +9,7 @@ import com.progressoft.jip.payment.iban.impl.IBANValidatorImpl;
 import com.progressoft.jip.ui.dynamic.menu.preemtivewrapper.StringContainer;
 import com.progressoft.jip.ui.field.AccountStatusField;
 import com.progressoft.jip.ui.field.CurrencyField;
+import com.progressoft.jip.ui.field.CustomerField;
 import com.progressoft.jip.ui.field.IBANField;
 import com.progressoft.jip.ui.field.LongField;
 import com.progressoft.jip.ui.field.StringField;
@@ -16,6 +17,8 @@ import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.form.FormImpl;
 
 public class FormsDefenation {
+
+	private static final String ENTER_CUSTOMER_NAME = "Enter Customer Name";
 
 	private static final String PAYMENT_DESCRIPTION = "description";
 
@@ -57,6 +60,8 @@ public class FormsDefenation {
 					new CurrencyField().setDescription(ENTER_CURRENCY).setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO))
 			.addField(new IBANField(ibanValidator).setDescription(ENTER_IBAN)
 					.setName(AccountDTOConstant.IBAN_ACCOUNT_DTO))
+			.addField(new CustomerField().setDescription(ENTER_CUSTOMER_NAME)
+					.setName(AccountDTOConstant.CUSTOMER_DTO_ACCOUNT_DTO))
 			.addHiddenField(
 					new LongField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("0"))
 			.addHiddenField(new AccountStatusField().setDescription("")

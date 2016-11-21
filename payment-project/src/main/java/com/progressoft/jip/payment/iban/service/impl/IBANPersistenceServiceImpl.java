@@ -17,7 +17,7 @@ public class IBANPersistenceServiceImpl implements IBANPersistenceService {
 		return ibandao.get(iban);
 	}
 
-	public IBANDTO getIBANById(String id) {
+	public IBANDTO getIBANById(long id) {
 		return ibandao.getById(id);
 	}
 
