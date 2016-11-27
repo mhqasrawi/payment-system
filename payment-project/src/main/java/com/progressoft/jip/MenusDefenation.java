@@ -26,7 +26,7 @@ public class MenusDefenation {
 			setDriverClassName("com.mysql.cj.jdbc.Driver");
 			setUrl("jdbc:mysql://localhost:3306/payment_db");
 			setUsername("root");
-			setPassword("root12");
+			setPassword("root");
 		}
 	};
 	static AccountPersistenceService jpaDummy = new AccountPersistenceServiceImpl(new JDBCAccountDAO(dataSource),
