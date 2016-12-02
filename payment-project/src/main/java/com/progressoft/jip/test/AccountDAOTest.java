@@ -94,6 +94,30 @@ public class AccountDAOTest extends DataSourceConfig {
         assertEquals(3,size);
     }
 
+    @Test
+    public void GivenAccount_WhenUpdateAccountCurrency_ThenShouldReturnUpdatedCurrency(){
+        AccountDTOImpl accountDTO = buildAccountDTO(0);
+        IBANDTO ibandto = getIbandto(0);
+        AccountDTO accountDTO1 = saveAccountDTO(accountDTO, ibandto);
+
+        accountDTO.setCurrency(Currency.getInstance("USD"));
+        AccountDTO save = accountPersistenceService.save(accountDTO);
+        assertEquals(Currency.getInstance("USD").getCurrencyCode(),save.getCurreny().getCurrencyCode());
+
+    }
+
+    @Test
+    public void GivenAccount_WhenUpdateAccountName_ThenShouldReturnUpdatedName(){
+        AccountDTOImpl accountDTO = buildAccountDTO(0);
+        IBANDTO ibandto = getIbandto(0);
+        AccountDTO accountDTO1 = saveAccountDTO(accountDTO, ibandto);
+
+        accountDTO.setAccountName("New Name");
+        AccountDTO save = accountPersistenceService.save(accountDTO);
+        assertEquals("New Name",save.getAccountName());
+
+    }
+
     private AccountDTO saveAccountDTO(AccountDTOImpl accountDTO, IBANDTO savedIBAN) {
         accountDTO.setIbandto(savedIBAN);
         accountDTO.setIbanId(savedIBAN.getId());
