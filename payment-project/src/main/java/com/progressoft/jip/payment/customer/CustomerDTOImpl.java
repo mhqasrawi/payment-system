@@ -20,7 +20,7 @@ public class CustomerDTOImpl implements CustomerDTO {
 		this.id = id;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
