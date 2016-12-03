@@ -1,5 +1,6 @@
 package com.progressoft.jip.test;
 
+import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
@@ -117,6 +118,19 @@ public class AccountDAOTest extends DataSourceConfig {
         assertEquals("New Name",save.getAccountName());
 
     }
+    @Test(expected = DAOException.class)
+    public void GivenEmptyTable_WhenGetAccountById_ThenDAOExcetpionThrown(){
+        accountPersistenceService.getById(5);
+    }
+    @Test(expected = DAOException.class)
+    public void GivenEmptyTable_WhenGetAccountByNumber_ThenDAOExceptionThrown(){
+        accountPersistenceService.getAccount("32342");
+    }
+    @Test(expected = DAOException.class)
+    public void GivenEmptyTable_WhenGetAllAccounts_ThenDAOExceptionThrown(){
+        Iterable<AccountDTO> all = accountPersistenceService.getAll();
+    }
+
 
     private AccountDTO saveAccountDTO(AccountDTOImpl accountDTO, IBANDTO savedIBAN) {
         accountDTO.setIbandto(savedIBAN);

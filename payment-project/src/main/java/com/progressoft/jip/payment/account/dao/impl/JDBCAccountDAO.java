@@ -110,7 +110,7 @@ public class JDBCAccountDAO implements AccountDAO {
         try {
             Map<String, Object> account = this.queryRunner.query(sql, new MapHandler());
             if (account == null)
-                throw new RuntimeException("No Account With Number " + accountNumber);
+                throw new DAOException("No Account With Number " + accountNumber);
             AccountDTOImpl accountDTO = populateAccountDTO(account);
             accountDTO.setAccountNumber(accountNumber);
 
@@ -126,17 +126,19 @@ public class JDBCAccountDAO implements AccountDAO {
 
         try {
             Map<String, Object> account = this.queryRunner.query(sql, new MapHandler());
-            AccountDTOImpl accountDTO = populateAccountDTO(account);
             if (account != null) {
+
+                AccountDTOImpl accountDTO = populateAccountDTO(account);
                 accountDTO.setId(id);
 
                 return accountDTO;
 
+            }else{
+                throw new DAOException("cannot fetch account by id Table Is Empty" + id);
             }
         } catch (SQLException e) {
             throw new DAOException("cannot fetch account by id " + id, e);
         }
-        throw new DAOException("Error While Fetching Account ID: " + id);
     }
 
     public Iterable<AccountDTO> getAll() {
@@ -151,6 +153,9 @@ public class JDBCAccountDAO implements AccountDAO {
             }
         } catch (SQLException e) {
             throw new DAOException("Error While Fetching All Accounts", e);
+        }
+        if(accountsDTO.size()==0){
+            throw new DAOException("There's No Accounts , Table Is Empty");
         }
 
         return new Iterable<AccountDTO>() {
