@@ -14,7 +14,7 @@ public class AccountDTOImpl implements AccountDTO {
 	private Currency currency;
 	private AccountStatus accountStatus;
 	private CustomerDTO customerDTO;
-	private Long ibanId;
+	private long ibanId;
 
 	public AccountDTOImpl() {
 	}

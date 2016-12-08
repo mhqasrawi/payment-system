@@ -70,6 +70,9 @@ public class FormToObjectMenu<MENU_CONTEXT extends MenuContext, INTERFACE_TYPE> 
 							} else if (defaultObjectProvider != null) {
 								return method.invoke(defaultObjectProvider.apply(menuContext), args);
 							}
+							if(method.getReturnType().isPrimitive()){
+								return PrimitiveDefaults.getDefaultValue(method.getReturnType());
+							}
 							return null;
 						}
 

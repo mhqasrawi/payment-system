@@ -3,27 +3,26 @@ package com.progressoft.jip.payment.account.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.iban.IBANDTO;
-import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
-import com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl;
 
 public class AccountPersistenceServiceImpl implements AccountPersistenceService {
 
 	private AccountDAO accountDAO;
 	private IBANPersistenceService ibanServiceImpl;
 
-	public AccountPersistenceServiceImpl(AccountDAO accountDAO, IBANDAO ibandao) {
+	@Autowired
+	public AccountPersistenceServiceImpl(AccountDAO accountDAO, IBANPersistenceService ibanService) {
 		this.accountDAO = accountDAO;
-		this.ibanServiceImpl = new IBANPersistenceServiceImpl(ibandao);
-
+		this.ibanServiceImpl = ibanService;
 	}
 
 	public AccountDTO save(AccountDTO accountDTO) {
-
 		IBANDTO saveIBAN = saveIBAN(accountDTO.getIban());
 		AccountDTOImpl accountDTOImpl = new AccountDTOImpl(accountDTO);
 		accountDTOImpl.setIbandto(saveIBAN);

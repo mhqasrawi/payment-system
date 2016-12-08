@@ -6,8 +6,6 @@ public interface AccountDAO {
 
 	AccountDTO save(AccountDTO account);
 
-	// void update(AccountDTO account);
-
 	boolean delete(String accountNumber);
 
 	AccountDTO get(String accountNumber);

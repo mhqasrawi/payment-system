@@ -1,7 +1,6 @@
 package com.progressoft.jip.payment.id.generator;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -10,7 +9,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapHandler;
 
 import com.progressoft.jip.payment.DAOException;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 
 public class IdDAOImpl implements IdDAO {
 
@@ -18,6 +16,7 @@ public class IdDAOImpl implements IdDAO {
     private DataSource dataSource;
     private QueryRunner queryRunner;
 
+    
     public IdDAOImpl(DataSource dataSource) {
         this.dataSource = dataSource;
         this.queryRunner = new QueryRunner(this.dataSource);
@@ -58,7 +57,7 @@ public class IdDAOImpl implements IdDAO {
             long id;
             Map<String, Object> query = this.queryRunner.query(sql, new MapHandler());
            if (query != null)
-                id = ((long) query.get("id"));
+                id = ((Integer)query.get("id")).longValue();
             else {
                 id = MINIMAL_DEFAULT_ID;
             }

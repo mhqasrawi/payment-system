@@ -18,59 +18,31 @@ public class FormToObjectBuilderImpl<MENU_CONTEXT extends MenuContext, INTERFACE
 	private Function<MENU_CONTEXT,INTERFACE_TYPE>  defaultObjectProvider;
 	private List<Menu<MENU_CONTEXT>> subMenu = Collections.emptyList();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.progressoft.jip.ui.dynamic.menu.IFormToObjectBuilder#setDescription(
-	 * java.lang.String)
-	 */
 	@Override
 	public FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setDescription(String description) {
 		this.description = description;
 		return this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.progressoft.jip.ui.dynamic.menu.IFormToObjectBuilder#setForm(com.
-	 * progressoft.jip.ui.form.Form)
-	 */
 	@Override
 	public FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setForm(Form form) {
 		this.form = form;
 		return this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.progressoft.jip.ui.dynamic.menu.IFormToObjectBuilder#setInterfaceType
-	 * (java.lang.Class)
-	 */
 	@Override
 	public FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setInterfaceType(Class<INTERFACE_TYPE> interfaceClass) {
 		this.interfaceClass = interfaceClass;
 		return this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.progressoft.jip.ui.dynamic.menu.IFormToObjectBuilder#
-	 * setProcessingStrategy(java.util.function.Consumer)
-	 */
 	@Override
 	public FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setProcessingStrategy(
 			ObjectProcessingStrategy<MENU_CONTEXT,INTERFACE_TYPE> objectProssingStratege) {
 		this.objectProssingStratege = objectProssingStratege;
 		return this;
 	}
-	
-	
+
 	@Override
 	public FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setSubMenu(List<Menu<MENU_CONTEXT>> subMenu) {
 		this.subMenu  = subMenu;
@@ -87,11 +59,6 @@ public class FormToObjectBuilderImpl<MENU_CONTEXT extends MenuContext, INTERFACE
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.progressoft.jip.ui.dynamic.menu.IFormToObjectBuilder#build()
-	 */
 	@Override
 	public FormToObjectMenu<MENU_CONTEXT, INTERFACE_TYPE> build() {
 		return buildNewMenu();
@@ -102,7 +69,4 @@ public class FormToObjectBuilderImpl<MENU_CONTEXT extends MenuContext, INTERFACE
 		this.defaultObjectProvider = defaultObjectProvider;
 		return buildNewMenu();
 	}
-
-	
-
 }

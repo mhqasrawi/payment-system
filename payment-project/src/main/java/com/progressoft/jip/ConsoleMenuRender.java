@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
@@ -12,6 +14,8 @@ import com.progressoft.jip.ui.menu.MenuRenderManger;
 
 public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderManger<T> {
 
+	private static final Logger LOGGER = Logger.getLogger(ConsoleMenuRender.class);
+	
 	private PrintStream printStream;
 	private T menuContext;
 	private Scanner scanner;
@@ -55,7 +59,7 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 				showMenu(menuContext.popMenuStack(), true);
 			}
 		} catch (RuntimeException exception) {
-			exception.printStackTrace(printStream);
+			LOGGER.error(exception);
 			showMenu(menuContext.popMenuStack(), true);
 		}
 	}

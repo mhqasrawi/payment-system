@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidationException;
 import com.progressoft.jip.payment.iban.IBANValidator;
@@ -23,6 +25,11 @@ public class IBANValidatorImpl implements IBANValidator{
 	private IBANPattern correctPattern;
 	private IBANDTO iban;
 
+	@Autowired
+	public IBANValidatorImpl(IBANFormatsReader reader) {
+		this.reader = reader;
+	}
+
 	public void validate(IBANDTO iban) {
 		this.iban = iban;
 		try {
@@ -33,9 +40,6 @@ public class IBANValidatorImpl implements IBANValidator{
 		}
 	}
 
-	public IBANValidatorImpl(IBANFormatsReader reader) {
-		this.reader = reader;
-	}
 
 	public void findIBANStructure() throws IOException {
 		if (patternCache.isEmpty()) {

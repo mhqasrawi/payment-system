@@ -1,36 +1,38 @@
 package com.progressoft.jip.payment.iban.dao.impl;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.RowProcessor;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.id.generator.IdDAO;
-import com.progressoft.jip.payment.id.generator.IdDAOImpl;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 
 public class JDBCIBANDAO implements IBANDAO {
 
-    private static final String SELECT_ALL_IBAN_STATMENT = "select * from iban ; ";
+	private static final String SELECT_ALL_IBAN_STATMENT = "select * from iban ; ";
     private static final String SELECT_IBAN_STATMENT = "select * from iban WHERE iban_id=?";
     private static final String INSERT_IBAN_STATMENT = "insert into iban values(?,?,?)";
-    private final QueryRunner queryRunner;
-    private final IdDAO idDAO;
     private static final String TABLE_NAME = "iban";
 
-    public JDBCIBANDAO(DataSource dataSource) {
-        this.queryRunner = new QueryRunner(dataSource);
-        this.idDAO = new IdDAOImpl(dataSource);
+    private QueryRunner queryRunner;
+    private IdDAO idDAO;
 
+    @Autowired
+    public JDBCIBANDAO(DataSource dataSource,IdDAO idDAO) {
+        this.queryRunner = new QueryRunner(dataSource);
+        this.idDAO = idDAO;
     }
 
     public IBANDTO save(IBANDTO ibandto) {
