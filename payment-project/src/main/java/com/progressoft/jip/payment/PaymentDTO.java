@@ -22,5 +22,5 @@ public interface PaymentDTO extends DTO {
 
     LocalDateTime getPaymentDate();
 
-    PaymentPurpose getPaymentPurpose();
+    PaymentPurposeDTO getPaymentPurpose();
 }

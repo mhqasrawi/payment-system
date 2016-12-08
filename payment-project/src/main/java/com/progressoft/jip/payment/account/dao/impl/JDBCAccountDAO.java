@@ -146,7 +146,7 @@ public class JDBCAccountDAO implements AccountDAO {
 			List<Map<String, Object>> accounts = this.queryRunner.query(SELECT_ALL_ACCOUNT, new MapListHandler());
 			for (Map<String, Object> accountMap : accounts) {
 				AccountDTOImpl accountDTOImpl = populateAccountDTO(accountMap);
-				accountDTOImpl.setId((Long) accountMap.get("account_id"));
+				//accountDTOImpl.setId((Long) accountMap.get("account_id"));
 				accountDTOImpl.setId((Long) accountMap.get("account_number"));
 				accountsDTO.add(accountDTOImpl);
 			}
@@ -170,7 +170,7 @@ public class JDBCAccountDAO implements AccountDAO {
 			List<Map<String, Object>> accounts = this.queryRunner.query(get_all_accounts, new MapListHandler());
 			for (Map<String, Object> accountMap : accounts) {
 				AccountDTOImpl accountDTOImpl = populateAccountDTO(accountMap);
-				accountDTOImpl.setId((Long) accountMap.get("account_id"));
+			//	accountDTOImpl.setId((Long) accountMap.get("account_id"));
 				accountDTOImpl.setId((Long) accountMap.get("account_number"));
 
 				accountsDTO.add(accountDTOImpl);

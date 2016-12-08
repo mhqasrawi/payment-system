@@ -2,7 +2,7 @@ package com.progressoft.jip.payment;
 
 public interface PaymentPurposeDAO {
 
-    PaymentPurpose get(String shortCode);
+	PaymentPurposeDTO get(String shortCode);
 
-    void save(PaymentPurpose paymentPurpose);
+    void save(PaymentPurposeDTO paymentPurpose);
 }
