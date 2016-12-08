@@ -4,7 +4,7 @@ import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
 
 public class IBANField extends AbstractField<IBANDTO> {
-	
+
 	private IBANValidator ibanValidator;
 
 	public IBANField(IBANValidator ibanValidator) {
@@ -29,8 +29,8 @@ public class IBANField extends AbstractField<IBANDTO> {
 		}
 
 		@Override
-		public Long getId() {
-			return Long.getLong("1");
+		public long getId() {
+			return 1;
 		}
 
 		@Override

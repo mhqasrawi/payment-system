@@ -50,8 +50,11 @@ public class IdDAOImpl implements IdDAO {
 	private long getMaxId(String tableName) {
 		String sql = "select id from id_table WHERE table_name='" + tableName + "'";
 		try {
+			long id = 1;
 			Map<String, Object> query = this.queryRunner.query(sql, new MapHandler());
-			long id = ((Integer) query.get("id")).longValue();
+			if (query != null)
+				id = ((Integer) query.get("id")).longValue();
+
 			return id;
 
 		} catch (SQLException e) {

@@ -2,7 +2,7 @@ package com.progressoft.jip.payment.iban;
 
 public class IBANDTOImpl implements IBANDTO {
 
-	private Long id;
+	private long id;
 	private String countryCode;
 	private String ibanValue;
 
@@ -21,7 +21,7 @@ public class IBANDTOImpl implements IBANDTO {
 		this.ibanValue = ibanValue;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 

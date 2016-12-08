@@ -18,12 +18,12 @@ public class Test {
 		private long id;
 		private String iban;
 
-		public IBANDTOImpl(Long id, String iban) {
+		public IBANDTOImpl(long id, String iban) {
 			this.iban = upperCaseNoSpaces(iban);
 			this.id = id;
 		}
 
-		public Long getId() {
+		public long getId() {
 			return id;
 		}
 

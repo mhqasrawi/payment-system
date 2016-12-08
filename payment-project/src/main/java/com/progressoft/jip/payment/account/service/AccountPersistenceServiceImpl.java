@@ -23,7 +23,8 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 	}
 
 	public AccountDTO save(AccountDTO accountDTO) {
-		System.out.println("accountDTO IBAN: " + (accountDTO.getIban() == null));
+		// System.out.println("accountDTO IBAN: " + (accountDTO.getIban() ==
+		// null));
 
 		IBANDTO saveIBAN = saveIBAN(accountDTO.getIban());
 		AccountDTOImpl accountDTOImpl = new AccountDTOImpl(accountDTO);
@@ -60,7 +61,7 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 		AccountDTOImpl accountDTOImpl = new AccountDTOImpl(accountDTO);
 
 		IBANDTO accountIBAN = ibanServiceImpl.getIBANById(accountDTO.getIbanId());
-		System.out.println("getIBAN: " + accountIBAN.getId());
+		// System.out.println("getIBAN: " + accountIBAN.getId());
 		accountDTOImpl.setIbandto(accountIBAN);
 		return (AccountDTOImpl) accountDTOImpl;
 	}
