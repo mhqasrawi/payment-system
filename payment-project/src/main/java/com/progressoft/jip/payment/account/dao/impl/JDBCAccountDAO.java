@@ -209,7 +209,7 @@ public class JDBCAccountDAO implements AccountDAO {
         accountDTO.setIbanId(Long.parseLong(account.get("iban_id").toString()));
         accountDTO.setAccountNumber((String) account.get("account_number"));
         if (account.get("id") != null)
-            accountDTO.setId(Long.valueOf((String)account.get("id")));
+            accountDTO.setId((long)account.get("id"));
         return accountDTO;
 
     }

@@ -57,7 +57,7 @@ public class IdDAOImpl implements IdDAO {
             long id;
             Map<String, Object> query = this.queryRunner.query(sql, new MapHandler());
            if (query != null)
-                id = ((Integer)query.get("id")).longValue();
+                id = ((long)query.get("id"));
             else {
                 id = MINIMAL_DEFAULT_ID;
             }
