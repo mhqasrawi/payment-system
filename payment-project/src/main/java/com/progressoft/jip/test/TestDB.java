@@ -27,7 +27,7 @@ public class TestDB {
 
 		dataSource.setUsername("root");
 
-		dataSource.setPassword("root12");
+		dataSource.setPassword("root");
 
 		try (Connection connection = dataSource.getConnection()) {
 			runner = new QueryRunner(dataSource);
