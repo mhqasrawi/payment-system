@@ -1,6 +1,6 @@
 package com.progressoft.jip.ui.dynamic.menu;
 
-public class PrimitiveDefaults {
+public class PrimitiveDefaultsUtility {
 	
 	private static boolean DEFAULT_BOOLEAN;
 	private static byte DEFAULT_BYTE;

@@ -7,12 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -42,7 +42,7 @@ public class JDBCAccountDAO implements AccountDAO {
     private final IdDAO idDAO;
     private static final String TABLE_NAME = "account";
 
-    @Autowired
+    @Inject
     public JDBCAccountDAO(DataSource dataSource) {
         this.queryRunner = new QueryRunner(dataSource);
         this.idDAO = new IdDAOImpl(dataSource);
@@ -209,7 +209,11 @@ public class JDBCAccountDAO implements AccountDAO {
         accountDTO.setIbanId(Long.parseLong(account.get("iban_id").toString()));
         accountDTO.setAccountNumber((String) account.get("account_number"));
         if (account.get("id") != null)
-            accountDTO.setId((long)account.get("id"));
+        	if(account.get("id") instanceof Long){
+        		accountDTO.setId((long)account.get("id"));
+        	}else if(account.get("id") instanceof Integer){
+        		accountDTO.setId(((Integer)account.get("id")).longValue());
+        	}
         return accountDTO;
 
     }

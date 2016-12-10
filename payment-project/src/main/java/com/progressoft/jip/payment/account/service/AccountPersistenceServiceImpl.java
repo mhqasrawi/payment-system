@@ -3,7 +3,7 @@ package com.progressoft.jip.payment.account.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
@@ -16,7 +16,7 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 	private AccountDAO accountDAO;
 	private IBANPersistenceService ibanServiceImpl;
 
-	@Autowired
+	@Inject
 	public AccountPersistenceServiceImpl(AccountDAO accountDAO, IBANPersistenceService ibanService) {
 		this.accountDAO = accountDAO;
 		this.ibanServiceImpl = ibanService;

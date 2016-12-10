@@ -8,21 +8,21 @@ import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
 import com.progressoft.jip.ui.menu.MenuContext;
 
-public interface FormToObjectBuilder<MENU_CONTEXT extends MenuContext, INTERFACE_TYPE> {
+public interface FormToObjectBuilder<C extends MenuContext, T> {
 
-	FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setDescription(String description);
+	FormToObjectBuilder<C, T> setDescription(String description);
 
-	FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setForm(Form form);
+	FormToObjectBuilder<C, T> setForm(Form form);
 
-	FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setInterfaceType(Class<INTERFACE_TYPE> interfaceClass);
+	FormToObjectBuilder<C, T> setInterfaceType(Class<T> interfaceClass);
 
-	FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setProcessingStrategy(
-			ObjectProcessingStrategy<MENU_CONTEXT,INTERFACE_TYPE> objectProssingStratege);
+	FormToObjectBuilder<C, T> setProcessingStrategy(
+			SubmitAction<C,T> objectProssingStratege);
 
-	FormToObjectBuilder<MENU_CONTEXT, INTERFACE_TYPE> setSubMenu(List<Menu<MENU_CONTEXT>> subMenu);
+	FormToObjectBuilder<C, T> setSubMenu(List<Menu<C>> subMenu);
 	
-	FormToObjectMenu<MENU_CONTEXT, INTERFACE_TYPE> build();
+	DynamicFormMenu<C, T> build();
 
-	FormToObjectMenu<MENU_CONTEXT, INTERFACE_TYPE> buildEditMenu(Function<MENU_CONTEXT,INTERFACE_TYPE>  interface_TYPE);
+	DynamicFormMenu<C, T> buildEditMenu(Function<C,T>  interface_TYPE);
 
 }

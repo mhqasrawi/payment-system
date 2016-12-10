@@ -1,5 +1,7 @@
 package com.progressoft.jip.payment.iban.service.impl;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.progressoft.jip.payment.iban.IBANDTO;
@@ -13,7 +15,7 @@ public class IBANPersistenceServiceImpl implements IBANPersistenceService {
 
 	private IBANDAO ibandao;
 
-	@Autowired
+	@Inject
 	public IBANPersistenceServiceImpl(IBANDAO ibandao) {
 		this.ibandao = ibandao;
 

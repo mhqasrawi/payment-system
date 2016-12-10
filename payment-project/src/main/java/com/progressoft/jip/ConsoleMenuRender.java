@@ -4,7 +4,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
@@ -14,7 +15,7 @@ import com.progressoft.jip.ui.menu.MenuRenderManger;
 
 public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderManger<T> {
 
-	private static final Logger LOGGER = Logger.getLogger(ConsoleMenuRender.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleMenuRender.class);
 	
 	private PrintStream printStream;
 	private T menuContext;
@@ -28,12 +29,6 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 		menuContext.put(MenuContext.MENU_RENDER_MANGER, this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.progressoft.jip.MenuRenderManger#renderMenu(com.progressoft.jip.Menu)
-	 */
 	@Override
 	public void renderMenu(Menu<T> menu) {
 		this.mainMenu = menu;
@@ -59,7 +54,8 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 				showMenu(menuContext.popMenuStack(), true);
 			}
 		} catch (RuntimeException exception) {
-			LOGGER.error(exception);
+			LOGGER.error(exception.getMessage(),exception);
+			printStream.println(exception.getMessage());
 			showMenu(menuContext.popMenuStack(), true);
 		}
 	}
@@ -120,7 +116,8 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 			}
 			field.setValue(lineFromConsole);
 		} catch (Exception ex) {
-			ex.printStackTrace(printStream);
+			printStream.println(String.format("Error : ", ex.getMessage()));
+			LOGGER.error(ex.getMessage(),ex);
 			showField(field);
 		}
 	}

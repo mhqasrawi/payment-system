@@ -6,9 +6,6 @@ public abstract class AbstractField<T> implements Field<T> {
 	protected T value;
 	private String description;
 
-	/* (non-Javadoc)
-	 * @see com.progressoft.jip.Filed#getName()
-	 */
 	@Override
 	public String getName() {
 		return name;
@@ -19,9 +16,6 @@ public abstract class AbstractField<T> implements Field<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.progressoft.jip.Filed#getValue()
-	 */
 	@Override
 	public T getValue() {
 		return value;
@@ -29,9 +23,6 @@ public abstract class AbstractField<T> implements Field<T> {
 
 	abstract public AbstractField<T> setValue(String value) ;
 	
-	/* (non-Javadoc)
-	 * @see com.progressoft.jip.Filed#getDescription()
-	 */
 	@Override
 	public String getDescription() {
 		return description;

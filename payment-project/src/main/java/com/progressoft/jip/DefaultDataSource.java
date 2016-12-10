@@ -22,7 +22,7 @@ public class DefaultDataSource extends BasicDataSource {
 		setUsername(configuration.getProperty(DB_USERNAME));
 		setPassword(configuration.getProperty(DB_PASSWORD));
 		setUrl(configuration.getProperty(DB_URL));
-		setDriverClassName(DB_DRIVER_CLASSNAME);
+		setDriverClassName(configuration.getProperty(DB_DRIVER_CLASSNAME));
 	}
 
 	@Override
