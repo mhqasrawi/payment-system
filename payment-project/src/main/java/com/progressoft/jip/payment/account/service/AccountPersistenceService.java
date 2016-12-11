@@ -6,7 +6,7 @@ public interface AccountPersistenceService {
 
     AccountDTO getAccount(String accountNumber);
 
-    AccountDTO getById(String id);
+    AccountDTO getById(long id);
 
     AccountDTO save(AccountDTO accountDTO);
 

@@ -29,8 +29,8 @@ public class IBANField extends AbstractField<IBANDTO> {
 		}
 
 		@Override
-		public Long getId() {
-			return Long.getLong("1");
+		public long getId() {
+			return 1;
 		}
 
 		@Override

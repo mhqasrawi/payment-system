@@ -20,7 +20,7 @@ public interface AccountDTO extends DTO {
 
 	AccountStatus getAccountStatus();
 
-	Long getIbanId();
+	long getIbanId();
 
 	public enum AccountStatus {
 
