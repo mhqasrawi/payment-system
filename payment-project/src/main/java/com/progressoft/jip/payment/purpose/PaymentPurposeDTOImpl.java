@@ -8,7 +8,7 @@ public class PaymentPurposeDTOImpl implements PaymentPurposeDTO {
 	private String description;
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 

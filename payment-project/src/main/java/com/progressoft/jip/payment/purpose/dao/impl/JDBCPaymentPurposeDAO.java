@@ -3,6 +3,7 @@ package com.progressoft.jip.payment.purpose.dao.impl;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
@@ -29,16 +30,14 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 
 	@Override
 	public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
-		// if (paymentPurpose.getId() > 1) {
-		//
-		// }
+		if (Objects.isNull(paymentPurpose) || Objects.isNull(paymentPurpose.getDescription())
+				|| Objects.isNull(paymentPurpose.getShortCode()))
+			throw new DAOException("Null Pointer ");
 
 		try {
-			// long id = idDAO.save(TABLE_NAME);
 			this.queryRunner.update(INSERT_PAYMENTPURPOSE_STATMENT, paymentPurpose.getShortCode(),
 					paymentPurpose.getDescription());
 			return paymentPurpose;
-			// AccountDTOImpl accountDTO = constructNewAccountDTO(account, id);
 		} catch (SQLException e) {
 			throw new DAOException("Error While Saving Account: " + e);
 		}
@@ -46,6 +45,8 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 
 	@Override
 	public PaymentPurposeDTO get(String shortCode) {
+		if (Objects.isNull(shortCode))
+			throw new DAOException("Null Pointer ");
 		try {
 			Map<String, Object> query = this.queryRunner.query("select * from payment_purpose where short_code=?",
 					new MapHandler(), shortCode);
