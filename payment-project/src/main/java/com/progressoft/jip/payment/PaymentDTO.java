@@ -7,20 +7,21 @@ import java.util.Currency;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.DTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public interface PaymentDTO extends DTO {
 
-    AccountDTO getOrderingAccount();
+	AccountDTO getOrderingAccount();
 
-    IBANDTO getBeneficiaryIBAN();
+	IBANDTO getBeneficiaryIBAN();
 
-    String getBeneficiaryName();
+	String getBeneficiaryName();
 
-    BigDecimal getPaymentAmount();
+	BigDecimal getPaymentAmount();
 
-    Currency getTransferCurrency();
+	Currency getTransferCurrency();
 
-    LocalDateTime getPaymentDate();
+	LocalDateTime getPaymentDate();
 
-    PaymentPurpose getPaymentPurpose();
+	PaymentPurposeDTO getPaymentPurpose();
 }
