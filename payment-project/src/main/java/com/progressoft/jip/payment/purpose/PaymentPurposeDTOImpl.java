@@ -2,13 +2,13 @@ package com.progressoft.jip.payment.purpose;
 
 public class PaymentPurposeDTOImpl implements PaymentPurposeDTO {
 
-	private Long id;
+	private int id;
 	private String shortCode;
 
 	private String description;
 
 	@Override
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -22,7 +22,7 @@ public class PaymentPurposeDTOImpl implements PaymentPurposeDTO {
 		return this.description;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

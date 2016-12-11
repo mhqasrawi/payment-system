@@ -6,7 +6,7 @@ public interface IBANPersistenceService {
 
 	IBANDTO getIBAN(String iban);
 
-	IBANDTO getIBANById(long id);
+	IBANDTO getIBANById(int id);
 
 	IBANDTO save(IBANDTO ibanDTO);
 

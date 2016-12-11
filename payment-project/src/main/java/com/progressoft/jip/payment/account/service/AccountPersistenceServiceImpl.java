@@ -36,7 +36,7 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 		return accountDTO;
 	}
 
-	public AccountDTO getById(long id) {
+	public AccountDTO getById(int id) {
 		AccountDTO account = accountDAO.getById(id);
 		AccountDTOImpl accountDTO = getIBAN(account);
 		return accountDTO;

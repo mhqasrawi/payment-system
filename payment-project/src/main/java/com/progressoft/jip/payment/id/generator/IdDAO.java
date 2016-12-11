@@ -4,7 +4,7 @@ public interface IdDAO {
 
 	// int update(String tableName);
 
-	long save(String tableName);
+	int save(String tableName);
 
 	// long getMaxId(String tableName);
 

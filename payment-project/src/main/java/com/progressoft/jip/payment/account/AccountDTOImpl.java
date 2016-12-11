@@ -7,14 +7,14 @@ import com.progressoft.jip.payment.iban.IBANDTO;
 
 public class AccountDTOImpl implements AccountDTO {
 
-	private long id;
+	private int id;
 	private String accountNumber;
 	private IBANDTO ibandto;
 	private String accountName;
 	private Currency currency;
 	private AccountStatus accountStatus;
 	private CustomerDTO customerDTO;
-	private Long ibanId;
+	private int ibanId;
 
 	public AccountDTOImpl() {
 	}
@@ -35,7 +35,7 @@ public class AccountDTOImpl implements AccountDTO {
 		this.customerDTO = customerDTO;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -59,7 +59,7 @@ public class AccountDTOImpl implements AccountDTO {
 		this.accountStatus = accountStatus;
 	}
 
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -87,12 +87,12 @@ public class AccountDTOImpl implements AccountDTO {
 		return this.customerDTO;
 	}
 
-	public void setIbanId(Long ibanId) {
+	public void setIbanId(int ibanId) {
 		this.ibanId = ibanId;
 	}
 
 	@Override
-	public long getIbanId() {
+	public int getIbanId() {
 		return this.ibanId;
 	}
 

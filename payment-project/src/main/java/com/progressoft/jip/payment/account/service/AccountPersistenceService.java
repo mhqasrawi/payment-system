@@ -4,11 +4,11 @@ import com.progressoft.jip.payment.account.AccountDTO;
 
 public interface AccountPersistenceService {
 
-    AccountDTO getAccount(String accountNumber);
+	AccountDTO getAccount(String accountNumber);
 
-    AccountDTO getById(long id);
+	AccountDTO getById(int id);
 
-    AccountDTO save(AccountDTO accountDTO);
+	AccountDTO save(AccountDTO accountDTO);
 
-    Iterable<AccountDTO> getAll();
+	Iterable<AccountDTO> getAll();
 }

@@ -12,7 +12,7 @@ public interface AccountDAO {
 
 	AccountDTO get(String accountNumber);
 
-	AccountDTO getById(long id);
+	AccountDTO getById(int id);
 
 	Iterable<AccountDTO> getAll();
 

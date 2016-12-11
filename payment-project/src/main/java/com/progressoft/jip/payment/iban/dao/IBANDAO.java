@@ -8,7 +8,7 @@ public interface IBANDAO {
 
 	IBANDTO get(String iban);
 
-	IBANDTO getById(long id);
+	IBANDTO getById(int id);
 
 	Iterable<IBANDTO> getAll();
 
