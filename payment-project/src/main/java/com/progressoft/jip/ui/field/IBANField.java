@@ -3,6 +3,10 @@ package com.progressoft.jip.ui.field;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
 
+/**
+ * @author u612
+ *
+ */
 public class IBANField extends AbstractField<IBANDTO> {
 
 	private IBANValidator ibanValidator;

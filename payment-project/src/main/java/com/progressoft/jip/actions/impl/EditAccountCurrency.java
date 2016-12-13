@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.actions.AbstractPaymentAction;
+import com.progressoft.jip.actions.AbstractPaymentEditAction;
 import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
 import com.progressoft.jip.actions.PaymentEditAction;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -22,7 +22,7 @@ import com.progressoft.jip.ui.form.FormImpl;
  *
  */
 @Configurable(autowire=Autowire.BY_TYPE)
-public class EditAccountCurrency extends AbstractPaymentAction<AccountDTO> implements PaymentEditAction<AccountDTO> {
+public class EditAccountCurrency extends AbstractPaymentEditAction<AccountDTO> implements PaymentEditAction<AccountDTO> {
 
 	private static final String EDIT_ACCOUNT_CURRENCY = "Edit Account Currency";
 	private static final String ENTER_CURRENCY = "Enter Currency";
@@ -41,12 +41,12 @@ public class EditAccountCurrency extends AbstractPaymentAction<AccountDTO> imple
 	}
 
 	@Override
-	public AccountDTO apply(PaymentMenuContext context) {
+	public AccountDTO defaultValue(PaymentMenuContext context) {
 		return context.getCurrentAccount();
 	}
 
 	@Override
-	public void process(PaymentMenuContext menuContext, AccountDTO accountDto) {
+	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDto) {
 		menuContext.setCurrentAccount(accountService.save(accountDto));
 	}
 

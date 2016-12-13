@@ -1,7 +1,6 @@
 package com.progressoft.jip.ui.dynamic.menu;
 
 import java.util.List;
-import java.util.function.Function;
 
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
@@ -16,7 +15,7 @@ public class DynamicFormMenu<C extends MenuContext, T> extends MenuImpl<C> {
 	}
 
 	DynamicFormMenu(String description, List<Menu<C>> subMenu, Form form, Class<?> interfaceClass,
-			SubmitAction<C, T> submitAction, Function<C, T> defaultObjectProvider) {
+			SubmitAction<C, T> submitAction, DefaultValueProvider<C, T> defaultObjectProvider) {
 		super(description, subMenu, new DynamicFormActionBuilderImpl<C, T>(form, interfaceClass, submitAction)
 				.setDefaultObjectStrategy(defaultObjectProvider).build());
 	}

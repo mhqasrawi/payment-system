@@ -2,7 +2,6 @@ package com.progressoft.jip.ui.dynamic.menu;
 
 
 import java.util.List;
-import java.util.function.Function;
 
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
@@ -23,6 +22,6 @@ public interface FormToObjectBuilder<C extends MenuContext, T> {
 	
 	DynamicFormMenu<C, T> build();
 
-	DynamicFormMenu<C, T> buildEditMenu(Function<C,T>  interface_TYPE);
+	DynamicFormMenu<C, T> buildEditMenu(DefaultValueProvider<C,T>  interface_TYPE);
 
 }
