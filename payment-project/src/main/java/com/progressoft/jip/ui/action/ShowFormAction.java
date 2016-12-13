@@ -3,7 +3,7 @@ package com.progressoft.jip.ui.action;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.MenuContext;
 
-public class ShowFormAction<T extends MenuContext> implements Action<T> {
+public class ShowFormAction<C extends MenuContext> implements Action<C> {
 
 	private Form form;
 
@@ -12,7 +12,7 @@ public class ShowFormAction<T extends MenuContext> implements Action<T> {
 	}
 
 	@Override
-	public T doAction(T menuContext) {
+	public C doAction(C menuContext) {
 		menuContext.getMenuMenager().renderForm(form);
 		menuContext.put(MenuContext.FORM_VALUE, form);
 		return menuContext;

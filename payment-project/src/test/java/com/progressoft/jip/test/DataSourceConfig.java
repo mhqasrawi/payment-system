@@ -6,8 +6,9 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.Before;
 
 import javax.sql.DataSource;
+
+import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
@@ -20,15 +21,12 @@ public class DataSourceConfig {
     IdDAO idDAO;
     DataSource dataSource;
 
+    private static final String INIT_SQL_FILE = "init.sql";
 
     @Before
     public void setUp() throws Exception {
         dataSource = configureDataSource();
-        //   jdbcibandao=new JDBCIBANDAO(dataSource);
-        // ibanPersistenceService=new IBANPersistenceServiceImpl(jdbcibandao);
         idDAO = new IdDAOImpl(dataSource);
-
-
     }
 
     protected DataSource configureDataSource() throws Exception {
@@ -39,8 +37,8 @@ public class DataSourceConfig {
         ds.setPassword("sa");
         ds.setURL(url);
 
-
-        List<String> strings = Files.readAllLines(Paths.get("./init.sql"));
+		List<String> strings = Files
+				.readAllLines(new File(this.getClass().getClassLoader().getResource(INIT_SQL_FILE).getFile()).toPath());
         String line = "";
         for (String l : strings)
             line += l;

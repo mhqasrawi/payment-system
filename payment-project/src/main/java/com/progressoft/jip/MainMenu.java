@@ -12,6 +12,4 @@ public class MainMenu extends MenuImpl<PaymentMenuContext>{
 	public MainMenu(List<Menu<PaymentMenuContext>> subMenu) {
 		super(CHOOSE_OPTION,subMenu);
 	}
-
-
 }

@@ -1,28 +1,14 @@
 package com.progressoft.jip.test;
 
-import com.progressoft.jip.payment.iban.IBANDTO;
-import com.progressoft.jip.payment.iban.IBANDTOImpl;
-import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
-import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
-import com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl;
-import com.progressoft.jip.payment.id.generator.IdDAO;
-import com.progressoft.jip.payment.id.generator.IdDAOImpl;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.h2.jdbcx.JdbcDataSource;
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
+import javax.sql.DataSource;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.*;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import com.progressoft.jip.payment.id.generator.IdDAO;
+import com.progressoft.jip.payment.id.generator.IdDAOImpl;
 
 /**
  * Created by mhqasrawi on 02/12/16.
@@ -35,11 +21,7 @@ public class IdDAOImplTest extends DataSourceConfig {
     @Before
     public void setUp() throws Exception {
         dataSource = configureDataSource();
-        //   jdbcibandao=new JDBCIBANDAO(dataSource);
-        // ibanPersistenceService=new IBANPersistenceServiceImpl(jdbcibandao);
         idDAO = new IdDAOImpl(dataSource);
-
-
     }
 
     @Test

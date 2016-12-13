@@ -3,7 +3,6 @@
  */
 package com.progressoft.jip.payment.iban.impl;
 
-import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,24 +12,36 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import com.progressoft.jip.configuration.Configuration;
+import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
+
 /**
  * @author u620
  *
  */
 public class IBANFormatsFileReader implements IBANFormatsReader {
 
+	private static final String IBAN_FORMAT_FILE = "iban.format.file";
+
+	@Inject
+	private Configuration configuration;
+
 	private String ibanFormatsFilePath;
 	private ArrayList<IBANPattern> patterns = new ArrayList<>();
 	private static HashMap<Character, IBANPatternType> patternMapper = new HashMap<>();
 
 	static {
-			patternMapper.put('a', IBANPatternType.ALPHABETIC);
-			patternMapper.put('n', IBANPatternType.NUMERIC);
-			patternMapper.put('c', IBANPatternType.ALPHANUMERIC);
+		patternMapper.put('a', IBANPatternType.ALPHABETIC);
+		patternMapper.put('n', IBANPatternType.NUMERIC);
+		patternMapper.put('c', IBANPatternType.ALPHANUMERIC);
 	}
-	
-	public IBANFormatsFileReader(String ibanFormatsFilePath) {
-		this.ibanFormatsFilePath = ibanFormatsFilePath;
+
+	@PostConstruct
+	public void init() {
+		ibanFormatsFilePath = configuration.getProperty(IBAN_FORMAT_FILE);
 	}
 
 	private void loadAllIBANStructures() throws FileNotFoundException, IOException {

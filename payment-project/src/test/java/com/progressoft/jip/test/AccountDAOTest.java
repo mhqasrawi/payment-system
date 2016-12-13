@@ -1,5 +1,15 @@
 package com.progressoft.jip.test;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Currency;
+import java.util.Iterator;
+
+import javax.sql.DataSource;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
@@ -14,14 +24,8 @@ import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
 import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
 import com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.sql.DataSource;
-import java.util.Currency;
-import java.util.Iterator;
-
-import static org.junit.Assert.*;
+import com.progressoft.jip.payment.id.generator.IdDAO;
+import com.progressoft.jip.payment.id.generator.IdDAOImpl;
 
 /**
  * Created by mhqasrawi on 02/12/16.
@@ -37,9 +41,10 @@ public class AccountDAOTest extends DataSourceConfig {
     public void setup() throws Exception {
         dataSource = configureDataSource();
         AccountDAO accountDAO = new JDBCAccountDAO(dataSource);
-        IBANDAO ibandao = new JDBCIBANDAO(dataSource);
-        accountPersistenceService = new AccountPersistenceServiceImpl(accountDAO, ibandao);
+        IdDAO idDao = new IdDAOImpl(dataSource);
+        IBANDAO ibandao = new JDBCIBANDAO(dataSource,idDao);
         ibanPersistenceService = new IBANPersistenceServiceImpl(ibandao);
+        accountPersistenceService = new AccountPersistenceServiceImpl(accountDAO, ibanPersistenceService);
     }
 
     @Test

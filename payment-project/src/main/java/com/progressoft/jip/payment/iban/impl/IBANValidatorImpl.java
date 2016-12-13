@@ -5,14 +5,16 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.inject.Inject;
+
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidationException;
 import com.progressoft.jip.payment.iban.IBANValidator;
 import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
 import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANSequencePair;
 
-public class IBANValidatorImpl implements IBANValidator{
-	
+public class IBANValidatorImpl implements IBANValidator {
+
 	private final String NUMERIC_REGEX = "[0-9]";
 	private final String ALPHABETIC_REGEX = "[A-Z]";
 	private final String ALPHANUMERIC_REGEX = "[0-9A-Z]";
@@ -23,18 +25,19 @@ public class IBANValidatorImpl implements IBANValidator{
 	private IBANPattern correctPattern;
 	private IBANDTO iban;
 
+	@Inject
+	public IBANValidatorImpl(IBANFormatsReader reader) {
+		this.reader = reader;
+	}
+
 	public void validate(IBANDTO iban) {
 		this.iban = iban;
 		try {
-			if(!checkFormat() || getRemainder() != 1)
+			if (!checkFormat() || getRemainder() != 1)
 				throw new IBANValidationException("IBAN is invalid");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public IBANValidatorImpl(IBANFormatsReader reader) {
-		this.reader = reader;
 	}
 
 	public void findIBANStructure() throws IOException {

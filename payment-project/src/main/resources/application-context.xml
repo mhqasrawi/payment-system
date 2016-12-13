@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+	default-autowire="byType">
+	<context:annotation-config />
+	<context:spring-configured />
+
+	<bean id="configuration" class="com.progressoft.jip.configuration.XMLConfiguraionImpl"
+		lazy-init="false" init-method="init" />
+	<bean id="dataSource" class="com.progressoft.jip.DefaultDataSource"
+		init-method="config" />
+	<bean id="accountPersistenceService"
+		class="com.progressoft.jip.payment.account.service.AccountPersistenceServiceImpl" />
+	<bean id="accountDAO"
+		class="com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO" />
+	<bean id="IBANPersistenceService"
+		class="com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl" />
+	<bean id="IBANDAO" class="com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO" />
+	<bean id="IdDAO" class="com.progressoft.jip.payment.id.generator.IdDAOImpl" />
+	<bean id="IBANFormatsFileReader"
+		class="com.progressoft.jip.payment.iban.impl.IBANFormatsFileReader" />
+	<bean id="IBANValidator" class="com.progressoft.jip.payment.iban.impl.IBANValidatorImpl" />
+	<bean id="PaymentDynamicFormAction" class="com.progressoft.jip.actions.PaymentDynamicFormActionBuilderImpl" scope="prototype"/>
+	<bean id="UserInterfaceGenerator" class="com.progressoft.jip.XmlFileUserInterfaceGenerator"/>
+
+
+	<bean id="formsDefenation" class="com.progressoft.jip.FormsDefenation" />
+	<bean id="menusDefenation" class="com.progressoft.jip.MenusDefenation" />
+
+	<bean id="Main" class="com.progressoft.jip.Main" />
+
+
+
+
+
+</beans>

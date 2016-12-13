@@ -3,11 +3,11 @@ package com.progressoft.jip.ui.action;
 import com.progressoft.jip.ui.menu.MenuContext;
 
 @FunctionalInterface
-public interface Action<T extends MenuContext> {
+public interface Action<C extends MenuContext> {
 
-	T doAction(T menuContext);
+	C doAction(C menuContext);
 
-	default Action<T> andThen(Action<T> action) {
+	default Action<C> andThen(Action<C> action) {
 		return (c)->action.doAction(doAction(c));
 	}
 

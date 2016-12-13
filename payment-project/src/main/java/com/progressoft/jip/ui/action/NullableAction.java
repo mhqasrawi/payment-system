@@ -15,5 +15,12 @@ public class NullableAction implements Action {
 	public MenuContext doAction(MenuContext menuContext) {
 		return null;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof NullableAction)
+			return true;
+		return super.equals(obj);
+	}
 
 }

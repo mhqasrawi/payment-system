@@ -2,6 +2,8 @@ package com.progressoft.jip.payment;
 
 public class DAOException extends RuntimeException {
 
+	private static final long serialVersionUID = 4674410590203439328L;
+
 	public DAOException() {
 		super();
 	}
