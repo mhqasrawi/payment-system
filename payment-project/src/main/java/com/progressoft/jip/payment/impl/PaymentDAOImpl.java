@@ -18,11 +18,11 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.PaymentPurposeDAO;
-import com.progressoft.jip.payment.PaymentPurposeDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
@@ -59,7 +59,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public PaymentDTO getById(Long id) {
+	public PaymentDTO getById(Integer id) {
 		QueryRunner runner = new QueryRunner(dataSource);
 
 		String sql = "select " + paymentIdColumn + " as payment," + orderingAccountIDColumn + " as orderingAccountID, "
@@ -87,8 +87,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 			};
 
 			paymentDTOImpl.setId(id);
-			paymentDTOImpl.setOrderingAccount(jdbcAccountDAO.getById((String) paymentMap.get(orderingAccountIDColumn)));
-			paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Long) paymentMap.get(beneficiaryIBANIDColumn)));
+			paymentDTOImpl
+					.setOrderingAccount(jdbcAccountDAO.getById((Integer) paymentMap.get(orderingAccountIDColumn)));
+			paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) paymentMap.get(beneficiaryIBANIDColumn)));
 			paymentDTOImpl.setBeneficiaryName((String) paymentMap.get(beneficiaryNameColumn));
 			paymentDTOImpl.setPaymentAmount((BigDecimal) paymentMap.get(paymentAmountColumn));
 			paymentDTOImpl.setTransferCurrency((Currency) paymentMap.get(transferCurrencyColumn));
@@ -131,9 +132,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 						return null;
 					}
 				};
-				paymentDTOImpl.setId((Long) map.get(paymentIdColumn));
-				paymentDTOImpl.setOrderingAccount(jdbcAccountDAO.getById((String) map.get(orderingAccountIDColumn)));
-				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Long) map.get(beneficiaryIBANIDColumn)));
+				paymentDTOImpl.setId((Integer) map.get(paymentIdColumn));
+				paymentDTOImpl.setOrderingAccount(jdbcAccountDAO.getById((Integer) map.get(orderingAccountIDColumn)));
+				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn)));
 				paymentDTOImpl.setBeneficiaryName((String) map.get(beneficiaryNameColumn));
 				paymentDTOImpl.setPaymentAmount((BigDecimal) map.get(paymentAmountColumn));
 				paymentDTOImpl.setTransferCurrency((Currency) map.get(transferCurrencyColumn));
@@ -155,7 +156,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		QueryRunner runner = new QueryRunner(dataSource);
 		AccountDAO accountDAO = new JDBCAccountDAO(dataSource);
 		AccountDTO orderingAccount = accountDAO.get(accountNumber);
-		Long id = orderingAccount.getId();
+		Integer id = orderingAccount.getId();
 
 		String sql = "select " + paymentIdColumn + " as payment," + orderingAccountIDColumn + " as orderingAccountID, "
 				+ beneficiaryIBANIDColumn + " as beneficiaryIBANID," + beneficiaryNameColumn + " as beneficiaryName,"
@@ -181,10 +182,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 						return null;
 					}
 				};
-				
-				paymentDTOImpl.setId((Long) map.get(paymentIdColumn));
+
+				paymentDTOImpl.setId((Integer) map.get(paymentIdColumn));
 				paymentDTOImpl.setOrderingAccount(orderingAccount);
-				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Long) map.get(beneficiaryIBANIDColumn)));
+				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn)));
 				paymentDTOImpl.setBeneficiaryName((String) map.get(beneficiaryNameColumn));
 				paymentDTOImpl.setPaymentAmount((BigDecimal) map.get(paymentAmountColumn));
 				paymentDTOImpl.setTransferCurrency((Currency) map.get(transferCurrencyColumn));
@@ -195,17 +196,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 				listOfPayments.add(paymentDTOImpl);
 			}
 			return listOfPayments;
-		} catch (SQLException e) {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@Override
-	public void delete(Long id) {
-		QueryRunner runner = new QueryRunner(dataSource);
-		String sql = "delete from" + paymentTable + " where id =?";
-		try {
-			runner.update(sql, id);
 		} catch (SQLException e) {
 			throw new IllegalArgumentException();
 		}

@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.util.Currency;
 
 import com.progressoft.jip.payment.PaymentDTO;
-import com.progressoft.jip.payment.PaymentPurposeDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public class PaymentDTOImpl implements PaymentDTO {
 
-	private Long id;
+	private int id;
 	private AccountDTO orderingAccount;
 	private IBANDTO beneficiaryIBAN;
 	private String beneficiaryName;
@@ -24,11 +24,11 @@ public class PaymentDTOImpl implements PaymentDTO {
 	}
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

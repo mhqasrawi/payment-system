@@ -1,0 +1,21 @@
+2016-12-13 17:01:23 DEBUG PathMatchingResourcePatternResolver:192 - Found Equinox FileLocator for OSGi bundle URL resolution
+2016-12-13 17:04:55 DEBUG PathMatchingResourcePatternResolver:192 - Found Equinox FileLocator for OSGi bundle URL resolution
+2016-12-13 17:13:34 DEBUG PathMatchingResourcePatternResolver:192 - Found Equinox FileLocator for OSGi bundle URL resolution
+2016-12-13 17:15:08 DEBUG PathMatchingResourcePatternResolver:192 - Found Equinox FileLocator for OSGi bundle URL resolution
+2016-12-13 17:15:08 DEBUG StandardEnvironment:109 - Adding [systemProperties] PropertySource with lowest search precedence
+2016-12-13 17:15:08 DEBUG StandardEnvironment:109 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2016-12-13 17:15:08 DEBUG StandardEnvironment:124 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2016-12-13 17:15:08 INFO  FileSystemXmlApplicationContext:582 - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@76ccd017: startup date [Tue Dec 13 17:15:08 EET 2016]; root of context hierarchy
+2016-12-13 17:15:08 DEBUG StandardEnvironment:109 - Adding [systemProperties] PropertySource with lowest search precedence
+2016-12-13 17:15:08 DEBUG StandardEnvironment:109 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2016-12-13 17:15:08 DEBUG StandardEnvironment:124 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2016-12-13 17:15:08 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from file [/home/mhqasrawi/Desktop/payment/payment-system/payment-project/home/mhqasrawi/Desktop/payment/payment-system/payment-project/src/main/resources/application-context.xml]
+2016-12-13 17:15:47 DEBUG PathMatchingResourcePatternResolver:192 - Found Equinox FileLocator for OSGi bundle URL resolution
+2016-12-13 17:15:47 DEBUG StandardEnvironment:109 - Adding [systemProperties] PropertySource with lowest search precedence
+2016-12-13 17:15:47 DEBUG StandardEnvironment:109 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2016-12-13 17:15:47 DEBUG StandardEnvironment:124 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2016-12-13 17:15:47 INFO  FileSystemXmlApplicationContext:582 - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@76ccd017: startup date [Tue Dec 13 17:15:47 EET 2016]; root of context hierarchy
+2016-12-13 17:15:47 DEBUG StandardEnvironment:109 - Adding [systemProperties] PropertySource with lowest search precedence
+2016-12-13 17:15:47 DEBUG StandardEnvironment:109 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2016-12-13 17:15:47 DEBUG StandardEnvironment:124 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2016-12-13 17:15:48 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from file [/home/mhqasrawi/Desktop/payment/payment-system/payment-project/home/mhqasrawi/Desktop/payment/payment-system/payment-project/src/main/resources/application-context.xml]
