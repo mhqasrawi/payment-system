@@ -2,7 +2,6 @@ package com.progressoft.jip.ui.dynamic.menu;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
@@ -14,7 +13,7 @@ public class FormToObjectBuilderImpl<C extends MenuContext, T> implements FormTo
 	private Form form;
 	private Class<?> interfaceClass;
 	private SubmitAction<C, T> objectProssingStratege;
-	private Function<C, T> defaultObjectProvider;
+	private DefaultValueProvider<C, T> defaultObjectProvider;
 	private List<Menu<C>> subMenu = Collections.emptyList();
 
 	@Override
@@ -62,7 +61,7 @@ public class FormToObjectBuilderImpl<C extends MenuContext, T> implements FormTo
 	}
 
 	@Override
-	public DynamicFormMenu<C, T> buildEditMenu(Function<C, T> defaultObjectProvider) {
+	public DynamicFormMenu<C, T> buildEditMenu(DefaultValueProvider<C, T> defaultObjectProvider) {
 		this.defaultObjectProvider = defaultObjectProvider;
 		return buildNewMenu();
 	}

@@ -1,21 +1,14 @@
 package com.progressoft.jip;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-
-import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.progressoft.jip.actions.impl.EditAccountCurrency;
 import com.progressoft.jip.ui.menu.MenuContext;
-import com.progressoft.jip.ui.menu.MenuImpl;
 import com.progressoft.jip.ui.menu.MenuRenderManger;
-import com.progressoft.jip.ui.xml.UserInterfaceGenerator;
-import com.progressoft.jip.ui.xml.XmlUserInterfaceGenerator;
 
 @Configurable
 public class Main {

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.actions.AbstractPaymentAction;
+import com.progressoft.jip.actions.AbstractPaymentNewAction;
 import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
 import com.progressoft.jip.actions.PaymentNewAction;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -29,7 +29,7 @@ import com.progressoft.jip.ui.form.FormImpl;
  *
  */
 @Configurable(autowire=Autowire.BY_TYPE)
-public class NewAccountAction extends AbstractPaymentAction<AccountDTO> implements PaymentNewAction<AccountDTO> {
+public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> implements PaymentNewAction<AccountDTO> {
 
 	private static final String ENTER_CUSTOMER_NAME = "Enter Customer Name";
 	private static final String CREATE_NEW_ACCOUNT_FORM_DESCRIPTION = "Create New Account";
@@ -52,7 +52,7 @@ public class NewAccountAction extends AbstractPaymentAction<AccountDTO> implemen
 	}
 
 	@Override
-	public void process(PaymentMenuContext menuContext, AccountDTO accountDto) {
+	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDto) {
 		AccountDTO save = accountService.save(accountDto);
 		menuContext.setCurrentAccount(save);
 	}

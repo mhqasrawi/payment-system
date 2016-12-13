@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 import com.progressoft.jip.ui.action.Action;
 import com.progressoft.jip.ui.action.ShowFormAction;
@@ -23,7 +22,7 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 	private Form form;
 	private Class<?> interfaceClass;
 	private SubmitAction<C, T> submitAction;
-	private Function<C, T> defaultObjectProvider;
+	private DefaultValueProvider<C, T> defaultObjectProvider;
 	private InvocationHandler invocationHandler;
 
 	public DynamicFormActionBuilderImpl(Form form, Class<?> interfaceClass, SubmitAction<C, T> defaultObjectProvider) {
@@ -37,7 +36,7 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 	}
 
 	@Override
-	public DynamicFormActionBuilder<C, T> setDefaultObjectStrategy(Function<C, T> defaultObjectProvider) {
+	public DynamicFormActionBuilder<C, T> setDefaultObjectStrategy(DefaultValueProvider<C, T> defaultObjectProvider) {
 		this.defaultObjectProvider = defaultObjectProvider;
 		return this;
 	}
@@ -76,7 +75,7 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 		showForm(menuContext);
 		fillValuesFromForm();
 		T newProxyInstance = generateDynamicWrapper(menuContext);
-		submitAction.process(menuContext, newProxyInstance);
+		submitAction.submitAction(menuContext, newProxyInstance);
 		return menuContext;
 	}
 

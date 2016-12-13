@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 import com.progressoft.jip.ui.menu.MenuContext;
 
@@ -16,9 +15,9 @@ public class DefaultInvocationHandler<C extends MenuContext,T> implements Invoca
 	
 	private Map<String, Object> values = new HashMap<>();
 	private C menuContext ;
-	private Function<C,T>  defaultObjectProvider;
+	private DefaultValueProvider<C,T>  defaultObjectProvider;
 
-	public DefaultInvocationHandler(Map<String, Object> values,C menuContext,Function<C,T>  defaultObjectProvider){
+	public DefaultInvocationHandler(Map<String, Object> values,C menuContext,DefaultValueProvider<C,T>  defaultObjectProvider){
 		this.values = values;
 		this.menuContext = menuContext;
 		this.defaultObjectProvider = defaultObjectProvider;
@@ -30,7 +29,7 @@ public class DefaultInvocationHandler<C extends MenuContext,T> implements Invoca
 		if (value != null) {
 			return value;
 		} else if (defaultObjectProvider != null) {
-			return method.invoke(defaultObjectProvider.apply(menuContext), args);
+			return method.invoke(defaultObjectProvider.defaultValue(menuContext), args);
 		}
 		if(method.getReturnType().isPrimitive()){
 			return PrimitiveDefaultsUtility.getDefaultValue(method.getReturnType());
