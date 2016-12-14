@@ -1,4 +1,11 @@
 DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS iban;
+DROP TABLE IF EXISTS payment;
+DROP TABLE IF EXISTS payment;
+DROP TABLE IF EXISTS payment_purpose;
+DROP TABLE IF EXISTS id_table;
+
+
 CREATE TABLE IF NOT EXISTS account (
   `id`       int    NOT NULL,
   `account_number`   varchar(255)     NOT NULL,
@@ -11,7 +18,7 @@ CREATE TABLE IF NOT EXISTS account (
   PRIMARY KEY (`id`, `account_number`)
 )
   ENGINE = InnoDB;
-DROP TABLE IF EXISTS iban;
+
 CREATE TABLE IF NOT EXISTS iban (
   `iban_id`      int   NOT NULL,
   `country_code` VARCHAR(45) NULL,
@@ -19,21 +26,21 @@ CREATE TABLE IF NOT EXISTS iban (
   PRIMARY KEY (`iban_id`)
 )
   ENGINE = InnoDB;
-DROP TABLE IF EXISTS id_table;
+
 CREATE TABLE IF NOT EXISTS id_table (
   `table_name` VARCHAR(255) NOT NULL,
   `id`         int    NOT NULL,
   PRIMARY KEY (`table_name`)
 )
   ENGINE = InnoDB;
-DROP TABLE IF EXISTS payment_purpose;
+
 CREATE TABLE IF NOT EXISTS payment_purpose (
   `short_code`  VARCHAR(45)  NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`short_code`)
 )
   ENGINE = InnoDB;
-DROP TABLE IF EXISTS payment;
+
 CREATE TABLE IF NOT EXISTS payment (
   `order_account_number`    int     NOT NULL,
   `benficiary_account_iban` MEDIUMTEXT   NOT NULL,

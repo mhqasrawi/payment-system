@@ -17,12 +17,12 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
-import com.progressoft.jip.payment.PaymentPurposeDAO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
+import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
@@ -77,7 +77,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 			PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
 				@Override
-				public void save(PaymentPurposeDTO paymentPurpose) {
+				public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
+					return paymentPurpose;
 				}
 
 				@Override
@@ -124,7 +125,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 				PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
 					@Override
-					public void save(PaymentPurposeDTO paymentPurpose) {
+					public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
+						return paymentPurpose;
 					}
 
 					@Override
@@ -174,7 +176,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 				JDBCIBANDAO jdbcibandao = new JDBCIBANDAO(dataSource);
 				PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
 					@Override
-					public void save(PaymentPurposeDTO paymentPurpose) {
+					public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
+						return paymentPurpose;
 					}
 
 					@Override

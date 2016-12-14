@@ -19,7 +19,7 @@ import com.progressoft.jip.ui.field.AccountStatusField;
 import com.progressoft.jip.ui.field.CurrencyField;
 import com.progressoft.jip.ui.field.CustomerField;
 import com.progressoft.jip.ui.field.IBANField;
-import com.progressoft.jip.ui.field.LongField;
+import com.progressoft.jip.ui.field.IntegerField;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.form.FormImpl;
@@ -28,7 +28,7 @@ import com.progressoft.jip.ui.form.FormImpl;
  * @author Ahmad.Jardat
  *
  */
-@Configurable(autowire=Autowire.BY_TYPE)
+@Configurable(autowire=Autowire.BY_TYPE,dependencyCheck=true)
 public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> implements PaymentNewAction<AccountDTO> {
 
 	private static final String ENTER_CUSTOMER_NAME = "Enter Customer Name";
@@ -69,7 +69,7 @@ public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> imple
 						.setName(AccountDTOConstant.IBAN_ACCOUNT_DTO))
 				.addField(new CustomerField().setDescription(ENTER_CUSTOMER_NAME)
 						.setName(AccountDTOConstant.CUSTOMER_DTO_ACCOUNT_DTO))
-				.addHiddenField(new LongField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO)
+				.addHiddenField(new IntegerField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO)
 						.setValue("0"))
 				.addHiddenField(new AccountStatusField().setDescription("")
 						.setName(AccountDTOConstant.ACCOUNT_STATUS_ACCOUNT_DTO).setValue(AccountStatus.ACTIVE.name()));

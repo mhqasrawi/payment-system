@@ -13,6 +13,7 @@ import com.progressoft.jip.actions.PaymentEditAction;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
+import com.progressoft.jip.ui.action.Action;
 import com.progressoft.jip.ui.field.CurrencyField;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.form.FormImpl;
@@ -36,8 +37,12 @@ public class EditAccountCurrency extends AbstractPaymentEditAction<AccountDTO> i
 	public void init() {
 		Form form = new FormImpl(EDIT_ACCOUNT_CURRENCY).addField(
 				new CurrencyField().setDescription(ENTER_CURRENCY).setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO));
-		setAction(dynamicFormActionBuilder.setInterfaceType(AccountDTO.class).setDefaultObjectStrategy(this)
-				.setForm(form).setSubmitAction(this).build());
+		setAction(getForm(form));
+	}
+
+	private Action<PaymentMenuContext> getForm(Form form) {
+		return dynamicFormActionBuilder.setInterfaceType(AccountDTO.class).setDefaultObjectStrategy(this)
+				.setForm(form).setSubmitAction(this).build();
 	}
 
 	@Override

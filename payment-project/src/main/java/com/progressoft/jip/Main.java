@@ -18,15 +18,11 @@ public class Main {
 
 	private final static Logger logger = LoggerFactory.getLogger(Main.class);
 
-	public static void main(String[] args) throws FileNotFoundException {
-		System.setProperty("configuration.file.path",
-				"home/mhqasrawi/Desktop/payment/payment-system/payment-project/src/main/resources/conf.xml");
-		System.setProperty("app.context.location",
-				"/home/mhqasrawi/Desktop/payment/payment-system/payment-project/src/main/resources/application-context.xml");
+	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 		String appContextLocation = System.getProperty(APP_CONTEXT_LOCATION);
 		FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(appContextLocation);
-
 		XmlFileUserInterfaceGenerator uiGenerator = appContext.getBean(XmlFileUserInterfaceGenerator.class);
+		Thread.sleep(1000);
 		context.put(MenuContext.MENU_RENDER_MANGER, renderManger);
 		renderManger.renderMenu(uiGenerator.generateUi());
 	}

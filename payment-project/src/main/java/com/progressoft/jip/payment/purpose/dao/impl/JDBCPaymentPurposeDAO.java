@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -23,6 +24,7 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 	private static final String TABLE_NAME = "payment_purpose";
 	private static final String INSERT_PAYMENTPURPOSE_STATMENT = "insert into payment_purpose values(?,?)";
 
+	@Inject
 	public JDBCPaymentPurposeDAO(DataSource dataSource) {
 		this.queryRunner = new QueryRunner(dataSource);
 		this.idDAO = new IdDAOImpl(dataSource);

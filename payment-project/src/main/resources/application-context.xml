@@ -29,15 +29,8 @@
 		class="com.progressoft.jip.actions.PaymentDynamicFormActionBuilderImpl"
 		scope="prototype" />
 	<bean id="UserInterfaceGenerator" class="com.progressoft.jip.XmlFileUserInterfaceGenerator" />
-
-
-	<bean id="formsDefenation" class="com.progressoft.jip.FormsDefenation" />
-	<bean id="menusDefenation" class="com.progressoft.jip.MenusDefenation" />
+	<bean id="jdbcPaymentPurposeDAO"
+		class="com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO" />
 
 	<bean id="Main" class="com.progressoft.jip.Main" />
-
-
-
-
-
 </beans>

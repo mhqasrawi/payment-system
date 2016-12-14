@@ -5,45 +5,66 @@
 			<action-class-name>com.progressoft.jip.actions.impl.ExitSystem</action-class-name>
 		</action>
 		<action>
-			<action-id>NewAccountAction</action-id>
+			<action-id>new-account-action</action-id>
 			<action-class-name>com.progressoft.jip.actions.impl.NewAccountAction</action-class-name>
 		</action>
 		<action>
-			<action-id>EditAccountCurrency</action-id>
+			<action-id>edit-account-currency</action-id>
 			<action-class-name>com.progressoft.jip.actions.impl.EditAccountCurrency</action-class-name>
 		</action>
 		<action>
-			<action-id>EditAccountNameAction</action-id>
+			<action-id>edit-account-name-action</action-id>
 			<action-class-name>com.progressoft.jip.actions.impl.EditAccountNameAction</action-class-name>
 		</action>
 		<action>
-			<action-id>PickupAccountAction</action-id>
+			<action-id>pickup-account-action</action-id>
 			<action-class-name>com.progressoft.jip.actions.impl.PickupAccountAction</action-class-name>
+		</action>
+		<action>
+		<action-id>new-payment-purpose-action</action-id>
+		<action-class-name>com.progressoft.jip.actions.impl.NewPaymentPurposeAction</action-class-name>
 		</action>
 	</actions>
 	<menus>
 		<menu>
 			<menu-id>edit-account-currency-menu</menu-id>
-			<description>Edit Account Currency</description>
-			<action-id>EditAccountCurrency</action-id>
+			<description>New Account Currency</description>
+			<action-id>edit-account-currency</action-id>
 		</menu>
 		<menu>
 			<menu-id>edit-account-name-menu</menu-id>
-			<description>Edit Account Name</description>
-			<action-id>EditAccountNameAction</action-id>
+			<description>New Account Name</description>
+			<action-id>edit-account-name-action</action-id>
 		</menu>
 		<menu>
 			<menu-id>new-account-menu</menu-id>
 			<description>Create New Account</description>
-			<action-id>NewAccountAction</action-id>
+			<action-id>new-account-action</action-id>
+		</menu>
+		<menu>
+			<menu-id>do-payment-menu</menu-id>
+			<description>Create New Payment</description>
+		</menu>
+		<menu>
+			<menu-id>generate-report-menu</menu-id>
+			<description>Generate Report</description>
 		</menu>
 		<menu>
 			<menu-id>account-mangment-menu</menu-id>
 			<description>Pikup Account</description>
 			<sub-menus>edit-account-name-menu</sub-menus>
 			<sub-menus>edit-account-currency-menu</sub-menus>
-			<action-id>PickupAccountAction</action-id>
+			<sub-menus>do-payment-menu</sub-menus>
+			<sub-menus>generate-report-menu</sub-menus>
+			<action-id>pickup-account-action</action-id>
 		</menu>
+		<menu>
+			<menu-id>new-payment-purpose</menu-id>
+			<description>New Payment Purpose</description>
+			<action-id>new-payment-purpose-action</action-id>
+		</menu>
+
+
 		<menu>
 			<menu-id>exit-menu</menu-id>
 			<description>Exit</description>
@@ -54,6 +75,7 @@
 			<description>Choose Option : </description>
 			<sub-menus>new-account-menu</sub-menus>
 			<sub-menus>account-mangment-menu</sub-menus>
+			<sub-menus>new-payment-purpose</sub-menus>
 			<sub-menus>exit-menu</sub-menus>
 		</menu>
 	</menus>
