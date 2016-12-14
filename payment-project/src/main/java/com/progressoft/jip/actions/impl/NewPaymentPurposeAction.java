@@ -1,6 +1,5 @@
 package com.progressoft.jip.actions.impl;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowire;
@@ -16,18 +15,16 @@ import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.form.FormImpl;
 
-@Configurable(autowire = Autowire.BY_TYPE , dependencyCheck=true,preConstruction=true)
 public class NewPaymentPurposeAction extends AbstractPaymentNewAction<PaymentPurposeDTO>
 		implements PaymentNewAction<PaymentPurposeDTO> {
 
 	private static final String NEW_PAYMENT_PURPOSE = "New Payment Purpose";
-	
+
 	@Inject
 	private PaymentDynamicFormActionBuilder<PaymentPurposeDTO> dynamicFormActionBuilder;
 	@Inject
-	private PaymentPurposeDAO paymentPurposeDAO; 
-	
-	@PostConstruct
+	private PaymentPurposeDAO paymentPurposeDAO;
+
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(PaymentPurposeDTO.class).setSubmitAction(this)
 				.setForm(getNewPaymentPurposeForm()).build());
@@ -40,8 +37,8 @@ public class NewPaymentPurposeAction extends AbstractPaymentNewAction<PaymentPur
 	}
 
 	@Override
-	public void submitAction(PaymentMenuContext menuContext, PaymentPurposeDTO object) {
-
+	public void submitAction(PaymentMenuContext menuContext, PaymentPurposeDTO paymentPurpose) {
+		paymentPurposeDAO.save(paymentPurpose);
 	}
 
 }

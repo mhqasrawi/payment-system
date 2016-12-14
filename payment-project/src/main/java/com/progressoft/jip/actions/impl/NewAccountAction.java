@@ -28,7 +28,6 @@ import com.progressoft.jip.ui.form.FormImpl;
  * @author Ahmad.Jardat
  *
  */
-@Configurable(autowire=Autowire.BY_TYPE,dependencyCheck=true)
 public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> implements PaymentNewAction<AccountDTO> {
 
 	private static final String ENTER_CUSTOMER_NAME = "Enter Customer Name";
@@ -45,7 +44,6 @@ public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> imple
 	@Inject
 	private AccountPersistenceService accountService;
 
-	@PostConstruct
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(AccountDTO.class).setSubmitAction(this)
 				.setForm(getNewAccountForm()).build());
@@ -53,8 +51,7 @@ public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> imple
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDto) {
-		AccountDTO save = accountService.save(accountDto);
-		menuContext.setCurrentAccount(save);
+		menuContext.setCurrentAccount(accountService.save(accountDto));
 	}
 
 	private Form getNewAccountForm() {

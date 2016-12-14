@@ -1,5 +1,8 @@
 package com.progressoft.jip.actions;
 
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.ui.action.Action;
 
@@ -7,6 +10,7 @@ import com.progressoft.jip.ui.action.Action;
  * @author u612
  *
  */
+@Configurable(autowire=Autowire.BY_TYPE)
 public abstract class AbstractPaymentNewAction<T> implements PaymentNewAction<T> {
 
 

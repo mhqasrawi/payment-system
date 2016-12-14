@@ -2,8 +2,6 @@ package com.progressoft.jip.payment.iban.service.impl;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.iban.service.IBANPersistenceService;

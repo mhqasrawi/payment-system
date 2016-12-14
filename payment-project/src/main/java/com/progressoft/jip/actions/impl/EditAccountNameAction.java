@@ -1,10 +1,6 @@
 package com.progressoft.jip.actions.impl;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Configurable;
 
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.actions.AbstractPaymentEditAction;
@@ -21,7 +17,6 @@ import com.progressoft.jip.ui.form.FormImpl;
  * @author Ahmad.Jardat
  *
  */
-@Configurable(autowire=Autowire.BY_TYPE)
 public class EditAccountNameAction extends AbstractPaymentEditAction<AccountDTO> implements PaymentEditAction<AccountDTO> {
 
 	private static final String ENTER_ACCOUNT_NAME = "Enter Account Name";
@@ -32,7 +27,6 @@ public class EditAccountNameAction extends AbstractPaymentEditAction<AccountDTO>
 	@Inject
 	private AccountPersistenceService accountService;
 
-	@PostConstruct
 	public void init() {
 		Form editAccountNameForm = new FormImpl(EDIT_ACCOUNT_NAME_FORM_DESCRIPTION).addField(new StringField()
 				.setDescription(ENTER_ACCOUNT_NAME).setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO));
@@ -47,7 +41,6 @@ public class EditAccountNameAction extends AbstractPaymentEditAction<AccountDTO>
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDTO) {
-		accountService.save(accountDTO);
-		menuContext.setCurrentAccount(accountDTO);
+		menuContext.setCurrentAccount(accountService.save(accountDTO));
 	}
 }

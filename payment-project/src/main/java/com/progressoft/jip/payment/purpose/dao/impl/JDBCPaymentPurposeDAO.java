@@ -21,7 +21,6 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 
 	private final QueryRunner queryRunner;
 	private final IdDAO idDAO;
-	private static final String TABLE_NAME = "payment_purpose";
 	private static final String INSERT_PAYMENTPURPOSE_STATMENT = "insert into payment_purpose values(?,?)";
 
 	@Inject
@@ -48,11 +47,12 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 	@Override
 	public PaymentPurposeDTO get(String shortCode) {
 		if (Objects.isNull(shortCode))
-			throw new DAOException("Null Pointer ");
+			throw new DAOException("Null Short Code");
 		try {
 			Map<String, Object> query = this.queryRunner.query("select * from payment_purpose where short_code=?",
 					new MapHandler(), shortCode);
-
+			if (query == null)
+				throw new DAOException("No Payment With Short Code "+shortCode);
 			PaymentPurposeDTOImpl paymentPurposeDTOImpl = new PaymentPurposeDTOImpl();
 			paymentPurposeDTOImpl.setShortCode((String) query.get("short_code"));
 			paymentPurposeDTOImpl.setDescription((String) query.get("description"));

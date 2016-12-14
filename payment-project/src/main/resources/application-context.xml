@@ -8,8 +8,8 @@
            http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 	default-autowire="byType">
 	<context:annotation-config />
-	<context:spring-configured />
 
+	<bean id="paymentDao" class="com.progressoft.jip.payment.impl.PaymentDAOImpl" />
 	<bean id="configuration" class="com.progressoft.jip.configuration.XMLConfiguraionImpl"
 		lazy-init="false" init-method="init" />
 	<bean id="dataSource" class="com.progressoft.jip.DefaultDataSource"
@@ -25,12 +25,15 @@
 	<bean id="IBANFormatsFileReader"
 		class="com.progressoft.jip.payment.iban.impl.IBANFormatsFileReader" />
 	<bean id="IBANValidator" class="com.progressoft.jip.payment.iban.impl.IBANValidatorImpl" />
-	<bean id="PaymentDynamicFormAction"
+	<bean id="paymentDynamicFormAction"
 		class="com.progressoft.jip.actions.PaymentDynamicFormActionBuilderImpl"
 		scope="prototype" />
-	<bean id="UserInterfaceGenerator" class="com.progressoft.jip.XmlFileUserInterfaceGenerator" />
+	<bean id="userInterfaceGenerator" class="com.progressoft.jip.XmlFileUserInterfaceGenerator" />
 	<bean id="jdbcPaymentPurposeDAO"
 		class="com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO" />
-
-	<bean id="Main" class="com.progressoft.jip.Main" />
+	<bean id="springBasedActionGenerator" class="com.progressoft.jip.SpringBasedActionGenerator" />
+	<bean id="reportManager"
+		class="com.progressoft.jip.payment.report.impl.ReportManagerImpl" />
+	<bean id="paymentBuilder" class="com.progressoft.jip.payment.impl.PaymentBuilderImpl" />
+	<bean id="paymentProcessor" class="com.progressoft.jip.PaymentProcessorImpl" />
 </beans>

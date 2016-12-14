@@ -12,7 +12,6 @@ import com.progressoft.jip.payment.DAOException;
 
 public class IdProviderImpl implements IdProvider {
 
-	private static final int FIRST_TABLE_ID_COUNTER = 2;
 	private static final String INSERT_INTO_ID_TABLE_VALUES = "insert into id_table values(?,?)";
 	private static final String ERROR_WHILE_INSERTING_THE_ID_FOR_TABLE = "Error While Inserting the id for table: ";
 	private static final String SELECT_ID_FROM_ID_TABLE_WHERE_TABLE_NAME_S = "select id from id_table WHERE table_name='%s'";

@@ -2,27 +2,43 @@
 	<actions>
 		<action>
 			<action-id>exit-action</action-id>
-			<action-class-name>com.progressoft.jip.actions.impl.ExitSystem</action-class-name>
+			<action-class-name>com.progressoft.jip.actions.impl.ExitSystem
+			</action-class-name>
 		</action>
 		<action>
 			<action-id>new-account-action</action-id>
-			<action-class-name>com.progressoft.jip.actions.impl.NewAccountAction</action-class-name>
+			<action-class-name>com.progressoft.jip.actions.impl.NewAccountAction
+			</action-class-name>
 		</action>
 		<action>
 			<action-id>edit-account-currency</action-id>
-			<action-class-name>com.progressoft.jip.actions.impl.EditAccountCurrency</action-class-name>
+			<action-class-name>com.progressoft.jip.actions.impl.EditAccountCurrency
+			</action-class-name>
 		</action>
 		<action>
 			<action-id>edit-account-name-action</action-id>
-			<action-class-name>com.progressoft.jip.actions.impl.EditAccountNameAction</action-class-name>
+			<action-class-name>com.progressoft.jip.actions.impl.EditAccountNameAction
+			</action-class-name>
 		</action>
 		<action>
 			<action-id>pickup-account-action</action-id>
-			<action-class-name>com.progressoft.jip.actions.impl.PickupAccountAction</action-class-name>
+			<action-class-name>com.progressoft.jip.actions.impl.PickupAccountAction
+			</action-class-name>
 		</action>
 		<action>
-		<action-id>new-payment-purpose-action</action-id>
-		<action-class-name>com.progressoft.jip.actions.impl.NewPaymentPurposeAction</action-class-name>
+			<action-id>new-payment-purpose-action</action-id>
+			<action-class-name>com.progressoft.jip.actions.impl.NewPaymentPurposeAction
+			</action-class-name>
+		</action>
+		<action>
+			<action-id>new-report-action</action-id>
+			<action-class-name>com.progressoft.jip.actions.impl.NewReportAction
+			</action-class-name>
+		</action>
+		<action>
+			<action-id>do-payment-action</action-id>
+			<action-class-name>com.progressoft.jip.actions.impl.NewPaymentAction
+			</action-class-name>
 		</action>
 	</actions>
 	<menus>
@@ -44,10 +60,12 @@
 		<menu>
 			<menu-id>do-payment-menu</menu-id>
 			<description>Create New Payment</description>
+			<action-id>do-payment-action</action-id>
 		</menu>
 		<menu>
 			<menu-id>generate-report-menu</menu-id>
 			<description>Generate Report</description>
+			<action-id>new-report-action</action-id>
 		</menu>
 		<menu>
 			<menu-id>account-mangment-menu</menu-id>
@@ -63,13 +81,12 @@
 			<description>New Payment Purpose</description>
 			<action-id>new-payment-purpose-action</action-id>
 		</menu>
-
-
 		<menu>
 			<menu-id>exit-menu</menu-id>
 			<description>Exit</description>
 			<action-id>exit-action</action-id>
 		</menu>
+
 		<menu>
 			<menu-id>main-menu</menu-id>
 			<description>Choose Option : </description>

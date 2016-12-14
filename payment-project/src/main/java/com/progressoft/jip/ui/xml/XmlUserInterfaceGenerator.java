@@ -30,9 +30,15 @@ public class XmlUserInterfaceGenerator<T extends MenuContext> implements UserInt
 	private final InputStream is;
 	private final Map<String, Menu<T>> loadedMenus = new HashMap<>();
 	private final Map<String, Action<T>> loadedActions = new HashMap<>();
+	private ActionGenerator actionGenerator;
 
 	public XmlUserInterfaceGenerator(InputStream is) {
 		this.is = is;
+	}
+
+	public XmlUserInterfaceGenerator(InputStream is, ActionGenerator actionGenerator) {
+		this.is = is;
+		this.actionGenerator = actionGenerator;
 	}
 
 	public Menu<T> generateUserInterface() {
@@ -69,12 +75,16 @@ public class XmlUserInterfaceGenerator<T extends MenuContext> implements UserInt
 
 	private Object newActionInstance(ActionXml actionXml) throws ClassNotFoundException, NoSuchMethodException,
 			InstantiationException, IllegalAccessException, InvocationTargetException {
-		Class<?> loadClass = this.getClass().getClassLoader().loadClass(actionXml.getActionClassName());
-		Constructor<?> constructor = loadClass.getDeclaredConstructor();
-		if (!constructor.isAccessible())
-			constructor.setAccessible(true);
-		Object newInstance = constructor.newInstance();
-		return newInstance;
+		if (actionGenerator == null) {
+			Class<?> loadClass = this.getClass().getClassLoader().loadClass(actionXml.getActionClassName());
+			Constructor<?> constructor = loadClass.getDeclaredConstructor();
+			if (!constructor.isAccessible())
+				constructor.setAccessible(true);
+			Object newInstance = constructor.newInstance();
+			return newInstance;
+		} else {
+			return actionGenerator.generateAction(actionXml);
+		}
 	}
 
 	private void generateMenus(List<MenuXml> meuns) {

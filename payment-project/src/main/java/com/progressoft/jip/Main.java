@@ -22,9 +22,9 @@ public class Main {
 		String appContextLocation = System.getProperty(APP_CONTEXT_LOCATION);
 		FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(appContextLocation);
 		XmlFileUserInterfaceGenerator uiGenerator = appContext.getBean(XmlFileUserInterfaceGenerator.class);
-		Thread.sleep(1000);
 		context.put(MenuContext.MENU_RENDER_MANGER, renderManger);
 		renderManger.renderMenu(uiGenerator.generateUi());
 	}
-
+	
+	
 }
