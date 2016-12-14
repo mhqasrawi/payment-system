@@ -1,11 +1,12 @@
 package com.progressoft.jip.payment.impl;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,47 +15,74 @@ import javax.sql.DataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.springframework.beans.BeanUtils;
 
+import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
+import com.progressoft.jip.payment.id.generator.IdDAO;
+import com.progressoft.jip.payment.id.generator.IdDAOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
+import com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
 	private DataSource dataSource;
-	private String paymentTable = "";
-	private String paymentIdColumn = "";
-	private String orderingAccountIDColumn = "";
-	private String beneficiaryIBANIDColumn = "";
-	private String beneficiaryNameColumn = "";
-	private String paymentAmountColumn = "";
-	private String transferCurrencyColumn = "";
-	private String paymentDateColumn = "";
-	private String paymentPurposeShortCodeColumn = "";
+	private String paymentIdColumn = "id";
+	private String orderingAccountIDColumn = "order_account_number";
+	private String beneficiaryIBANIDColumn = "benficiary_account_iban";
+	private String beneficiaryNameColumn = "benficiary_account_name";
+	private String paymentAmountColumn = "payment_amount";
+	private String transferCurrencyColumn = "transfer_currency";
+	private String paymentDateColumn = "payment_date";
+	private String paymentPurposeShortCodeColumn = "payment_purpose";
+	private static final String TABLE_NAME = "payment";
+
+	private IdDAO idDAO;
 
 	public PaymentDAOImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
+		idDAO = new IdDAOImpl(dataSource);
+
 	}
 
 	@Override
-	public void save(PaymentDTO paymentDTO) {
+	public PaymentDTO save(PaymentDTO paymentDTO) {
+
+		int id = idDAO.save(TABLE_NAME);
 		QueryRunner runner = new QueryRunner(dataSource);
-		String sql = "insert into " + paymentTable + " (" + paymentIdColumn + "," + orderingAccountIDColumn + ","
+		String sql = "insert into " + TABLE_NAME + " (" + paymentIdColumn + "," + orderingAccountIDColumn + ","
 				+ beneficiaryIBANIDColumn + "," + beneficiaryNameColumn + "," + paymentAmountColumn + ","
 				+ transferCurrencyColumn + "," + paymentDateColumn + "," + paymentPurposeShortCodeColumn
-				+ ") values(?,?,?,?,?,?,?)";
+				+ ") values(?,?,?,?,?,?,?,?)";
 		try {
-			runner.update(sql, paymentDTO.getId(), paymentDTO.getOrderingAccount().getId(),
+			int update = runner.update(sql, id, paymentDTO.getOrderingAccount().getAccountNumber(),
 					paymentDTO.getBeneficiaryIBAN().getId(), paymentDTO.getBeneficiaryName(),
-					paymentDTO.getPaymentAmount(), paymentDTO.getTransferCurrency().getCurrencyCode(), new Date(),
-					paymentDTO.getPaymentPurpose());
+					paymentDTO.getPaymentAmount(), paymentDTO.getTransferCurrency().getCurrencyCode(),
+					LocalDateTime.now().toString(), paymentDTO.getPaymentPurpose().getShortCode());
+			if (update > 0) {
+				PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
+
+				paymentDTOImpl.setBeneficiaryIBAN(paymentDTO.getBeneficiaryIBAN());
+				paymentDTOImpl.setBeneficiaryName(paymentDTO.getBeneficiaryName());
+				paymentDTOImpl.setId(id);
+				paymentDTOImpl.setOrderingAccount(paymentDTO.getOrderingAccount());
+				paymentDTOImpl.setPaymentPurpose(paymentDTO.getPaymentPurpose());
+
+				paymentDTOImpl.setTransferCurrency(paymentDTO.getTransferCurrency());
+
+				paymentDTOImpl.setPaymentAmount(paymentDTO.getPaymentAmount());
+				paymentDTOImpl.setPaymentDate(paymentDTO.getPaymentDate());
+				return paymentDTOImpl;
+			}
+			throw new DAOException("cannot insert payment ");
 		} catch (SQLException e) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(e);
 		}
 	}
 
@@ -62,12 +90,18 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public PaymentDTO getById(Integer id) {
 		QueryRunner runner = new QueryRunner(dataSource);
 
-		String sql = "select " + paymentIdColumn + " as payment," + orderingAccountIDColumn + " as orderingAccountID, "
-				+ beneficiaryIBANIDColumn + " as beneficiaryIBANID," + beneficiaryNameColumn + " as beneficiaryName,"
-				+ paymentAmountColumn + " as paymentAmount," + transferCurrencyColumn + " as transferCurrency,"
-				+ paymentDateColumn + " as paymentDate," + paymentPurposeShortCodeColumn
-				+ " as paymentPurposeShortCode from " + paymentTable + " where id = " + String.valueOf(id);
+		// String sql = "select " + paymentIdColumn + " as payment," +
+		// orderingAccountIDColumn + " as orderingAccountID, "
+		// + beneficiaryIBANIDColumn + " as beneficiaryIBANID," +
+		// beneficiaryNameColumn + " as beneficiaryName,"
+		// + paymentAmountColumn + " as paymentAmount," + transferCurrencyColumn
+		// + " as transferCurrency,"
+		// + paymentDateColumn + " as paymentDate," +
+		// paymentPurposeShortCodeColumn
+		// + " as paymentPurposeShortCode from " + TABLE_NAME + " where id = " +
+		// id;
 
+		String sql = "select " + " * from " + TABLE_NAME + " where id = " + id;
 		try {
 			Map<String, Object> paymentMap = runner.query(sql, new MapHandler());
 			PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
@@ -75,32 +109,23 @@ public class PaymentDAOImpl implements PaymentDAO {
 			JDBCAccountDAO jdbcAccountDAO = new JDBCAccountDAO(dataSource);
 			JDBCIBANDAO jdbcibandao = new JDBCIBANDAO(dataSource);
 
-			PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
-				@Override
-				public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
-					return paymentPurpose;
-				}
-
-				@Override
-				public PaymentPurposeDTO get(String shortCode) {
-					return null;
-				}
-			};
+			PaymentPurposeDAO paymentPurposeDAO = new JDBCPaymentPurposeDAO(dataSource);
 
 			paymentDTOImpl.setId(id);
-			paymentDTOImpl
-					.setOrderingAccount(jdbcAccountDAO.getById((Integer) paymentMap.get(orderingAccountIDColumn)));
+			paymentDTOImpl.setOrderingAccount(jdbcAccountDAO.get((String) paymentMap.get(orderingAccountIDColumn)));
 			paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) paymentMap.get(beneficiaryIBANIDColumn)));
 			paymentDTOImpl.setBeneficiaryName((String) paymentMap.get(beneficiaryNameColumn));
 			paymentDTOImpl.setPaymentAmount((BigDecimal) paymentMap.get(paymentAmountColumn));
-			paymentDTOImpl.setTransferCurrency((Currency) paymentMap.get(transferCurrencyColumn));
-			paymentDTOImpl.setPaymentDate((LocalDateTime) paymentMap.get(paymentDateColumn));
+			paymentDTOImpl.setTransferCurrency(Currency.getInstance((String) paymentMap.get(transferCurrencyColumn)));
+			final String date = (String) paymentMap.get(paymentDateColumn);
+			final LocalDateTime parsedTime = LocalDateTime.parse(date);
+			paymentDTOImpl.setPaymentDate(parsedTime);
 			paymentDTOImpl
 					.setPaymentPurpose(paymentPurposeDAO.get((String) paymentMap.get(paymentPurposeShortCodeColumn)));
 
 			return paymentDTOImpl;
 		} catch (SQLException e) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(e);
 		}
 	}
 
@@ -108,39 +133,26 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public Iterable<PaymentDTO> getAll() {
 		QueryRunner runner = new QueryRunner(dataSource);
 
-		String sql = "select " + paymentIdColumn + " as payment," + orderingAccountIDColumn + " as orderingAccountID, "
-				+ beneficiaryIBANIDColumn + " as beneficiaryIBANID," + beneficiaryNameColumn + " as beneficiaryName,"
-				+ paymentAmountColumn + " as paymentAmount," + transferCurrencyColumn + " as transferCurrency,"
-				+ paymentDateColumn + " as paymentDate," + paymentPurposeShortCodeColumn
-				+ " as paymentPurposeShortCode from " + paymentTable;
+		String sql = "select " + " * from " + TABLE_NAME;
 
 		try {
 			List<PaymentDTO> listOfPayments = new ArrayList<>();
 			List<Map<String, Object>> query = runner.query(sql, new MapListHandler());
-
 			for (Map<String, Object> map : query) {
 				PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
 				JDBCAccountDAO jdbcAccountDAO = new JDBCAccountDAO(dataSource);
 				JDBCIBANDAO jdbcibandao = new JDBCIBANDAO(dataSource);
 
-				PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
-					@Override
-					public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
-						return paymentPurpose;
-					}
-
-					@Override
-					public PaymentPurposeDTO get(String shortCode) {
-						return null;
-					}
-				};
+				PaymentPurposeDAO paymentPurposeDAO = new JDBCPaymentPurposeDAO(dataSource);
 				paymentDTOImpl.setId((Integer) map.get(paymentIdColumn));
 				paymentDTOImpl.setOrderingAccount(jdbcAccountDAO.getById((Integer) map.get(orderingAccountIDColumn)));
 				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn)));
 				paymentDTOImpl.setBeneficiaryName((String) map.get(beneficiaryNameColumn));
 				paymentDTOImpl.setPaymentAmount((BigDecimal) map.get(paymentAmountColumn));
 				paymentDTOImpl.setTransferCurrency((Currency) map.get(transferCurrencyColumn));
-				paymentDTOImpl.setPaymentDate((LocalDateTime) map.get(paymentDateColumn));
+				final String dateStr = (String) map.get(paymentDateColumn);
+				LocalDateTime date = LocalDateTime.parse(dateStr);
+				paymentDTOImpl.setPaymentDate(date);
 				paymentDTOImpl
 						.setPaymentPurpose(paymentPurposeDAO.get((String) map.get(paymentPurposeShortCodeColumn)));
 
@@ -160,12 +172,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		AccountDTO orderingAccount = accountDAO.get(accountNumber);
 		Integer id = orderingAccount.getId();
 
-		String sql = "select " + paymentIdColumn + " as payment," + orderingAccountIDColumn + " as orderingAccountID, "
-				+ beneficiaryIBANIDColumn + " as beneficiaryIBANID," + beneficiaryNameColumn + " as beneficiaryName,"
-				+ paymentAmountColumn + " as paymentAmount," + transferCurrencyColumn + " as transferCurrency,"
-				+ paymentDateColumn + " as paymentDate," + paymentPurposeShortCodeColumn
-				+ " as paymentPurposeShortCode from " + paymentTable + " where " + orderingAccountIDColumn + " = "
-				+ String.valueOf(id);
+		String sql = "select " + " * from " + TABLE_NAME + " where " + orderingAccountIDColumn + " = " + accountNumber;
 
 		try {
 			List<PaymentDTO> listOfPayments = new ArrayList<>();
@@ -174,25 +181,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 			for (Map<String, Object> map : query) {
 				PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
 				JDBCIBANDAO jdbcibandao = new JDBCIBANDAO(dataSource);
-				PaymentPurposeDAO paymentPurposeDAO = new PaymentPurposeDAO() {
-					@Override
-					public PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose) {
-						return paymentPurpose;
-					}
-
-					@Override
-					public PaymentPurposeDTO get(String shortCode) {
-						return null;
-					}
-				};
+				PaymentPurposeDAO paymentPurposeDAO = new JDBCPaymentPurposeDAO(dataSource);
 
 				paymentDTOImpl.setId((Integer) map.get(paymentIdColumn));
 				paymentDTOImpl.setOrderingAccount(orderingAccount);
 				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn)));
 				paymentDTOImpl.setBeneficiaryName((String) map.get(beneficiaryNameColumn));
 				paymentDTOImpl.setPaymentAmount((BigDecimal) map.get(paymentAmountColumn));
-				paymentDTOImpl.setTransferCurrency((Currency) map.get(transferCurrencyColumn));
-				paymentDTOImpl.setPaymentDate((LocalDateTime) map.get(paymentDateColumn));
+				paymentDTOImpl.setTransferCurrency(Currency.getInstance((String) map.get(transferCurrencyColumn)));
+				final String dateStr = (String) map.get(paymentDateColumn);
+				LocalDateTime date=LocalDateTime.parse(dateStr);
+				paymentDTOImpl.setPaymentDate(date);
 				paymentDTOImpl
 						.setPaymentPurpose(paymentPurposeDAO.get((String) map.get(paymentPurposeShortCodeColumn)));
 

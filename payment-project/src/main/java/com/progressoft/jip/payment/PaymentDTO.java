@@ -3,6 +3,7 @@ package com.progressoft.jip.payment;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.Date;
 
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.DTO;
