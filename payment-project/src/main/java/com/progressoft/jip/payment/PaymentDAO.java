@@ -4,7 +4,7 @@ public interface PaymentDAO {
 
 	PaymentDTO save(PaymentDTO paymentDTO);
 
-	PaymentDTO getById(Integer id);
+	PaymentDTO getById(int id);
 
 	Iterable<PaymentDTO> get(String accountNumber);
 

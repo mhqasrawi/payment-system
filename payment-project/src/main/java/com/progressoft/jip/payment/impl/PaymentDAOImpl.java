@@ -1,9 +1,7 @@
 package com.progressoft.jip.payment.impl;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -15,18 +13,17 @@ import javax.sql.DataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
-import org.springframework.beans.BeanUtils;
 
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
-import com.progressoft.jip.payment.account.AccountDTO;
+import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO;
+import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
 import com.progressoft.jip.payment.id.generator.IdDAO;
 import com.progressoft.jip.payment.id.generator.IdDAOImpl;
-import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 
@@ -61,6 +58,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 				+ transferCurrencyColumn + "," + paymentDateColumn + "," + paymentPurposeShortCodeColumn
 				+ ") values(?,?,?,?,?,?,?,?)";
 		try {
+
 			int update = runner.update(sql, id, paymentDTO.getOrderingAccount().getAccountNumber(),
 					paymentDTO.getBeneficiaryIBAN().getId(), paymentDTO.getBeneficiaryName(),
 					paymentDTO.getPaymentAmount(), paymentDTO.getTransferCurrency().getCurrencyCode(),
@@ -82,24 +80,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 			}
 			throw new DAOException("cannot insert payment ");
 		} catch (SQLException e) {
-			throw new IllegalArgumentException(e);
+			throw new DAOException("error while saving Payment ", e);
+
 		}
 	}
 
 	@Override
-	public PaymentDTO getById(Integer id) {
+	public PaymentDTO getById(int id) {
 		QueryRunner runner = new QueryRunner(dataSource);
-
-		// String sql = "select " + paymentIdColumn + " as payment," +
-		// orderingAccountIDColumn + " as orderingAccountID, "
-		// + beneficiaryIBANIDColumn + " as beneficiaryIBANID," +
-		// beneficiaryNameColumn + " as beneficiaryName,"
-		// + paymentAmountColumn + " as paymentAmount," + transferCurrencyColumn
-		// + " as transferCurrency,"
-		// + paymentDateColumn + " as paymentDate," +
-		// paymentPurposeShortCodeColumn
-		// + " as paymentPurposeShortCode from " + TABLE_NAME + " where id = " +
-		// id;
 
 		String sql = "select " + " * from " + TABLE_NAME + " where id = " + id;
 		try {
@@ -125,7 +113,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 			return paymentDTOImpl;
 		} catch (SQLException e) {
-			throw new IllegalArgumentException(e);
+			throw new DAOException("error while getting Payment By ID : : " + id, e);
+
 		}
 	}
 
@@ -160,16 +149,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 			}
 			return listOfPayments;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("error while getting All Payments ", e);
+
 		}
-		return null;
 	}
 
 	@Override
 	public Iterable<PaymentDTO> get(String accountNumber) {
 		QueryRunner runner = new QueryRunner(dataSource);
 		AccountDAO accountDAO = new JDBCAccountDAO(dataSource);
-		AccountDTO orderingAccount = accountDAO.get(accountNumber);
+		AccountDTOImpl orderingAccount = (AccountDTOImpl) accountDAO.get(accountNumber);
+
 		Integer id = orderingAccount.getId();
 
 		String sql = "select " + " * from " + TABLE_NAME + " where " + orderingAccountIDColumn + " = " + accountNumber;
@@ -185,21 +175,27 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 				paymentDTOImpl.setId((Integer) map.get(paymentIdColumn));
 				paymentDTOImpl.setOrderingAccount(orderingAccount);
-				paymentDTOImpl.setBeneficiaryIBAN(jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn)));
+
+				IBANDTO benificaryIBAN = jdbcibandao.getById((Integer) map.get(beneficiaryIBANIDColumn));
+				IBANDTO orderingIBAN = jdbcibandao.getById(orderingAccount.getIbanId());
+				orderingAccount.setIbandto(orderingIBAN);
+				paymentDTOImpl.setBeneficiaryIBAN(benificaryIBAN);
 				paymentDTOImpl.setBeneficiaryName((String) map.get(beneficiaryNameColumn));
 				paymentDTOImpl.setPaymentAmount((BigDecimal) map.get(paymentAmountColumn));
 				paymentDTOImpl.setTransferCurrency(Currency.getInstance((String) map.get(transferCurrencyColumn)));
 				final String dateStr = (String) map.get(paymentDateColumn);
-				LocalDateTime date=LocalDateTime.parse(dateStr);
+				LocalDateTime date = LocalDateTime.parse(dateStr);
 				paymentDTOImpl.setPaymentDate(date);
 				paymentDTOImpl
 						.setPaymentPurpose(paymentPurposeDAO.get((String) map.get(paymentPurposeShortCodeColumn)));
 
 				listOfPayments.add(paymentDTOImpl);
 			}
-			return listOfPayments;
+			if (listOfPayments.size() > 0)
+				return listOfPayments;
+			throw new NoPaymentsException("There's No Payments done before for account " + accountNumber);
 		} catch (SQLException e) {
-			throw new IllegalArgumentException();
+			throw new DAOException("error while getting Payments for account number: " + accountNumber, e);
 		}
 	}
 

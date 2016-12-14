@@ -1,18 +1,15 @@
 package com.progressoft.jip.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Iterator;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.progressoft.jip.payment.PaymentDAO;
@@ -30,6 +27,7 @@ import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO;
 import com.progressoft.jip.payment.iban.service.IBANPersistenceService;
 import com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl;
+import com.progressoft.jip.payment.impl.NoPaymentsException;
 import com.progressoft.jip.payment.impl.PaymentDAOImpl;
 import com.progressoft.jip.payment.impl.PaymentDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
@@ -39,11 +37,6 @@ import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 import com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceService;
 import com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceServiceImpl;
 import com.progressoft.jip.payment.service.PaymentPersistenceService;
-
-import static org.junit.Assert.assertEquals;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.junit.Before;
 
 public class PaymentDaoImplTests extends DataSourceConfig {
 
@@ -65,19 +58,18 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 		PaymentPurposeDAO paymentPurposeDAO = new JDBCPaymentPurposeDAO(dataSource);
 		paymentPurposePersistenceService = new PaymentPurposePersistenceServiceImpl(paymentPurposeDAO);
 		accountPersistenceService = new AccountPersistenceServiceImpl(accountDAO, ibanPersistenceService);
-		// paymentPersistenceService=new PaymentPe
 	}
 
 	@Test
 	public void GivenEmptyTable_WhenInsertPayment_ThenIDNotNull() {
 
-		insertPayment(1);
+		insertPayment(true, null);
 
 	}
 
 	@Test
 	public void GivenInsertedPayment_WhenGetById_ThenShouldReturned() {
-		PaymentDTO insertPayment = insertPayment(1);
+		PaymentDTO insertPayment = insertPayment(true, null);
 		assertEquals(2, insertPayment.getOrderingAccount().getId());
 		assertEquals(2, insertPayment.getId());
 		PaymentDTO byId = paymentDAO.getById(insertPayment.getId());
@@ -85,82 +77,92 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 	}
 
 	@Test
-	public void GivenTwoInsertedPayment_WhenGetAllPAymentsByAccountNumber_ThenTwoPAymentsReturned() {
+	public void GivenFiveInsertedPayment_WhenGetAllPAymentsByAccountNumber_ThenFivePaymentsReturned() {
 		AccountDTOImpl orderingAccount = buildAccountDTO(0);
-		AccountDTOImpl benficaryAccount = buildAccountDTO(1);
-		AccountDTO save = accountPersistenceService.save(orderingAccount);
-		AccountDTO save2 = accountPersistenceService.save(benficaryAccount);
-		//PaymentDTO insertPayment = insertPayment2(orderingAccount, benficaryAccount, 0);
-	//	PaymentDTO insertPayment2 = insertPayment2(orderingAccount, benficaryAccount, 1);
+		insertPayment(true, orderingAccount);
+		insertPayment(false, orderingAccount);
+		insertPayment(false, orderingAccount);
+		insertPayment(false, orderingAccount);
+		insertPayment(false, orderingAccount);
 		Iterable<PaymentDTO> all = paymentDAO.get("12340");
 		final Iterator<PaymentDTO> iterator = all.iterator();
-		long count = Stream.of(all).count();
-		assertEquals(2, count);
+		int counter = 0;
+		while (iterator.hasNext()) {
+			PaymentDTO next = iterator.next();
+			counter += 1;
+		}
+
+		assertEquals(5, counter);
 	}
 
-	private PaymentDTO insertPayment(int i) {
-		AccountDTOImpl orderingAccount = buildAccountDTO(i);
-		AccountDTOImpl benficaryAccount = buildAccountDTO(i);
+	@Test(expected = NoPaymentsException.class)
+	public void GivenTableWithNoPaymentsForAccount_WhenGetAllPAymentsByAccountNumber_ThenZeroReturned() {
+		AccountDTOImpl orderingAccount = buildAccountDTO(0);
+
+		AccountDTOImpl benficaryAccount = buildAccountDTO(1);
+
 		IBANDTO savedIBAN = getIbandto(0);
 		orderingAccount.setIbandto(savedIBAN);
 		benficaryAccount.setIbandto(savedIBAN);
 		AccountDTO save = accountPersistenceService.save(orderingAccount);
 		AccountDTO save2 = accountPersistenceService.save(benficaryAccount);
-		assertEquals(2, save.getId());
-		assertEquals(3, save2.getId());
+		Iterable<PaymentDTO> all = paymentDAO.get("12340");
+		final Iterator<PaymentDTO> iterator = all.iterator();
 
+	}
+
+	private PaymentDTO insertPayment(boolean isNew, AccountDTOImpl orderingAccount) {
+		if (orderingAccount == null)
+			orderingAccount = buildAccountDTO(0);
+
+		AccountDTOImpl benficaryAccount = buildAccountDTO(1);
+
+		IBANDTO savedIBAN = getIbandto(0);
+		if (isNew)
+			orderingAccount.setIbandto(savedIBAN);
+		benficaryAccount.setIbandto(savedIBAN);
+		AccountDTO save = null;
+		if (isNew)
+			save = accountPersistenceService.save(orderingAccount);
+		AccountDTO save2 = accountPersistenceService.save(benficaryAccount);
+		if (isNew) {
+			assertEquals(2, save.getId());
+			assertEquals(3, save2.getId());
+		}
+		PaymentDTOImpl paymentDTOImpl = constructPayment(isNew, orderingAccount, save, save2);
+		PaymentDTO save4 = paymentDAO.save(paymentDTOImpl);
+		if (isNew) {
+			assertEquals(2, save4.getId());
+			assertEquals(2, save4.getOrderingAccount().getId());
+		}
+		return save4;
+	}
+
+	private PaymentDTOImpl constructPayment(boolean isNew, AccountDTOImpl orderingAccount, AccountDTO save,
+			AccountDTO save2) {
 		PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
 
 		paymentDTOImpl.setBeneficiaryIBAN(save2.getIban());
-		paymentDTOImpl.setOrderingAccount(save);
-		paymentDTOImpl.setBeneficiaryName(save.getCustomerDTO().getName());
+		if (isNew)
+			paymentDTOImpl.setOrderingAccount(save);
+		else
+			paymentDTOImpl.setOrderingAccount(orderingAccount);
+		paymentDTOImpl.setBeneficiaryName(save2.getCustomerDTO().getName());
 
 		paymentDTOImpl.setTransferCurrency(Currency.getInstance("JOD"));
 		paymentDTOImpl.setPaymentAmount(new BigDecimal("1000"));
 		PaymentPurposeDTOImpl paymentPurpose = new PaymentPurposeDTOImpl();
 		paymentPurpose.setDescription("desc");
 		paymentPurpose.setShortCode("sala");
-		PaymentPurposeDTO save3 = paymentPurposePersistenceService.save(paymentPurpose);
-		assertEquals(paymentPurpose.getShortCode(), save3.getShortCode());
+		PaymentPurposeDTO save3 = null;
+		if (isNew) {
+			save3 = paymentPurposePersistenceService.save(paymentPurpose);
+			assertEquals(paymentPurpose.getShortCode(), save3.getShortCode());
+		}
 		paymentDTOImpl.setPaymentPurpose(paymentPurpose);
 		final String date = LocalDateTime.now().toString();
 		paymentDTOImpl.setPaymentDate(LocalDateTime.now());
-		PaymentDTO save4 = paymentDAO.save(paymentDTOImpl);
-		assertEquals(2, save4.getId());
-		assertEquals(2, save4.getOrderingAccount().getId());
-		return save4;
-	}
-
-	private PaymentDTO insertPayment2(AccountDTOImpl orderingAccount, AccountDTOImpl benficaryAccount, int i) {
-
-		IBANDTO savedIBAN = getIbandto(0);
-		orderingAccount.setIbandto(savedIBAN);
-		benficaryAccount.setIbandto(savedIBAN);
-		// AccountDTO save = accountPersistenceService.save(orderingAccount);
-		// AccountDTO save2 = accountPersistenceService.save(benficaryAccount);
-		// assertEquals(2, save.getId());
-		// assertEquals(3, save2.getId());
-
-		PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
-
-		paymentDTOImpl.setBeneficiaryIBAN(benficaryAccount.getIban());
-		paymentDTOImpl.setOrderingAccount(orderingAccount);
-		paymentDTOImpl.setBeneficiaryName(orderingAccount.getCustomerDTO().getName());
-
-		paymentDTOImpl.setTransferCurrency(Currency.getInstance("JOD"));
-		paymentDTOImpl.setPaymentAmount(new BigDecimal("1000"));
-		PaymentPurposeDTOImpl paymentPurpose = new PaymentPurposeDTOImpl();
-		paymentPurpose.setDescription("desc" + i);
-		paymentPurpose.setShortCode("sala" + i);
-		PaymentPurposeDTO save3 = paymentPurposePersistenceService.save(paymentPurpose);
-		// assertEquals(paymentPurpose.getShortCode(), save3.getShortCode());
-		paymentDTOImpl.setPaymentPurpose(paymentPurpose);
-		final String date = new Date(System.currentTimeMillis()).toString();
-		paymentDTOImpl.setPaymentDate(LocalDateTime.now());
-		PaymentDTO save4 = paymentDAO.save(paymentDTOImpl);
-		// assertEquals(2, save4.getId());
-		// assertEquals(2, save4.getOrderingAccount().getId());
-		return save4;
+		return paymentDTOImpl;
 	}
 
 	private AccountDTO saveAccountDTO(AccountDTOImpl accountDTO, IBANDTO savedIBAN) {

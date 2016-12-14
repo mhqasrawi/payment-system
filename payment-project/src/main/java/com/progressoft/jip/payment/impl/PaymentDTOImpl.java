@@ -3,7 +3,6 @@ package com.progressoft.jip.payment.impl;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Date;
 
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -18,7 +17,7 @@ public class PaymentDTOImpl implements PaymentDTO {
 	private String beneficiaryName;
 	private BigDecimal paymentAmount;
 	private Currency transferCurrency;
-	private LocalDateTime  paymentDate;
+	private LocalDateTime paymentDate;
 	private PaymentPurposeDTO paymentPurpose;
 
 	public PaymentDTOImpl() {
