@@ -23,6 +23,7 @@ public class JDBCIBANDAO implements IBANDAO {
 
 	private static final String SELECT_ALL_IBAN_STATMENT = "select * from iban ; ";
 	private static final String SELECT_IBAN_STATMENT = "select * from iban WHERE iban_id=?";
+	private static final String SELECT__IBAN_STATMENT = "select * from iban WHERE iban_value = ";
 	private static final String INSERT_IBAN_STATMENT = "insert into iban values(?,?,?)";
 	private final QueryRunner queryRunner;
 	private final IdDAO idDAO;
@@ -53,7 +54,7 @@ public class JDBCIBANDAO implements IBANDAO {
 
 	public IBANDTO get(String iban) {
 		try {
-			Map<String, Object> query = this.queryRunner.query(SELECT_IBAN_STATMENT, new MapHandler());
+			Map<String, Object> query = this.queryRunner.query("select * from iban WHERE iban_value = '"+iban+"'", new MapHandler());
 			IBANDTO populateIBANDTO = populateIBANDTO(query);
 			if (populateIBANDTO == null)
 				throw new DAOException("cannot get iban  : " + iban);

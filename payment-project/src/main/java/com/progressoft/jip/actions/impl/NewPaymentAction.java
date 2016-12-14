@@ -9,11 +9,13 @@ import javax.inject.Inject;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.actions.AbstractPaymentEditAction;
 import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
+import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentBuilder;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 import com.progressoft.jip.ui.field.BigDecimalField;
@@ -46,6 +48,8 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	private PaymentPurposeDAO paymentDao;
 	@Inject
 	private PaymentBuilder paymentBuilder;
+	@Inject
+	private IBANDAO ibandao;
 
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(PaymentInfo.class).setDefaultObjectStrategy(this)
@@ -71,7 +75,8 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, PaymentInfo paymentInfo) {
-		paymentBuilder.getNewPayment(paymentInfo);
+		Payment newPayment = paymentBuilder.getNewPayment(paymentInfo);
+		newPayment.commitPayment();
 	}
 
 	private static class PaymentInfoImpl implements PaymentInfo {

@@ -12,23 +12,28 @@ import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.PaymentProcessor;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
+import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public class PaymentProcessorImpl implements PaymentProcessor {
 
 	@Inject
 	private PaymentDAO paymentDao;
+	@Inject
+	private IBANDAO ibanDao;
 
 	@Override
 	public void processPayment(PaymentInfo paymentInfo) {
-		paymentDao.save(new PaymentDtoImpl(paymentInfo));
+		paymentDao.save(new PaymentDtoImpl(paymentInfo, ibanDao));
 	}
 
 	private static class PaymentDtoImpl implements PaymentDTO {
 		private PaymentInfo paymentInfo;
+		private IBANDAO ibanDao;
 
-		public PaymentDtoImpl(PaymentInfo paymentInfo) {
+		public PaymentDtoImpl(PaymentInfo paymentInfo, IBANDAO ibanDao) {
 			this.paymentInfo = paymentInfo;
+			this.ibanDao = ibanDao;
 		}
 
 		@Override
@@ -43,7 +48,7 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 
 		@Override
 		public IBANDTO getBeneficiaryIBAN() {
-			return paymentInfo.getBeneficiaryIBAN();
+			return ibanDao.get(paymentInfo.getBeneficiaryIBAN().getIBANValue());
 		}
 
 		@Override
