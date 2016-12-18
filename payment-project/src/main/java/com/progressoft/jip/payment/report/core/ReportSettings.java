@@ -1,23 +1,13 @@
-package com.progressoft.jip.payment.report;
+package com.progressoft.jip.payment.report.core;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import com.progressoft.jip.payment.PaymentDTO;
 
 public class ReportSettings {
 	private Iterable<PaymentDTO> payments;
 	private Path path;
 	private String fileName;
-	private FileExtension fileExtension;
-
-	public ReportSettings(Iterable<PaymentDTO> payments, String path, String fileName, FileExtension fileExtension) {
-		super();
-		this.payments = payments;
-		this.path = Paths.get(path);
-		this.fileName = fileName;
-		this.fileExtension = fileExtension;
-	}
+	private String fileExtension;
 
 	public Iterable<PaymentDTO> getPayments() {
 		return payments;
@@ -43,15 +33,11 @@ public class ReportSettings {
 		this.fileName = fileName;
 	}
 
-	public FileExtension getFileExtention() {
+	public String getFileExtention() {
 		return fileExtension;
 	}
 
-	public void setFileExtention(FileExtension fileExtention) {
+	public void setFileExtention(String fileExtention) {
 		this.fileExtension = fileExtention;
-	}
-
-	public enum FileExtension {
-		CSV, XML
 	}
 }

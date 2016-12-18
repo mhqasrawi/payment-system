@@ -1,4 +1,4 @@
-package com.progressoft.jip.payment.report;
+package com.progressoft.jip.payment.report.core;
 
 public interface ReportNode<T> {
 

@@ -1,12 +1,13 @@
 package com.progressoft.jip.test.report;
 
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.PaymentPurpose;
@@ -16,14 +17,13 @@ import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.customer.CustomerDTOImpl;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
-import com.progressoft.jip.payment.report.ReportGenerator;
-import com.progressoft.jip.payment.report.ReportManager;
-import com.progressoft.jip.payment.report.ReportSettings;
-import com.progressoft.jip.payment.report.XMLReportGenerator;
-import com.progressoft.jip.payment.report.ReportSettings.FileExtension;
+import com.progressoft.jip.payment.report.core.ReportGeneratorException;
+import com.progressoft.jip.payment.report.core.ReportManagerException;
+import com.progressoft.jip.payment.report.core.ReportSettings;
+import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
 
 public class ReportTestCases {
-	private ReportGenerator generator = new ReportManager();
+	private ReportManagerImpl reportManager = new ReportManagerImpl();
 	private List<PaymentDTO> payments = new LinkedList<>();
 	private AccountDTOImpl account = new AccountDTOImpl();
 	private CustomerDTOImpl customer = new CustomerDTOImpl();
@@ -122,7 +122,6 @@ public class ReportTestCases {
 		String description;
 
 		public PurposeDTOImpl(String shortCode, String description) {
-			super();
 			this.shortCode = shortCode;
 			this.description = description;
 		}
@@ -152,7 +151,6 @@ public class ReportTestCases {
 		account.setCurrency(transferCurrency);
 		account.setCustomerDTO(customer);
 		account.setIbandto(iban);
-		account.setCustomerDTO(customer);
 
 		accounts.add(account);
 
@@ -166,28 +164,53 @@ public class ReportTestCases {
 
 		payments.add(payment);
 		payments.add(payment);
-		payments.add(payment);
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Ignore
-	public void callingGenerateReportMethod_WithNullParam_ShouldThrowNullPointerException() {
-		 generator.generateReport(null);
+	public void callingGenerateReportMethod_WithNullSettings_ShouldThrowNullPointerException() throws ReportManagerException {
+			reportManager.generateReport(null);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void callingGenerateReportMethod_WithNullSettingsParams_ShouldThrowNullPointerException() throws ReportManagerException {
+		ReportSettings settings = new ReportSettings();
+		settings.setFileExtention(null);
+		settings.setFileName(null);
+		settings.setPath(null);
+		settings.setPayments(null);
+			reportManager.generateReport(settings);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	@Ignore
-	public void callingGenerateReportMethod_WithEmptyParam_ShouldThrowIllegalArgumentException() {
+	@SuppressWarnings("unchecked")
+	@Test(expected = ReportManagerException.class)
+	public void callingGenerateReportMethod_WithEmptySettingsParams_ShouldThrowReportManagerException() throws ReportManagerException {
+		ReportSettings settings = new ReportSettings();
+		settings.setFileExtention("");
+		settings.setFileName("");
+		settings.setPath(Paths.get("C:\\"));
+		settings.setPayments((Iterable<PaymentDTO>)Collections.EMPTY_LIST);
+		reportManager.generateReport(settings);
 	}
 
+	@Test(expected = ReportManagerException.class)
+	public void callingGenerateReportMethod_WithUnsupportedExtension_ShouldThrowReportException() throws ReportManagerException {
+		ReportSettings settings = new ReportSettings();
+		settings.setFileExtention("xyz");
+		settings.setFileName("name");
+		settings.setPath(Paths.get("C:/"));
+		settings.setPayments(payments);
+		reportManager.generateReport(settings);
+	}
+	
 	@Test
-	public void callingGenerateReportMethod_WithValidParam_ShouldGenerateReport() {
-		generator.generateReport(
-				new ReportSettings(payments, "C:/Users/u620/Desktop/Success", "report", FileExtension.XML));
-	}
-
-	@Ignore
-	@Test
-	public void Given_Action_Expected() {
+	public void callingGenerateReportMethod_WithValidParams_ShouldGenerateReport() throws ReportManagerException {
+		ReportSettings settings = new ReportSettings();
+		settings.setFileName("report");
+		settings.setPath(Paths.get("C:/Users/u620/Desktop/Success"));
+		settings.setFileExtention("csv");
+		settings.setPayments(payments);
+		reportManager.generateReport(settings);
+		settings.setFileExtention("xml");
+		reportManager.generateReport(settings);
 	}
 }

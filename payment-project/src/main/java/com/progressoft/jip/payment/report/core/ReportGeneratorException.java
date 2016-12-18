@@ -1,4 +1,4 @@
-package com.progressoft.jip.payment.report;
+package com.progressoft.jip.payment.report.core;
 
 @SuppressWarnings("serial")
 public class ReportGeneratorException extends RuntimeException {
