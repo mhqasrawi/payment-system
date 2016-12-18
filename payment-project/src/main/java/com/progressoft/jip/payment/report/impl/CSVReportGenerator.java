@@ -83,15 +83,12 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 		applySeparator();
 		put(node.getName());
 		nodeStarted = false;
-		if (node instanceof HierarchicalReportNode) {
-			if (!nested) {
-				tempNodeCache.add(node);
-			}
-			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, (newNode) -> writeColumns(newNode, true));
-		} else if (!nested) {
+		if (!nested) {
 			tempNodeCache.add(node);
-			nodeStarted = false;
 		}
+		if (node instanceof HierarchicalReportNode) {
+			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, (newNode) -> writeColumns(newNode, true));
+		} 
 	}
 
 	private void writeRecordNode(ReportNode node) {
