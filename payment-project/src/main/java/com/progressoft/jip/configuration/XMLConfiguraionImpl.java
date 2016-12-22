@@ -9,7 +9,7 @@ import org.apache.commons.configuration.XMLConfiguration;
  * @author u612
  *
  */
-public class XMLConfiguraionImpl extends Properties implements Configuration {
+public class XMLConfiguraionImpl implements Configuration {
 
 	private static final long serialVersionUID = -475401904344609780L;
 
