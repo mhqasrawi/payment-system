@@ -4,23 +4,24 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
 
-import javax.inject.Inject;
-
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.PaymentInfo;
-import com.progressoft.jip.payment.PaymentProcessor;
+import com.progressoft.jip.payment.PaymentUseCaseProcessor;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
-public class PaymentProcessorImpl implements PaymentProcessor {
+public class NewPaymentUseCase implements PaymentUseCaseProcessor {
 
-	@Inject
-	private PaymentDAO paymentDao;
-	@Inject
-	private IBANDAO ibanDao;
+	private final PaymentDAO paymentDao;
+	private final IBANDAO ibanDao;
+
+	public NewPaymentUseCase(PaymentDAO paymentDao, IBANDAO ibanDao) {
+		this.paymentDao = paymentDao;
+		this.ibanDao = ibanDao;
+	}
 
 	@Override
 	public void processPayment(PaymentInfo paymentInfo) {

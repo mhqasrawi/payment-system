@@ -6,11 +6,13 @@ import java.util.Currency;
 
 import javax.inject.Inject;
 
+import com.progressoft.jip.NewPaymentUseCase;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.actions.AbstractPaymentEditAction;
 import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
 import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentBuilder;
+import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
@@ -45,11 +47,13 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	@Inject
 	private IBANValidator ibanValidator;
 	@Inject
-	private PaymentPurposeDAO paymentDao;
+	private PaymentPurposeDAO paymentPurposeDao;
 	@Inject
 	private PaymentBuilder paymentBuilder;
 	@Inject
-	private IBANDAO ibandao;
+	private IBANDAO ibanDao;
+	@Inject
+	private PaymentDAO paymentDao;
 
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(PaymentInfo.class).setDefaultObjectStrategy(this)
@@ -63,7 +67,7 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 		form.addField(new StringField().setName(BENEFICIARY_NAME).setDescription(ENTER_BENEFICIARY_NAME));
 		form.addField(new BigDecimalField().setName(PAYMENT_AMOUNT).setDescription(ENTER_PAYMENT_AMOUNT));
 		form.addField(new CurrencyField().setName(TRANSFER_CURRENCY).setDescription(ENTER_TRANSFER_CURRENCY));
-		form.addField(new PaymentPurposeField(paymentDao).setName(PAYMENT_PURPOSE)
+		form.addField(new PaymentPurposeField(paymentPurposeDao).setName(PAYMENT_PURPOSE)
 				.setDescription(ENTER_PAYMENT_PURPOSE_SHORT_CODE));
 		return form;
 	}
@@ -76,7 +80,7 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, PaymentInfo paymentInfo) {
 		Payment newPayment = paymentBuilder.getNewPayment(paymentInfo);
-		newPayment.commitPayment();
+		newPayment.doAction(new NewPaymentUseCase(paymentDao, ibanDao));
 	}
 
 	private static class PaymentInfoImpl implements PaymentInfo {

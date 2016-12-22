@@ -19,6 +19,10 @@ public interface AccountDTO extends DTO {
 	Currency getCurreny();
 
 	AccountStatus getAccountStatus();
+	
+	String getPaymentRule();
+	
+	String getPaymentRuleInfo();
 
 	int getIbanId();
 

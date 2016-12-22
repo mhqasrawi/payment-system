@@ -1,41 +1,39 @@
 package com.progressoft.jip.payment.impl;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ServiceLoader;
 
 import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentInfo;
-import com.progressoft.jip.payment.PaymentProcessor;
-import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.payment.PaymentUseCaseProcessor;
 
 public class PaymentImpl implements Payment {
 
+	private final static List<PaymentValidation> paymentValidations;
+
+	static {
+		List<PaymentValidation> validators = new ArrayList<>();
+		ServiceLoader<PaymentValidation> serviceLoader = ServiceLoader.load(PaymentValidation.class);
+		Iterator<PaymentValidation> iterator = serviceLoader.iterator();
+		iterator.forEachRemaining(validators::add);
+		paymentValidations = Collections.unmodifiableList(validators);
+	}
+	
+	
 	private final PaymentInfo paymentInfo;
-	private final PaymentProcessor paymentProcessor;
-	
-	@Inject
-	private IBANValidator ibanValidator;
 
-	PaymentImpl(PaymentInfo paymentInfo, PaymentProcessor paymentProcessor) {
+	PaymentImpl(PaymentInfo paymentInfo) {
 		this.paymentInfo = paymentInfo;
-		this.paymentProcessor = paymentProcessor;
-	}
-	
-	public void validatePayment(){
-		validateOrdaringAccount();
-		validateBeneficaryAccount();
 	}
 
-
-	private void validateOrdaringAccount() {
-		ibanValidator.validate(paymentInfo.getOrderingAccount().getIban());
+	void validatePayment() {
+		paymentValidations.forEach((paymentValidation) -> paymentValidation.validate(paymentInfo));
 	}
 
-	private void validateBeneficaryAccount() {
-		ibanValidator.validate(paymentInfo.getBeneficiaryIBAN());
-	}
-
-	@Override
-	public void commitPayment() {
+	public void doAction(PaymentUseCaseProcessor paymentProcessor) {
 		paymentProcessor.processPayment(paymentInfo);
 	}
 

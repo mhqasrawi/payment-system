@@ -96,4 +96,16 @@ public class AccountDTOImpl implements AccountDTO {
 		return this.ibanId;
 	}
 
+	@Override
+	public String getPaymentRule() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPaymentRuleInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

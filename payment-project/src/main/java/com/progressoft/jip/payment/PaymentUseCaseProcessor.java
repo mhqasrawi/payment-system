@@ -1,6 +1,6 @@
 package com.progressoft.jip.payment;
 
-public interface PaymentProcessor {
+public interface PaymentUseCaseProcessor {
 
 	void processPayment(PaymentInfo paymentInfo);
 
