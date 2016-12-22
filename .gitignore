@@ -2,3 +2,5 @@ target/
 bin/
 *.classpath
 *.prefs
+*.project
+*.settings
