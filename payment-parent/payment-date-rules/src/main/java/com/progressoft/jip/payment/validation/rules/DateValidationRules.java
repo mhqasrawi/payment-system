@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ServiceLoader;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -31,12 +32,25 @@ public class DateValidationRules implements PaymentValidation {
 	}
 
 	public void validate(PaymentInfo info) {
-		DateRule dateRule = dateRulesValidation.get(info.getOrderingAccount().getPaymentRule());
+		String paymentRuleId = info.getOrderingAccount().getPaymentRule();
+		DateRule dateRule = dateRulesValidation.get(paymentRuleId);
+		if(Objects.isNull(dateRule)){
+			throw new DateValidationRulesException("No Date Validation Rules For These Rules "+paymentRuleId);
+		}
 		dateRule.validatePaymentDate(info);
 	}
 
 	public static Iterable<IdDescreptionPair> getDateValidationRulesDescription() {
 		return idDescreptionPairs;
+	}
+	
+	public class DateValidationRulesException extends RuntimeException{
+		
+		private static final long serialVersionUID = 6434763956175433043L;
+
+		public DateValidationRulesException(String message){
+			super(message);
+		}
 	}
 
 }
