@@ -24,7 +24,7 @@ public class Main {
 		XmlFileUserInterfaceGenerator uiGenerator = appContext.getBean(XmlFileUserInterfaceGenerator.class);
 		context.put(MenuContext.MENU_RENDER_MANGER, renderManger);
 		renderManger.renderMenu(uiGenerator.generateUi());
+
 	}
-	
-	
+
 }

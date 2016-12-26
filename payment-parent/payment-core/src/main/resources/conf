@@ -1,3 +1,3 @@
--Dapp.context.location=C:\Users\u612\Desktop\payment-ws\payment-parent\payment-core\src\main\resources\application-context.xml
- -Dconfiguration.file.path=C:\Users\u612\Desktop\payment-ws\payment-parent\payment-core\src\main\resources\conf.xml
- -Dlog4j.configuration=C:\Users\u612\Desktop\payment-ws\payment-parent\payment-core\src\main\resources\log4j.properties
+-Dapp.context.location=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/application-context.xml 
+ -Dconfiguration.file.path=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/conf.xml
+ -Dlog4j.configuration=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/log4j.properties

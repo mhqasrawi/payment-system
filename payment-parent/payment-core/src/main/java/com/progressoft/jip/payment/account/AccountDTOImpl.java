@@ -15,6 +15,8 @@ public class AccountDTOImpl implements AccountDTO {
 	private AccountStatus accountStatus;
 	private CustomerDTO customerDTO;
 	private int ibanId;
+	private String paymentRule;
+	private String paymentRuleInfo;
 
 	public AccountDTOImpl() {
 	}
@@ -29,6 +31,8 @@ public class AccountDTOImpl implements AccountDTO {
 		this.setId(accountDTO.getId());
 		this.setCustomerDTO(accountDTO.getCustomerDTO());
 		this.setIbanId(accountDTO.getIbanId());
+		this.setPaymentRule(accountDTO.getPaymentRule());
+		this.setPaymentRuleInfo(accountDTO.getPaymentRuleInfo());
 	}
 
 	public void setCustomerDTO(CustomerDTO customerDTO) {
@@ -57,6 +61,14 @@ public class AccountDTOImpl implements AccountDTO {
 
 	public void setAccountStatus(AccountStatus accountStatus) {
 		this.accountStatus = accountStatus;
+	}
+
+	public void setPaymentRule(String paymentRule) {
+		this.paymentRule = paymentRule;
+	}
+
+	public void setPaymentRuleInfo(String paymentRuleInfo) {
+		this.paymentRuleInfo = paymentRuleInfo;
 	}
 
 	public int getId() {
@@ -98,14 +110,12 @@ public class AccountDTOImpl implements AccountDTO {
 
 	@Override
 	public String getPaymentRule() {
-		// TODO Auto-generated method stub
-		return null;
+		return paymentRule;
 	}
 
 	@Override
 	public String getPaymentRuleInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		return paymentRuleInfo;
 	}
 
 }

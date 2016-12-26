@@ -45,5 +45,4 @@ public class EnglishTranscriptionTest {
 	public void GivenNegativeAmount_WhenTransScript_ThenPaymentAmountExceptionThrown() {
 		transcription.transcript(-10);
 	}
-
 }

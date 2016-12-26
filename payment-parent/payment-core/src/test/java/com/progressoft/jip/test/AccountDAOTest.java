@@ -32,6 +32,8 @@ import com.progressoft.jip.payment.id.generator.IdDAOImpl;
  */
 public class AccountDAOTest extends DataSourceConfig {
 
+	private static final String RULE1 = "rule1";
+	private static final String RULE1_INFO = "rule1_info";
 	private DataSource dataSource;
 	private AccountPersistenceService accountPersistenceService;
 	private IBANPersistenceService ibanPersistenceService;
@@ -47,7 +49,7 @@ public class AccountDAOTest extends DataSourceConfig {
 	}
 
 	@Test
-	public void GivenEmptyTable_InsertNewAccount_ThenAccountReturnedWithSave() {
+	public void GivenEmptyTable_WhenInsertNewAccount_ThenAccountReturnedWithSave() {
 		AccountDTOImpl accountDTO = buildAccountDTO(0);
 
 		IBANDTO savedIBAN = getIbandto(0);
@@ -55,6 +57,8 @@ public class AccountDAOTest extends DataSourceConfig {
 
 		AccountDTO savedAccount = saveAccountDTO(accountDTO, savedIBAN);
 		assertEquals(2, savedAccount.getId());
+		assertEquals(RULE1, savedAccount.getPaymentRule());
+		assertEquals(RULE1_INFO, savedAccount.getPaymentRuleInfo());
 
 	}
 
@@ -93,7 +97,9 @@ public class AccountDAOTest extends DataSourceConfig {
 		Iterator<AccountDTO> iterator = all.iterator();
 		while (iterator.hasNext()) {
 			size += 1;
-			iterator.next();
+			AccountDTO next = iterator.next();
+			assertEquals(RULE1, next.getPaymentRule());
+			assertEquals(RULE1_INFO, next.getPaymentRuleInfo());
 		}
 		assertEquals(3, size);
 	}
@@ -160,6 +166,8 @@ public class AccountDAOTest extends DataSourceConfig {
 		CustomerDTOImpl customerDTO = new CustomerDTOImpl();
 		customerDTO.setName("Mohd Awad" + postFix);
 		accountDTO.setCustomerDTO(customerDTO);
+		accountDTO.setPaymentRule(RULE1);
+		accountDTO.setPaymentRuleInfo(RULE1_INFO);
 		return accountDTO;
 	}
 

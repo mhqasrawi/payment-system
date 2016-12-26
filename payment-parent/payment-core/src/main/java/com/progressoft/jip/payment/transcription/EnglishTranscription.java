@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 public class EnglishTranscription implements Transcription {
 
 	public static final String ENG = "ENG";
+
 	private final static String CURRENCY = " USD";
 
 	private static final String ZERO = "zero";
