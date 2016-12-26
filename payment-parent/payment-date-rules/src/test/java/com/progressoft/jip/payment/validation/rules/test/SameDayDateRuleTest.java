@@ -1,4 +1,4 @@
-package com.progressoft.jip.payment.validation.rules.tests;
+package com.progressoft.jip.payment.validation.rules.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,35 +15,34 @@ import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.validation.rules.DateRule;
-import com.progressoft.jip.payment.validation.rules.SameYearDateRule;
+import com.progressoft.jip.payment.validation.rules.SameDayDateRule;
 
-public class SameYearDateRuleTest {
-	private DateRule sameYearDateRule = new SameYearDateRule();
+public class SameDayDateRuleTest {
+	private DateRule sameDayDateRule = new SameDayDateRule();
 	private PaymentInfoMock paymentInfo = new PaymentInfoMock();
 
 	@Test
-	public void givenNewSameYearDateRuleThenIdAndDescriptionShouldCorrect() {
-		assertEquals("same-year", sameYearDateRule.getId());
-		assertEquals("Payment should be within the same year", sameYearDateRule.getDescription());
+	public void givenNewSameDayDateRuleThenIdAndDescriptionShouldCorrect() {
+		assertEquals("same-day", sameDayDateRule.getId());
+		assertEquals("Payment should be within the same day", sameDayDateRule.getDescription());
 	}
 
 	@Test
-	public void givenPaymentWithSameYearValidationShouldBeTrue() {
+	public void givenPaymentWithSameDayValidationShouldBeTrue() {
 		paymentInfo.setPaymentDate(LocalDateTime.now());
-		assertTrue(sameYearDateRule.validatePaymentDate(paymentInfo));
+		assertTrue(sameDayDateRule.validatePaymentDate(paymentInfo));
 	}
 
 	@Test
-	public void givenPaymentInNextTwoYearsThenValidationShouldBeFalse() {
-		paymentInfo.setPaymentDate(LocalDateTime.now().plusYears(2));
-		assertFalse(sameYearDateRule.validatePaymentDate(paymentInfo));
+	public void givenPaymentInNextTwoDaysThenValidationShouldBeFalse() {
+		paymentInfo.setPaymentDate(LocalDateTime.now().plusDays(2));
+		assertFalse(sameDayDateRule.validatePaymentDate(paymentInfo));
 	}
 
 	@Test
-	public void givenPaymentWithPreviousYearThenValidationShouldBeFalse() {
-		paymentInfo.setPaymentDate(LocalDateTime.now().minusYears(1));
-		assertFalse(sameYearDateRule.validatePaymentDate(paymentInfo));
-
+	public void givenPaymentWithPreviousDayThenValidationShouldBeFalse() {
+		paymentInfo.setPaymentDate(LocalDateTime.now().minusDays(1));
+		assertFalse(sameDayDateRule.validatePaymentDate(paymentInfo));
 	}
 
 	private class PaymentInfoMock implements PaymentInfo {
@@ -88,4 +87,5 @@ public class SameYearDateRuleTest {
 			this.paymentDate = paymentDate;
 		}
 	}
+
 }
