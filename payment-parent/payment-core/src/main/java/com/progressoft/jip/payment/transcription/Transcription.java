@@ -4,6 +4,6 @@ public interface Transcription {
 
 	String getSupportedLanguage();
 
-	String transcript(long number);
+	String transcript(float number);
 
 }

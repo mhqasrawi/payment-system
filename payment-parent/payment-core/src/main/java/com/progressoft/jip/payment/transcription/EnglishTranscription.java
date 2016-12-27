@@ -4,10 +4,6 @@ import java.text.DecimalFormat;
 
 public class EnglishTranscription implements Transcription {
 
-	public static final String ENG = "ENG";
-
-	private final static String CURRENCY = " USD";
-
 	private static final String ZERO = "zero";
 
 	private static final String HUNDRED = " hundred";
@@ -27,22 +23,27 @@ public class EnglishTranscription implements Transcription {
 			" eight", " nine", " ten", " eleven", " twelve", " thirteen", " fourteen", " fifteen", " sixteen",
 			" seventeen", " eighteen", " nineteen" };
 
+	private static final String CURRENCY = " USD";
+
+	public static final String ENG = "ENG";
+
 	private String convertLessThanOneThousand(int number) {
 		String numWords;
+		int num = number;
 
-		if (number % 100 < 20) {
-			numWords = numNames[number % 100];
-			number /= 100;
+		if (num % 100 < 20) {
+			numWords = numNames[num % 100];
+			num /= 100;
 		} else {
-			numWords = numNames[number % 10];
-			number /= 10;
+			numWords = numNames[num % 10];
+			num /= 10;
 
-			numWords = tensNames[number % 10] + numWords;
-			number /= 10;
+			numWords = tensNames[num % 10] + numWords;
+			num /= 10;
 		}
-		if (number == 0)
+		if (num == 0)
 			return numWords;
-		return numNames[number] + HUNDRED + numWords;
+		return numNames[num] + HUNDRED + numWords;
 	}
 
 	@Override
@@ -50,18 +51,19 @@ public class EnglishTranscription implements Transcription {
 		return ENG;
 	}
 
-	public String transcript(long number) {
+	@Override
+	public String transcript(float number) {
 
 		if (number < 0)
 			throw new PaymentAmountException("Ammount Cannot Be Negative");
 
-		if (number == 0) {
+		if (Float.compare(number, 0f)==0) {
 			return ZERO;
 		}
 
-		String snumber = Long.toString(number);
+		String snumber = Float.toString(number);
 
-		snumber = padZeros(number);
+		snumber = padZeros(Integer.parseInt(snumber.substring(0, snumber.indexOf('.'))));
 
 		int billions = extractBillions(snumber);
 		int millions = extractMillions(snumber);
@@ -71,8 +73,31 @@ public class EnglishTranscription implements Transcription {
 		String result = convertBillions(billions) + convertMillions(millions)
 				+ convertHundredThousands(hundredThousands) + convertThousands(thousands);
 
-		String numberInWords = removeExtraSpaces(result).trim() + CURRENCY;
+		String numberInWords;
+		if("".equals(result.trim())) {
+			numberInWords = ZERO + CURRENCY + " and" + getCents(number) + " cents";
+		}else {
+			numberInWords = removeExtraSpaces(result).trim() + CURRENCY + " and" + getCents(number) + " cents";
+		}
 		return numberInWords.trim();
+	}
+
+	private String getCents(float number) {
+		String snumber;
+		snumber = Float.toString(number);
+		int pos = snumber.indexOf('.');
+		String scents;
+		if(pos != -1) {
+			int cents = Integer.parseInt(snumber.substring(pos +1));
+			if(cents != 0) {
+				scents = convertThousands(cents);
+			}else {
+				scents = " zero";
+			}
+		} else {
+			scents = " zero";
+		}
+		return scents;
 	}
 
 	private String padZeros(long number) {
@@ -136,26 +161,22 @@ public class EnglishTranscription implements Transcription {
 
 	private int extraxtThousands(String snumber) {
 		String thousandsPart = snumber.substring(9, 12);
-		int thousands = Integer.parseInt(thousandsPart);
-		return thousands;
+		return Integer.parseInt(thousandsPart);
 	}
 
 	private int extractHunderedThousands(String snumber) {
 		String hunderdThousandsPart = snumber.substring(6, 9);
-		int hundredThousands = Integer.parseInt(hunderdThousandsPart);
-		return hundredThousands;
+		return Integer.parseInt(hunderdThousandsPart);
 	}
 
 	private int extractMillions(String snumber) {
 		String millionsPart = snumber.substring(3, 6);
-		int millions = Integer.parseInt(millionsPart);
-		return millions;
+		return Integer.parseInt(millionsPart);
 	}
 
 	private int extractBillions(String snumber) {
 		String billionsPart = snumber.substring(0, 3);
-		int billions = Integer.parseInt(billionsPart);
-		return billions;
+		return Integer.parseInt(billionsPart);
 	}
 
 	private String removeExtraSpaces(String result) {
