@@ -55,6 +55,7 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	@Inject
 	private PaymentDAO paymentDao;
 
+	
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(PaymentInfo.class).setDefaultObjectStrategy(this)
 				.setForm(getForm()).setSubmitAction(this).build());

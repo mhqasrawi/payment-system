@@ -9,6 +9,7 @@
 	default-autowire="byType">
 	<context:annotation-config />
 
+	<bean id="dateRulesValidationProvider" class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl"/>
 	<bean id="paymentDao" class="com.progressoft.jip.payment.impl.PaymentDAOImpl" />
 	<bean id="configuration" class="com.progressoft.jip.configuration.XMLConfiguraionImpl"
 		lazy-init="false" init-method="init" />

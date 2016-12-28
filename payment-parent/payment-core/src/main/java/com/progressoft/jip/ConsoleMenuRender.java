@@ -2,12 +2,16 @@ package com.progressoft.jip;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.progressoft.jip.ui.field.AbstractConditionalExtraField;
+import com.progressoft.jip.ui.field.AbstractMultipleChoiceField;
 import com.progressoft.jip.ui.field.Field;
+import com.progressoft.jip.ui.field.FieldThatNeedMenuContext;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.Menu;
 import com.progressoft.jip.ui.menu.MenuContext;
@@ -16,7 +20,7 @@ import com.progressoft.jip.ui.menu.MenuRenderManger;
 public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderManger<T> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleMenuRender.class);
-	
+
 	private PrintStream printStream;
 	private T menuContext;
 	private Scanner scanner;
@@ -35,6 +39,30 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 		showMenu(menu);
 	}
 
+	@Override
+	public void renderForm(Form form) {
+		printStream.println(form.getDescription());
+		printStream.println();
+		for (Field<?> field : form.getFields()) {
+			if(field instanceof FieldThatNeedMenuContext){
+				((FieldThatNeedMenuContext)field).setMenuContext(menuContext); 
+			}
+			if (field instanceof AbstractMultipleChoiceField) {
+				showMultipleChoiceField(field);
+			} else if (field instanceof AbstractConditionalExtraField) {
+				showConditionExtraField(field);
+			} else {
+				showInputField(field);
+			}
+		}
+	}
+
+	private void showConditionExtraField(Field<?> field) {
+		AbstractConditionalExtraField conditionalExtraField = (AbstractConditionalExtraField) field;
+		if (conditionalExtraField.isVisiable(menuContext))
+			showInputField(conditionalExtraField);
+	}
+
 	private void showMenu(Menu<T> menu) {
 		showMenu(menu, false);
 	}
@@ -45,16 +73,16 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 			if (!skipAction) {
 				doMenuAction(menu);
 			}
-			if (menu.getSubMenu().size() != 0) {
+			if (!menu.getSubMenu().isEmpty()) {
 				printDescreption(menu);
 				showSubMenu(menu);
 				while (!showChoosenSubMenu(menu, getEnteredOption()))
-					;
+					continue;
 			} else {
 				showMenu(menuContext.popMenuStack(), true);
 			}
 		} catch (RuntimeException exception) {
-			LOGGER.error(exception.getMessage(),exception);
+			LOGGER.error(exception.getMessage(), exception);
 			printStream.println(exception.getMessage());
 			showMenu(menuContext.popMenuStack(), true);
 		}
@@ -66,7 +94,7 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 			printStream.println(String.format("	%d - %s", optionCount++, subMenu.getDescription()));
 		}
 		if (mainMenu != menu) {
-			printStream.println(String.format("	%d - %s", optionCount++, "Back"));
+			printStream.println(String.format("	%d - %s", optionCount, "Back"));
 		}
 	}
 
@@ -91,34 +119,52 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 	}
 
 	private int getEnteredOption() {
-		int subMenuNumber = scanner.nextInt();
-		return subMenuNumber;
+		return scanner.nextInt();
 	}
 
 	private void printDescreption(Menu<T> menu) {
 		printStream.println(menu.getDescription());
 	}
 
-	public void renderForm(Form form) {
-		printStream.println(form.getDescription());
-		printStream.println();
-		for (Field<?> field : form.getFields()) {
-			showField(field);
+	private void showMultipleChoiceField(Field<?> field) {
+		try {
+			AbstractMultipleChoiceField<?> multipleChoiceField = (AbstractMultipleChoiceField<?>) field;
+			String lineFromConsole = "0";
+			Integer userChoiceNumber = Integer.valueOf(lineFromConsole);
+			printStream.println(multipleChoiceField.getDescription());
+			Iterator<String> choices = multipleChoiceField.getChoices().iterator();
+			int count = 1;
+			while (choices.hasNext()) {
+				String choiceField = choices.next();
+				printStream.println(String.format("			%d  - %s", count++, choiceField));
+			}
+			while (userChoiceNumber < 1 || userChoiceNumber >= count) {
+				lineFromConsole = "";
+				while (lineFromConsole.length() < 1) {
+					lineFromConsole = scanner.nextLine();
+				}
+				userChoiceNumber = Integer.valueOf(lineFromConsole);
+			}
+			multipleChoiceField.selectedChoice(userChoiceNumber - 1);
+			field.setValue(multipleChoiceField.getSelectedChoice());
+		} catch (Exception ex) {
+			printStream.println(String.format("		Error : 	%s", ex.getMessage()));
+			LOGGER.error(ex.getMessage(), ex);
 		}
 	}
 
-	private void showField(Field<?> field) {
+	private void showInputField(Field<?> field) {
 		try {
 			printStream.print(String.format("	%s  :", field.getDescription()));
 			String lineFromConsole = "";
-			while (lineFromConsole.length() < 2) {
+			while (lineFromConsole.length() < 1) {
 				lineFromConsole = scanner.nextLine();
 			}
 			field.setValue(lineFromConsole);
 		} catch (Exception ex) {
-			printStream.println(String.format("Error : ", ex.getMessage()));
-			LOGGER.error(ex.getMessage(),ex);
-			showField(field);
+			printStream.println(String.format("Error : %s", ex.getMessage()));
+			LOGGER.error(ex.getMessage(), ex);
+			showInputField(field);
 		}
 	}
 

@@ -9,4 +9,6 @@ public class AccountDTOConstant {
 	public static final String ACCOUNT_STATUS_ACCOUNT_DTO = "accountStatus";
 	public static final String ACCOUNT_NAME_ACCOUNT_DTO = "accountName";
 	public static final String CUSTOMER_DTO_ACCOUNT_DTO = "customerDTO";
+	public static final String ACCOUNT_PAYMENT_RULE= "paymentRule";
+	public static final String PAYMENT_RULE_INFO ="paymentRuleInfo";
 }

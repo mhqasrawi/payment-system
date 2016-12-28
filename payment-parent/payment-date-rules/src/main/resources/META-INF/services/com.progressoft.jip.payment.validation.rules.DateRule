@@ -1,0 +1,5 @@
+com.progressoft.jip.payment.validation.rules.norestriction.NoRestrictionRules
+com.progressoft.jip.payment.validation.rules.CustomBoundDateRule
+com.progressoft.jip.payment.validation.rules.SameDayDateRule
+com.progressoft.jip.payment.validation.rules.SameMonthDateRule
+com.progressoft.jip.payment.validation.rules.SameYearDateRule

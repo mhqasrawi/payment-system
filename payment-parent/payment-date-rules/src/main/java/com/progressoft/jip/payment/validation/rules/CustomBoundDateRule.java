@@ -6,7 +6,7 @@ import com.progressoft.jip.payment.PaymentInfo;
 
 public class CustomBoundDateRule implements DateRule {
 
-	private final static String description = "Allow payments only within a specified number of days";
+	private static final String DESCRIPTION = "Allow payments only within a specified number of days";
 
 	@Override
 	public boolean validatePaymentDate(PaymentInfo paymentInfo) {
@@ -53,6 +53,6 @@ public class CustomBoundDateRule implements DateRule {
 
 	@Override
 	public String getDescription() {
-		return description;
+		return DESCRIPTION;
 	}
 }

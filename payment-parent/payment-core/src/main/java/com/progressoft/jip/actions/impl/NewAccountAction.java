@@ -1,11 +1,8 @@
 package com.progressoft.jip.actions.impl;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Configurable;
-
+import com.progressoft.jip.DateRulesValidationProvider;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.actions.AbstractPaymentNewAction;
 import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
@@ -15,11 +12,15 @@ import com.progressoft.jip.payment.account.AccountDTO.AccountStatus;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.ui.action.Action;
+import com.progressoft.jip.ui.field.AbstractConditionalExtraField;
+import com.progressoft.jip.ui.field.AbstractField;
 import com.progressoft.jip.ui.field.AccountStatusField;
 import com.progressoft.jip.ui.field.CurrencyField;
 import com.progressoft.jip.ui.field.CustomerField;
 import com.progressoft.jip.ui.field.IBANField;
 import com.progressoft.jip.ui.field.IntegerField;
+import com.progressoft.jip.ui.field.PaymentRulesField;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.form.FormImpl;
@@ -30,6 +31,9 @@ import com.progressoft.jip.ui.form.FormImpl;
  */
 public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> implements PaymentNewAction<AccountDTO> {
 
+	public static final String IS_THERE_EXTRA_INFO = "IsThereExtraInfo";
+
+	private static final String SELECT_PAYMENT_DATE_RULE = "Select Payment Date Rule";
 	private static final String ENTER_CUSTOMER_NAME = "Enter Customer Name";
 	private static final String CREATE_NEW_ACCOUNT_FORM_DESCRIPTION = "Create New Account";
 	private static final String ENTER_IBAN = "Enter IBAN";
@@ -43,10 +47,14 @@ public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> imple
 	private PaymentDynamicFormActionBuilder<AccountDTO> dynamicFormActionBuilder;
 	@Inject
 	private AccountPersistenceService accountService;
+	@Inject
+	private DateRulesValidationProvider dateRulesValidationProvider;
 
 	public void init() {
-		setAction(dynamicFormActionBuilder.setInterfaceType(AccountDTO.class).setSubmitAction(this)
-				.setForm(getNewAccountForm()).build());
+		Action<PaymentMenuContext> action = dynamicFormActionBuilder.setInterfaceType(AccountDTO.class)
+				.setSubmitAction(this).setForm(getNewAccountForm()).build();
+
+		setAction(action);
 	}
 
 	@Override
@@ -55,22 +63,45 @@ public class NewAccountAction extends AbstractPaymentNewAction<AccountDTO> imple
 	}
 
 	private Form getNewAccountForm() {
-		Form newAccountForm = new FormImpl(CREATE_NEW_ACCOUNT_FORM_DESCRIPTION)
-				.addField(new StringField().setDescription(ENTER_ACCOUNT_NUMBER)
-						.setName(AccountDTOConstant.ACCOUNT_NUMBER_ACCOUNT_DTO))
-				.addField(new StringField().setDescription(ENTER_ACCOUNT_NAME)
-						.setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO))
-				.addField(new CurrencyField().setDescription(ENTER_CURRENCY)
-						.setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO))
-				.addField(new IBANField(ibanValidator).setDescription(ENTER_IBAN)
-						.setName(AccountDTOConstant.IBAN_ACCOUNT_DTO))
-				.addField(new CustomerField().setDescription(ENTER_CUSTOMER_NAME)
-						.setName(AccountDTOConstant.CUSTOMER_DTO_ACCOUNT_DTO))
-				.addHiddenField(new IntegerField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO)
-						.setValue("0"))
-				.addHiddenField(new AccountStatusField().setDescription("")
-						.setName(AccountDTOConstant.ACCOUNT_STATUS_ACCOUNT_DTO).setValue(AccountStatus.ACTIVE.name()));
-		;
+		FormImpl newAccountForm = new FormImpl(CREATE_NEW_ACCOUNT_FORM_DESCRIPTION);
+		newAccountForm.addField(new StringField().setDescription(ENTER_ACCOUNT_NUMBER)
+				.setName(AccountDTOConstant.ACCOUNT_NUMBER_ACCOUNT_DTO));
+		newAccountForm.addField(new StringField().setDescription(ENTER_ACCOUNT_NAME)
+				.setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO));
+		newAccountForm.addField(
+				new CurrencyField().setDescription(ENTER_CURRENCY).setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO));
+		newAccountForm.addField(
+				new IBANField(ibanValidator).setDescription(ENTER_IBAN).setName(AccountDTOConstant.IBAN_ACCOUNT_DTO));
+		newAccountForm.addField(new CustomerField().setDescription(ENTER_CUSTOMER_NAME)
+				.setName(AccountDTOConstant.CUSTOMER_DTO_ACCOUNT_DTO));
+		newAccountForm.addField(new PaymentRulesField(dateRulesValidationProvider)
+				.setDescription(SELECT_PAYMENT_DATE_RULE).setName(AccountDTOConstant.ACCOUNT_PAYMENT_RULE));
+		newAccountForm.addField(
+				new NumberOfDay().setDescription("Enter Number Of Day").setName(AccountDTOConstant.PAYMENT_RULE_INFO));
+		newAccountForm.addHiddenField(
+				new IntegerField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("0"));
+		newAccountForm.addHiddenField(new AccountStatusField().setDescription("")
+				.setName(AccountDTOConstant.ACCOUNT_STATUS_ACCOUNT_DTO).setValue(AccountStatus.ACTIVE.name()));
 		return newAccountForm;
+	}
+
+	public static class NumberOfDay extends AbstractConditionalExtraField<String, PaymentMenuContext> {
+
+		@Override
+		public boolean isVisiable(PaymentMenuContext menuContext) {
+			Object value = menuContext.get(IS_THERE_EXTRA_INFO);
+			if (value == null)
+				return false;
+			else {
+				return (Boolean) value;
+			}
+		}
+
+		@Override
+		public AbstractField<String> setValue(String value) {
+			this.value = Integer.valueOf(value).toString();
+			return this;
+		}
+
 	}
 }

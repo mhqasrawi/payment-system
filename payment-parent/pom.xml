@@ -12,5 +12,6 @@
 	<modules>
 		<module>payment-core</module>
 		<module>payment-date-rules</module>
+		<module>payment-main</module>
 	</modules>
 </project>

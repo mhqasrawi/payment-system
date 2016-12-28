@@ -1,4 +1,4 @@
-package com.progressoft.jip.payment.validation.rules;
+package com.progressoft.jip;
 
 public class IdDescreptionPair {
 

@@ -9,6 +9,7 @@ import java.util.ServiceLoader;
 
 import org.apache.commons.collections.map.HashedMap;
 
+import com.progressoft.jip.IdDescreptionPair;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.impl.PaymentValidation;
 
@@ -17,13 +18,14 @@ import com.progressoft.jip.payment.impl.PaymentValidation;
  */
 public class DateValidationRules implements PaymentValidation {
 
-	private final static Map<String, DateRule> dateRulesValidation;
-	private final static List<IdDescreptionPair> idDescreptionPairs;
+	private static final  Map<String, DateRule> dateRulesValidation;
+	private static final List<IdDescreptionPair> idDescreptionPairs;
+	
 	static {
 		Map<String, DateRule> dateRules = new HashedMap();
 		List<IdDescreptionPair> ids = new ArrayList<>();
 		ServiceLoader<DateRule> serviceLoader = ServiceLoader.load(DateRule.class);
-		serviceLoader.iterator().forEachRemaining((dataRule) -> {
+		serviceLoader.iterator().forEachRemaining(dataRule -> {
 			dateRules.put(dataRule.getId(), dataRule);
 			ids.add(new IdDescreptionPair(dataRule.getId(), dataRule.getDescription()));
 		});
@@ -31,6 +33,7 @@ public class DateValidationRules implements PaymentValidation {
 		dateRulesValidation = Collections.unmodifiableMap(dateRules);
 	}
 
+	@Override
 	public void validate(PaymentInfo info) {
 		String paymentRuleId = info.getOrderingAccount().getPaymentRule();
 		DateRule dateRule = dateRulesValidation.get(paymentRuleId);

@@ -2,8 +2,6 @@ package com.progressoft.jip;
 
 import java.io.FileNotFoundException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.progressoft.jip.ui.menu.MenuContext;
@@ -12,11 +10,13 @@ import com.progressoft.jip.ui.menu.MenuRenderManger;
 public class Main {
 
 	private static final String APP_CONTEXT_LOCATION = "app.context.location";
-	public static PaymentMenuContext context = new MenuContextImpl();
-	public static MenuRenderManger<PaymentMenuContext> renderManger = new ConsoleMenuRender<PaymentMenuContext>(
+	public static final PaymentMenuContext context = new MenuContextImpl();
+	public static final MenuRenderManger<PaymentMenuContext> renderManger = new ConsoleMenuRender<>(
 			System.in, System.out, context);
 
-	private final static Logger logger = LoggerFactory.getLogger(Main.class);
+	private Main() {
+
+	}
 
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 		String appContextLocation = System.getProperty(APP_CONTEXT_LOCATION);

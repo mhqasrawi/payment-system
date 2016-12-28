@@ -37,9 +37,8 @@ public class SpringBasedActionGenerator implements ActionGenerator {
 	public Object generateConfiguredAction(ActionXml actionXml) throws ClassNotFoundException {
 		AutowireCapableBeanFactory autowireCapableBeanFactory = appContext.getAutowireCapableBeanFactory();
 		Class<?> loadClass = this.getClass().getClassLoader().loadClass(actionXml.getActionClassName().trim());
-		Object autowiredAction = autowireCapableBeanFactory.autowire(loadClass,
+		return autowireCapableBeanFactory.autowire(loadClass,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-		return autowiredAction;
 	}
 
 	private void callInitMethodIfExist(Object autowiredAction) {
