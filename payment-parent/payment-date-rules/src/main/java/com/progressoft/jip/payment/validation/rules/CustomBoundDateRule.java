@@ -3,6 +3,7 @@ package com.progressoft.jip.payment.validation.rules;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import com.progressoft.jip.payment.PaymentInfo;
+import com.progressoft.jip.payment.validation.rules.DateRule;
 
 public class CustomBoundDateRule implements DateRule {
 

@@ -8,7 +8,6 @@ import com.progressoft.jip.actions.PaymentDynamicFormActionBuilder;
 import com.progressoft.jip.actions.PaymentNewAction;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
-import com.progressoft.jip.payment.report.core.FileExtension;
 import com.progressoft.jip.payment.report.core.ReportManager;
 import com.progressoft.jip.payment.report.core.ReportSettings;
 import com.progressoft.jip.ui.field.PathField;
@@ -45,7 +44,7 @@ public class NewReportAction extends AbstractPaymentNewAction<ReportSettingWrapp
 		ReportSettings settings = new ReportSettings();
 		settings.setPath(object.getPath());
 		settings.setFileName(object.getFileName());
-		settings.setFileExtention(FileExtension.XML);
+		settings.setFileExtention("xml");
 		settings.setPayments(payments);
 		reportManager.generateReport(settings);
 	}

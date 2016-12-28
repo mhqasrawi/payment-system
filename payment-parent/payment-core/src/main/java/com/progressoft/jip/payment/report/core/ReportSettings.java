@@ -7,7 +7,7 @@ public class ReportSettings {
 	private Iterable<PaymentDTO> payments;
 	private Path path;
 	private String fileName;
-	private FileExtension fileExtension;
+	private String fileExtension;
 
 	public Iterable<PaymentDTO> getPayments() {
 		return payments;
@@ -33,11 +33,11 @@ public class ReportSettings {
 		this.fileName = fileName;
 	}
 
-	public FileExtension getFileExtention() {
+	public String getFileExtention() {
 		return fileExtension;
 	}
 
-	public void setFileExtention(FileExtension fileExtention) {
+	public void setFileExtention(String fileExtention) {
 		this.fileExtension = fileExtention;
 	}
 }
