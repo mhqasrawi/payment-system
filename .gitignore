@@ -3,3 +3,8 @@
 .classpath/
 .project/
 .settings/
+.idea
+payment-parent/.idea
+payment-parent/.settings
+/payment-parent/.project
+payment-parent/payment-parent.iml

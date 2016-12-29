@@ -31,6 +31,10 @@ public class MenuImpl<C extends MenuContext> implements Menu<C> {
 		this(description,Collections.emptyList());
 	}
 
+	@Override
+	public String getId() {
+		return String.valueOf(description.hashCode());
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -47,6 +51,8 @@ public class MenuImpl<C extends MenuContext> implements Menu<C> {
 	public void doAction(C t) {
 		action.doAction(t);
 	}
+
+
 
 	@Override
 	public int hashCode() {
