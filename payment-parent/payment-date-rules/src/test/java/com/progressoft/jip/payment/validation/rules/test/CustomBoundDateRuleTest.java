@@ -140,6 +140,12 @@ public class CustomBoundDateRuleTest {
 			return 0;
 		}
 
+		@Override
+		public BigDecimal getBalance() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	private class PaymentInfoMock implements PaymentInfo {

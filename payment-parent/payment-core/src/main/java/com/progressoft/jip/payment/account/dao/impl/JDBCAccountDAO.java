@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.account.dao.impl;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -31,26 +32,33 @@ public class JDBCAccountDAO implements AccountDAO {
 	private static final String DELETE_ACCOUNT_STATMENT = "delete from account WHERE account_number" + "=?";
 
 	private static final String SELECT_ALL_ACCOUNT = "select  account_number , id , account_name,"
-			+ "account_currency,account_status , customer_name , iban_id , rule,rule_info " + " from account";
-	private static final String UPDATE_ACCOUNT_STATMENT = "update account set account_number=? , account_name=?,account_currency=?,account_status =?,customer_name=?,rule=?,rule_info = ? WHERE id=?";
+			+ "account_currency,account_status , customer_name , iban_id , rule,rule_info,balance " + " from account";
+	private static final String UPDATE_ACCOUNT_STATMENT = "update account set account_number=? , account_name=?,account_currency=?,account_status =?,customer_name=?,rule=?,rule_info =?,balance=? WHERE id=?";
 	private static final String INSERT_ACCOUNT_STATMENT = "insert into account (id,account_number,account_name,account_currency,"
-			+ "account_status,customer_name,iban_id,rule,rule_info)values(?,?,?,?,?,?,?,?,?)";
+			+ "account_status,customer_name,iban_id,rule,rule_info,balance)values(?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_STATMENT_BASED_ON_ACCOUNT_NUMBER = "select  id , account_name,"
-			+ "account_currency,account_status , customer_name,iban_id,rule,rule_info" + " from account"
+			+ "account_currency,account_status , customer_name,iban_id,rule,rule_info,balance" + " from account"
 			+ " WHERE account_number='";
 	private static final String SELECT_STATMENT_BASED_ON_ACCOUNT_ID = "select  account_number , account_name,"
-			+ "account_currency,account_status,customer_name,iban_id,rule,rule_info" + " from account" + " WHERE id=";
+			+ "account_currency,account_status,customer_name,iban_id,rule,rule_info,balance" + " from account"
+			+ " WHERE id=";
 	private static final String SELECT_STATMENT_BASED_ON_CUSTOMER_NAME = "select  account_number , id , account_name,"
-			+ "account_currency,account_status , customer_name,rule,rule_info" + " from account WHERE customer_name='";
+			+ "account_currency,account_status , customer_name,rule,rule_info,balance"
+			+ " from account WHERE customer_name='";
 	private final QueryRunner queryRunner;
+	private DataSource dataSource;
 	private final IdDAO idDAO;
 	private static final String TABLE_NAME = "account";
 
 	public JDBCAccountDAO(DataSource dataSource) {
+		this.dataSource = dataSource;
 		this.queryRunner = new QueryRunner(dataSource);
 		this.idDAO = new IdDAOImpl(dataSource);
 	}
+	
+	
 
+	@Override
 	public AccountDTO save(AccountDTO account) {
 		if (account.getId() > 1) {
 			return updateIfExist(account);
@@ -60,7 +68,7 @@ public class JDBCAccountDAO implements AccountDAO {
 			int id = idDAO.save(TABLE_NAME);
 			this.queryRunner.update(INSERT_ACCOUNT_STATMENT, id, account.getAccountNumber(), account.getAccountName(),
 					account.getCurreny().getCurrencyCode(), status, account.getCustomerDTO().getName(),
-					account.getIban().getId(), account.getPaymentRule(), account.getPaymentRuleInfo());
+					account.getIban().getId(), account.getPaymentRule(), account.getPaymentRuleInfo(), account.getBalance());
 			AccountDTOImpl accountDTO = constructNewAccountDTO(account, id);
 			return accountDTO;
 		} catch (SQLException e) {
@@ -88,22 +96,34 @@ public class JDBCAccountDAO implements AccountDAO {
 		accountDTO.setIbanId(account.getIbanId());
 		accountDTO.setPaymentRule(account.getPaymentRule());
 		accountDTO.setPaymentRuleInfo(account.getPaymentRuleInfo());
+		accountDTO.setBalance(account.getBalance());
 		return accountDTO;
 	}
 
 	private void update(AccountDTO account) {
 		try {
+			this.dataSource.getConnection().setAutoCommit(false);
+			this.queryRunner.query(
+					String.format("select 1 from %s where id=%d for update", TABLE_NAME, account.getId()),
+					new MapHandler());
 			int update = this.queryRunner.update(UPDATE_ACCOUNT_STATMENT, account.getAccountNumber(),
 					account.getAccountName(), account.getCurreny().getCurrencyCode(),
 					account.getAccountStatus().getIndex(), account.getCustomerDTO().getName(), account.getPaymentRule(),
-					account.getPaymentRuleInfo(), account.getId());
+					account.getPaymentRuleInfo(), account.getBalance().toString(), account.getId());
 			System.out.println(update);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new DAOException("Error While Updating Account: " + account.getAccountNumber(), e);
+		} finally {
+			try {
+				this.dataSource.getConnection().setAutoCommit(true);
+			} catch (SQLException e) {
+				LOGGER.error(e.getMessage(), e);
+			}
 		}
 	}
 
+	@Override
 	public boolean delete(String accountNumber) {
 		try {
 			int deleted = this.queryRunner.update(DELETE_ACCOUNT_STATMENT, accountNumber);
@@ -116,6 +136,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		return true;
 	}
 
+	@Override
 	public AccountDTO get(String accountNumber) {
 		String sql = SELECT_STATMENT_BASED_ON_ACCOUNT_NUMBER + accountNumber + "'";
 
@@ -136,6 +157,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
 	}
 
+	@Override
 	public AccountDTO getById(int id) {
 		String sql = SELECT_STATMENT_BASED_ON_ACCOUNT_ID + id;
 
@@ -159,6 +181,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		}
 	}
 
+	@Override
 	public Iterable<AccountDTO> getAll() {
 		final List<AccountDTO> accountsDTO = new ArrayList<AccountDTO>();
 		try {
@@ -186,6 +209,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		};
 	}
 
+	@Override
 	public Iterable<AccountDTO> getAccountsByCustomerName(String customerName) {
 		String get_all_accounts = SELECT_STATMENT_BASED_ON_CUSTOMER_NAME + customerName + "'";
 
@@ -229,10 +253,9 @@ public class JDBCAccountDAO implements AccountDAO {
 		accountDTO.setAccountNumber((String) account.get("account_number"));
 		accountDTO.setPaymentRule((String) account.get("rule"));
 		accountDTO.setPaymentRuleInfo((String) account.get("rule_info"));
+		accountDTO.setBalance(new BigDecimal((String) account.get("balance")));
 		if (account.get("id") != null)
 			accountDTO.setId((Integer) account.get("id"));
 		return accountDTO;
-
 	}
-
 }

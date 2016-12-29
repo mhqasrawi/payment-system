@@ -56,7 +56,7 @@ public class XMLReportGenerator extends AbstractReportGenerator {
 
 	@Override
 	protected void endPayment() {
-		writeAndHandleException(() -> this.xmlStreamWriter.writeEndElement());
+		writeAndHandleException(this.xmlStreamWriter::writeEndElement);
 	}
 
 	@Override

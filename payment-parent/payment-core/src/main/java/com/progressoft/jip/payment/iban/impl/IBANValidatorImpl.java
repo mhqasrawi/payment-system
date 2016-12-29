@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import javax.inject.Inject;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidationException;
 import com.progressoft.jip.payment.iban.IBANValidator;
@@ -14,14 +14,13 @@ import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
 import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANSequencePair;
 
 public class IBANValidatorImpl implements IBANValidator {
-
-	private final String NUMERIC_REGEX = "[0-9]";
-	private final String ALPHABETIC_REGEX = "[A-Z]";
-	private final String ALPHANUMERIC_REGEX = "[0-9A-Z]";
+	private static final Logger LOGGER = LoggerFactory.getLogger(IBANValidatorImpl.class);
+	private static final String NUMERIC_REGEX = "[0-9]";
+	private static final String ALPHABETIC_REGEX = "[A-Z]";
+	private static final String ALPHANUMERIC_REGEX = "[0-9A-Z]";
+	private final IBANFormatsReader reader;
 	private HashMap<String, String> regexCache = new HashMap<>();
 	private HashMap<String, IBANPattern> patternCache = new HashMap<>();
-
-	private final IBANFormatsReader reader;
 	private IBANPattern correctPattern;
 	private IBANDTO iban;
 
@@ -30,13 +29,19 @@ public class IBANValidatorImpl implements IBANValidator {
 		this.reader = reader;
 	}
 
+	@Override
 	public void validate(IBANDTO iban) {
 		this.iban = iban;
 		try {
-			if (!checkFormat() || getRemainder() != 1)
-				throw new IBANValidationException("IBAN is invalid");
+			if (!checkFormat()) {
+				throw new IBANValidationException("IBAN format is invalid");
+			}
+			if (getRemainder() != 1) {
+				throw new IBANValidationException("IBAN checksum is invalid");
+			}
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			LOGGER.error("Failed while validating IBAN", e);
+			throw new IBANValidationException("Failed while reading IBAN formats file", e);
 		}
 	}
 
@@ -49,7 +54,7 @@ public class IBANValidatorImpl implements IBANValidator {
 
 	private void populateCaches() throws IOException {
 		Iterator<IBANPattern> iterator = reader.readAll();
-		IBANPattern next = null;
+		IBANPattern next;
 		while (iterator.hasNext()) {
 			next = iterator.next();
 			String countryCode = next.getCountryCode();
@@ -60,9 +65,8 @@ public class IBANValidatorImpl implements IBANValidator {
 
 	private boolean checkFormat() throws IOException {
 		findIBANStructure();
-		if (correctPattern == null || iban.getIBANValue().length() != correctPattern.getIbanLength() || !checkRegex())
-			return false;
-		return true;
+		return !(correctPattern == null || iban.getIBANValue().length() != correctPattern.getIbanLength()
+				|| !checkRegex());
 	}
 
 	private boolean checkRegex() {
@@ -86,13 +90,12 @@ public class IBANValidatorImpl implements IBANValidator {
 	}
 
 	private int getRemainder() {
-		BigInteger bigInt = new BigInteger(IBANNumericValue());
+		BigInteger bigInt = new BigInteger(iBANNumericValue());
 		BigInteger[] divAndRem = bigInt.divideAndRemainder(BigInteger.valueOf(97));
-		int mod = divAndRem[1].intValue();
-		return mod;
+		return divAndRem[1].intValue();
 	}
 
-	private String IBANNumericValue() {
+	private String iBANNumericValue() {
 		StringBuilder formattedIBAN = new StringBuilder("");
 		char[] ibanArray;
 		int numericValue;

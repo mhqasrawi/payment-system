@@ -59,6 +59,12 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 		paymentPurposePersistenceService = new PaymentPurposePersistenceServiceImpl(paymentPurposeDAO);
 		accountPersistenceService = new AccountPersistenceServiceImpl(accountDAO, ibanPersistenceService);
 	}
+	
+	@Test
+	public void test_Payment() {
+		PaymentDTO insertPayment = insertPayment(true, null);
+		
+	}
 
 	@Test
 	public void GivenEmptyTable_WhenInsertPayment_ThenIDNotNull() {
@@ -140,6 +146,7 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 
 	private PaymentDTOImpl constructPayment(boolean isNew, AccountDTOImpl orderingAccount, AccountDTO save,
 			AccountDTO save2) {
+		
 		PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
 
 		paymentDTOImpl.setBeneficiaryIBAN(save2.getIban());
@@ -181,6 +188,7 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 		CustomerDTOImpl customerDTO = new CustomerDTOImpl();
 		customerDTO.setName("Mohd Awad" + postFix);
 		accountDTO.setCustomerDTO(customerDTO);
+		accountDTO.setBalance(new BigDecimal("1000"));
 		return accountDTO;
 	}
 

@@ -15,4 +15,6 @@ public interface Menu<C extends MenuContext> {
 
     void doAction(C t);
 
+    String getId();
+
 }

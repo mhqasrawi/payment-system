@@ -7,9 +7,10 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
 import com.progressoft.jip.payment.PaymentDTO;
 //import com.progressoft.jip.payment.PaymentPurpose;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -19,7 +20,6 @@ import com.progressoft.jip.payment.customer.CustomerDTOImpl;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
-import com.progressoft.jip.payment.report.core.ReportGeneratorException;
 import com.progressoft.jip.payment.report.core.ReportManagerException;
 import com.progressoft.jip.payment.report.core.ReportSettings;
 import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
@@ -31,23 +31,22 @@ public class ReportTestCases {
 	private CustomerDTOImpl customer = new CustomerDTOImpl();
 	private List<AccountDTO> accounts = new LinkedList<>();
 	private IBANDTOImpl iban = new IBANDTOImpl();
-	private PaymentPurposeDTO purpose = new PurposeDTOImpl("shortCode", "purpose description");
-	private PaymentDTOImpl payment = new PaymentDTOImpl();
+	private PaymentPurposeDTO purpose = new PaymentPurposeDTOMock("shortCode", "purpose description");
+	private PaymentDTOMock payment = new PaymentDTOMock();
 	private String beneficiaryName;
 	private BigDecimal paymentAmount;
 	private Currency transferCurrency = Currency.getAvailableCurrencies().iterator().next();
 	private LocalDateTime date;
 
-	private class PaymentDTOImpl implements PaymentDTO {
+	private class PaymentDTOMock implements PaymentDTO {
 		private AccountDTO account;
 		private IBANDTO iban;
 		private String beneficiaryName;
 		private BigDecimal amount;
 		private Currency currency;
 		private LocalDateTime date;
-		private PaymentPurposeDTO paymentPurpose;
 
-		public PaymentDTOImpl() {
+		public PaymentDTOMock() {
 		}
 
 		public void setAccount(AccountDTO account) {
@@ -75,7 +74,7 @@ public class ReportTestCases {
 		}
 
 		public void setPaymentPurpose(PaymentPurposeDTO paymentPurpose) {
-			this.paymentPurpose = paymentPurpose;
+			purpose = paymentPurpose;
 		}
 
 		@Override
@@ -119,11 +118,11 @@ public class ReportTestCases {
 		}
 	}
 
-	private class PurposeDTOImpl implements PaymentPurposeDTO {
+	private class PaymentPurposeDTOMock implements PaymentPurposeDTO {
 		String shortCode;
 		String description;
 
-		public PurposeDTOImpl(String shortCode, String description) {
+		public PaymentPurposeDTOMock(String shortCode, String description) {
 			this.shortCode = shortCode;
 			this.description = description;
 		}

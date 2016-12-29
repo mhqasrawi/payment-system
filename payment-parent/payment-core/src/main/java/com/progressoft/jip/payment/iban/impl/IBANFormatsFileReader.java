@@ -4,17 +4,16 @@
 package com.progressoft.jip.payment.iban.impl;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.progressoft.jip.configuration.Configuration;
 import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
 
@@ -24,6 +23,7 @@ import com.progressoft.jip.payment.iban.impl.IBANPattern.IBANPatternType;
  */
 public class IBANFormatsFileReader implements IBANFormatsReader {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(IBANFormatsReader.class);
 	private static final String IBAN_FORMAT_FILE = "iban.format.file";
 
 	@Inject
@@ -44,7 +44,7 @@ public class IBANFormatsFileReader implements IBANFormatsReader {
 		ibanFormatsFilePath = configuration.getProperty(IBAN_FORMAT_FILE);
 	}
 
-	private void loadAllIBANStructures() throws FileNotFoundException, IOException {
+	private void loadAllIBANStructures() throws IOException {
 		String[] tokens;
 		String field;
 		String countryCode;
@@ -76,11 +76,13 @@ public class IBANFormatsFileReader implements IBANFormatsReader {
 		patterns.add(pattern);
 	}
 
+	@Override
 	public Iterator<IBANPattern> readAll() throws IOException {
 		try {
 			loadAllIBANStructures();
 		} catch (IOException e) {
-			throw new IOException("A problem occured while reading from the iban formats file: " + e.getMessage());
+			LOGGER.error("Failed while loading IBAN formats file", e);
+			throw new IOException("A problem occured while reading from the iban formats file", e);
 		}
 		return Collections.unmodifiableList(patterns).iterator();
 	}

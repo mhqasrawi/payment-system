@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.account;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 
 import com.progressoft.jip.payment.customer.CustomerDTO;
@@ -23,6 +24,8 @@ public interface AccountDTO extends DTO {
 	String getPaymentRule();
 	
 	String getPaymentRuleInfo();
+	
+	BigDecimal getBalance();
 
 	int getIbanId();
 

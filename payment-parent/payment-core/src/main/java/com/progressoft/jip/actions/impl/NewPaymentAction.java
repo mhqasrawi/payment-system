@@ -15,6 +15,7 @@ import com.progressoft.jip.payment.PaymentBuilder;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
+import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANValidator;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
@@ -54,6 +55,8 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	private IBANDAO ibanDao;
 	@Inject
 	private PaymentDAO paymentDao;
+	@Inject
+	private AccountDAO accountDAO;
 
 	public void init() {
 		setAction(dynamicFormActionBuilder.setInterfaceType(PaymentInfo.class).setDefaultObjectStrategy(this)
@@ -80,7 +83,7 @@ public class NewPaymentAction extends AbstractPaymentEditAction<PaymentInfo> {
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, PaymentInfo paymentInfo) {
 		Payment newPayment = paymentBuilder.getNewPayment(paymentInfo);
-		newPayment.doAction(new NewPaymentUseCase(paymentDao, ibanDao));
+		newPayment.doAction(new NewPaymentUseCase(paymentDao, ibanDao,accountDAO));
 	}
 
 	private static class PaymentInfoImpl implements PaymentInfo {

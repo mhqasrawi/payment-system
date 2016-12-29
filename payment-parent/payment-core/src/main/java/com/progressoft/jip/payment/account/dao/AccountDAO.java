@@ -15,5 +15,5 @@ public interface AccountDAO {
 	Iterable<AccountDTO> getAll();
 
 	Iterable<AccountDTO> getAccountsByCustomerName(String customerName);
-
+	
 }

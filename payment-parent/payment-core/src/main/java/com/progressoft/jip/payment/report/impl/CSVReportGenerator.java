@@ -66,7 +66,7 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 
 	private void initActions() {
 		writeNodeActions[actionOnFirstRecord] = node -> writeColumns(node, false);
-		writeNodeActions[actionAfterFirstRecord] = node -> writeRecordNode(node);
+		writeNodeActions[actionAfterFirstRecord] = this::writeRecordNode;
 		endPaymentActions[actionOnFirstRecord] = node -> {
 			newLine();
 			nodeStarted = true;
@@ -94,7 +94,7 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 	private void writeRecordNode(ReportNode node) {
 		applySeparator();
 		if (node instanceof HierarchicalReportNode) {
-			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, newNode -> writeRecordNode(newNode));
+			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, this::writeRecordNode);
 		} else {
 			put(String.valueOf(node.getValue()));
 			nodeStarted = false;

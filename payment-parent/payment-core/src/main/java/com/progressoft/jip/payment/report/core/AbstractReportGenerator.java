@@ -2,12 +2,15 @@ package com.progressoft.jip.payment.report.core;
 
 import java.util.LinkedList;
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.report.impl.HierarchicalReportNode;
 import com.progressoft.jip.payment.report.impl.TerminalReportNode;
 
 public abstract class AbstractReportGenerator implements ReportGenerator {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractReportGenerator.class);
 	private static final String PAYMENT_PURPOSE_TAG = "payment-purpose";
 	private static final String PAYMENT_DATE_TAG = "payment-date";
 	private static final String TRANSFER_CURRENCY_TAG = "transfer-currency";
@@ -62,6 +65,7 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
 			try {
 				onException.execute();
 			} catch (Exception e2) {
+				LOGGER.error("Failed while generating report", e2);
 			}
 			throw new ReportGeneratorException(message, e1);
 		}

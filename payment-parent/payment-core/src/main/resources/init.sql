@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS account (
   `iban_id`          int,
    `rule` varchar(255),
 `rule_info` varchar(255),
+`balance` varchar(255),
   PRIMARY KEY (`id`, `account_number`)
 )
   ENGINE = InnoDB;
