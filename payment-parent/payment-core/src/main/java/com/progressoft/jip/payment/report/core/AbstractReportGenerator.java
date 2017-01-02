@@ -10,6 +10,7 @@ import com.progressoft.jip.payment.report.impl.HierarchicalReportNode;
 import com.progressoft.jip.payment.report.impl.TerminalReportNode;
 
 public abstract class AbstractReportGenerator implements ReportGenerator {
+	private static final String BALANCE_TAG = "balance";
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractReportGenerator.class);
 	private static final String PAYMENT_PURPOSE_TAG = "payment-purpose";
 	private static final String PAYMENT_DATE_TAG = "payment-date";
@@ -106,6 +107,7 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
 		subNodes.add(new TerminalReportNode(ACCOUNT_IBAN_TAG, orderingAccount.getIban().getIBANValue()));
 		subNodes.add(new TerminalReportNode(ACCOUNT_NAME_TAG, orderingAccount.getAccountName()));
 		subNodes.add(new TerminalReportNode(CUSTOMER_NAME_TAG, orderingAccount.getCustomerDTO().getName()));
+		subNodes.add(new TerminalReportNode(BALANCE_TAG, orderingAccount.getBalance().toString()));
 		subNodes.add(new TerminalReportNode(CURRENCY_TAG, orderingAccount.getCurreny().getDisplayName()));
 		subNodes.add(new TerminalReportNode(STATUS_TAG, orderingAccount.getAccountStatus().toString()));
 		writeNode(new HierarchicalReportNode(ORDERING_ACCOUNT_TAG, subNodes));

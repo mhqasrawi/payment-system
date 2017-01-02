@@ -1,6 +1,7 @@
 package com.progressoft.jip.payment.account.dao.impl;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -55,8 +56,6 @@ public class JDBCAccountDAO implements AccountDAO {
 		this.queryRunner = new QueryRunner(dataSource);
 		this.idDAO = new IdDAOImpl(dataSource);
 	}
-	
-	
 
 	@Override
 	public AccountDTO save(AccountDTO account) {
@@ -68,7 +67,8 @@ public class JDBCAccountDAO implements AccountDAO {
 			int id = idDAO.save(TABLE_NAME);
 			this.queryRunner.update(INSERT_ACCOUNT_STATMENT, id, account.getAccountNumber(), account.getAccountName(),
 					account.getCurreny().getCurrencyCode(), status, account.getCustomerDTO().getName(),
-					account.getIban().getId(), account.getPaymentRule(), account.getPaymentRuleInfo(), account.getBalance());
+					account.getIban().getId(), account.getPaymentRule(), account.getPaymentRuleInfo(),
+					account.getBalance());
 			AccountDTOImpl accountDTO = constructNewAccountDTO(account, id);
 			return accountDTO;
 		} catch (SQLException e) {
@@ -101,9 +101,11 @@ public class JDBCAccountDAO implements AccountDAO {
 	}
 
 	private void update(AccountDTO account) {
+		Connection connection = null;
 		try {
+			connection = dataSource.getConnection();
 			this.dataSource.getConnection().setAutoCommit(false);
-			this.queryRunner.query(
+			this.queryRunner.query(connection,
 					String.format("select 1 from %s where id=%d for update", TABLE_NAME, account.getId()),
 					new MapHandler());
 			int update = this.queryRunner.update(UPDATE_ACCOUNT_STATMENT, account.getAccountNumber(),
@@ -116,7 +118,9 @@ public class JDBCAccountDAO implements AccountDAO {
 			throw new DAOException("Error While Updating Account: " + account.getAccountNumber(), e);
 		} finally {
 			try {
-				this.dataSource.getConnection().setAutoCommit(true);
+				if (connection != null) {
+					connection.commit();
+				}
 			} catch (SQLException e) {
 				LOGGER.error(e.getMessage(), e);
 			}
