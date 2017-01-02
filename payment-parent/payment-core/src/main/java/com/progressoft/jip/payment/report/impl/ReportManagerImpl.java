@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportManager;
 import com.progressoft.jip.payment.report.core.ReportManagerException;
-import com.progressoft.jip.payment.report.core.ReportSettings;
+import com.progressoft.jip.payment.report.core.ReportSettingsSpi;
 
 public class ReportManagerImpl implements ReportManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReportManagerImpl.class);
 	private HashMap<String, Class<? extends ReportGenerator>> generators = new HashMap<>();
 
 	@Override
-	public void generateReport(ReportSettings settings) {
+	public void generateReport(ReportSettingsSpi settings) {
 		Class<? extends ReportGenerator> generator;
 		if (generators.isEmpty()) {
 			loadGenerators();

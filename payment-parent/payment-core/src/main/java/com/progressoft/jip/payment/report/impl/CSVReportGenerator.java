@@ -3,7 +3,7 @@ package com.progressoft.jip.payment.report.impl;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.LinkedList;
-import com.progressoft.jip.payment.report.core.AbstractReportGenerator;
+
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportNode;
 
@@ -34,8 +34,8 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 	@Override
 	protected void startWrite() {
 		executeAndHandleException(() -> 
-			this.writer = new FileWriter(new File(settings.getPath()
-					.resolve(this.settings.getFileName() + "." + this.supportedFileExtension).toString()))
+			this.writer = new FileWriter(new File(settingsSpi.getPath()
+					.resolve(this.settingsSpi.getFileName() + "." + this.supportedFileExtension).toString()))
 		);
 	}
 
