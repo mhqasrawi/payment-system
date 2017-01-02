@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.report.core;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.Objects;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.report.impl.HierarchicalReportNode;
 import com.progressoft.jip.payment.report.impl.TerminalReportNode;
+import com.progressoft.jip.payment.transcription.EnglishTranscription;
 
 public abstract class AbstractReportGenerator implements ReportGenerator {
 	private static final String BALANCE_TAG = "balance";
@@ -94,20 +96,23 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
 		for (PaymentDTO payment : payments) {
 			startPayment();
 			AccountDTO orderingAccount = payment.getOrderingAccount();
-			writeOrderingAccountInfo(orderingAccount);
+			//TODO remove cast
+			writeOrderingAccountInfo(orderingAccount, (BigDecimal)payment.getPaymentAmount());
 			writeBeneficiaryInfo(payment);
 			endPayment();
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void writeOrderingAccountInfo(AccountDTO orderingAccount) {
+	private void writeOrderingAccountInfo(AccountDTO orderingAccount, BigDecimal amount) {
 		LinkedList<ReportNode> subNodes = new LinkedList<>();
 		subNodes.add(new TerminalReportNode(ACCOUNT_NUMBER_TAG, orderingAccount.getAccountNumber()));
 		subNodes.add(new TerminalReportNode(ACCOUNT_IBAN_TAG, orderingAccount.getIban().getIBANValue()));
 		subNodes.add(new TerminalReportNode(ACCOUNT_NAME_TAG, orderingAccount.getAccountName()));
 		subNodes.add(new TerminalReportNode(CUSTOMER_NAME_TAG, orderingAccount.getCustomerDTO().getName()));
 		subNodes.add(new TerminalReportNode(BALANCE_TAG, orderingAccount.getBalance().toString()));
+		//TODO remove cast
+		subNodes.add(new TerminalReportNode("transcription", new EnglishTranscription().transcript(Float.parseFloat(amount.toString()))));
 		subNodes.add(new TerminalReportNode(CURRENCY_TAG, orderingAccount.getCurreny().getDisplayName()));
 		subNodes.add(new TerminalReportNode(STATUS_TAG, orderingAccount.getAccountStatus().toString()));
 		writeNode(new HierarchicalReportNode(ORDERING_ACCOUNT_TAG, subNodes));

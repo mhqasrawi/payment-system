@@ -149,7 +149,7 @@ public class ReportTestCases {
 		customer.setId(1);
 		customer.setAccounts(accounts);
 		beneficiaryName = "anas";
-		paymentAmount = BigDecimal.valueOf(new Long(1000));
+		paymentAmount = BigDecimal.valueOf(new Long(155));
 
 		account.setAccountName("accountName");
 		account.setAccountNumber("123");
