@@ -13,5 +13,6 @@
 		<module>payment-core</module>
 		<module>payment-date-rules</module>
 		<module>payment-main</module>
+		<module>payment-web</module>
 	</modules>
 </project>
