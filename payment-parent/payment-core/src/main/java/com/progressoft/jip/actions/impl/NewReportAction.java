@@ -9,7 +9,8 @@ import com.progressoft.jip.actions.PaymentNewAction;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.report.core.ReportManager;
-import com.progressoft.jip.payment.report.core.ReportSettings;
+import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
+import com.progressoft.jip.payment.transcription.EnglishTranscription;
 import com.progressoft.jip.ui.field.PathField;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.Form;
@@ -41,11 +42,12 @@ public class NewReportAction extends AbstractPaymentNewAction<ReportSettingWrapp
 	public void submitAction(PaymentMenuContext menuContext, ReportSettingWrapper object) {
 		String accountNumber = menuContext.getCurrentAccount().getAccountNumber();
 		Iterable<PaymentDTO> payments = paymentDAO.get(accountNumber);
-		ReportSettings settings = new ReportSettings();
+		ReportSettingsImpl settings = new ReportSettingsImpl();
 		settings.setPath(object.getPath());
 		settings.setFileName(object.getFileName());
 		settings.setFileExtention("xml");
 		settings.setPayments(payments);
+		settings.setTranscriberClass(EnglishTranscription.class);
 		reportManager.generateReport(settings);
 	}
 }

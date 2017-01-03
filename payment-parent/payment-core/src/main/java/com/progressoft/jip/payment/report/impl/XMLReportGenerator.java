@@ -2,7 +2,7 @@ package com.progressoft.jip.payment.report.impl;
 
 import java.io.FileWriter;
 import javax.xml.stream.XMLOutputFactory;
-import com.progressoft.jip.payment.report.core.AbstractReportGenerator;
+
 import com.progressoft.jip.payment.report.core.ReportNode;
 import javanet.staxutils.IndentingXMLStreamWriter;
 
@@ -25,7 +25,7 @@ public class XMLReportGenerator extends AbstractReportGenerator {
 		writeAndHandleException(() -> {
 			XMLOutputFactory factory = XMLOutputFactory.newInstance();
 			fileWriter = new FileWriter(
-					settings.getPath().resolve(settings.getFileName() + "." + this.supportedFileExtension).toString());
+					settingsSpi.getPath().resolve(settingsSpi.getFileName() + "." + this.supportedFileExtension).toString());
 			xmlStreamWriter = new IndentingXMLStreamWriter(factory.createXMLStreamWriter(fileWriter));
 			xmlStreamWriter.writeStartDocument();
 			xmlStreamWriter.writeStartElement(REPORT_NAME_TAG);
@@ -56,7 +56,7 @@ public class XMLReportGenerator extends AbstractReportGenerator {
 
 	@Override
 	protected void endPayment() {
-		writeAndHandleException(() -> this.xmlStreamWriter.writeEndElement());
+		writeAndHandleException(this.xmlStreamWriter::writeEndElement);
 	}
 
 	@Override

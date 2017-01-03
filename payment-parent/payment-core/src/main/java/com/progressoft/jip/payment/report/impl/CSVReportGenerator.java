@@ -3,7 +3,7 @@ package com.progressoft.jip.payment.report.impl;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.LinkedList;
-import com.progressoft.jip.payment.report.core.AbstractReportGenerator;
+
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportNode;
 
@@ -34,8 +34,8 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 	@Override
 	protected void startWrite() {
 		executeAndHandleException(() -> 
-			this.writer = new FileWriter(new File(settings.getPath()
-					.resolve(this.settings.getFileName() + "." + this.supportedFileExtension).toString()))
+			this.writer = new FileWriter(new File(settingsSpi.getPath()
+					.resolve(this.settingsSpi.getFileName() + "." + this.supportedFileExtension).toString()))
 		);
 	}
 
@@ -66,7 +66,7 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 
 	private void initActions() {
 		writeNodeActions[actionOnFirstRecord] = node -> writeColumns(node, false);
-		writeNodeActions[actionAfterFirstRecord] = node -> writeRecordNode(node);
+		writeNodeActions[actionAfterFirstRecord] = this::writeRecordNode;
 		endPaymentActions[actionOnFirstRecord] = node -> {
 			newLine();
 			nodeStarted = true;
@@ -94,7 +94,7 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 	private void writeRecordNode(ReportNode node) {
 		applySeparator();
 		if (node instanceof HierarchicalReportNode) {
-			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, newNode -> writeRecordNode(newNode));
+			surroundNodeWithDelimsRecursively((HierarchicalReportNode) node, this::writeRecordNode);
 		} else {
 			put(String.valueOf(node.getValue()));
 			nodeStarted = false;

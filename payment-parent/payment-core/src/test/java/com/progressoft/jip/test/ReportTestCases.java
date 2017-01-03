@@ -7,9 +7,10 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
 import com.progressoft.jip.payment.PaymentDTO;
 //import com.progressoft.jip.payment.PaymentPurpose;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -19,10 +20,10 @@ import com.progressoft.jip.payment.customer.CustomerDTOImpl;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
-import com.progressoft.jip.payment.report.core.ReportGeneratorException;
 import com.progressoft.jip.payment.report.core.ReportManagerException;
-import com.progressoft.jip.payment.report.core.ReportSettings;
 import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
+import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
+import com.progressoft.jip.payment.transcription.EnglishTranscription;
 
 public class ReportTestCases {
 	private ReportManagerImpl reportManager = new ReportManagerImpl();
@@ -31,23 +32,22 @@ public class ReportTestCases {
 	private CustomerDTOImpl customer = new CustomerDTOImpl();
 	private List<AccountDTO> accounts = new LinkedList<>();
 	private IBANDTOImpl iban = new IBANDTOImpl();
-	private PaymentPurposeDTO purpose = new PurposeDTOImpl("shortCode", "purpose description");
-	private PaymentDTOImpl payment = new PaymentDTOImpl();
+	private PaymentPurposeDTO purpose = new PaymentPurposeDTOMock("shortCode", "purpose description");
+	private PaymentDTOMock payment = new PaymentDTOMock();
 	private String beneficiaryName;
 	private BigDecimal paymentAmount;
 	private Currency transferCurrency = Currency.getAvailableCurrencies().iterator().next();
 	private LocalDateTime date;
 
-	private class PaymentDTOImpl implements PaymentDTO {
+	private class PaymentDTOMock implements PaymentDTO {
 		private AccountDTO account;
 		private IBANDTO iban;
 		private String beneficiaryName;
 		private BigDecimal amount;
 		private Currency currency;
 		private LocalDateTime date;
-		private PaymentPurposeDTO paymentPurpose;
 
-		public PaymentDTOImpl() {
+		public PaymentDTOMock() {
 		}
 
 		public void setAccount(AccountDTO account) {
@@ -75,7 +75,7 @@ public class ReportTestCases {
 		}
 
 		public void setPaymentPurpose(PaymentPurposeDTO paymentPurpose) {
-			this.paymentPurpose = paymentPurpose;
+			purpose = paymentPurpose;
 		}
 
 		@Override
@@ -119,11 +119,11 @@ public class ReportTestCases {
 		}
 	}
 
-	private class PurposeDTOImpl implements PaymentPurposeDTO {
+	private class PaymentPurposeDTOMock implements PaymentPurposeDTO {
 		String shortCode;
 		String description;
 
-		public PurposeDTOImpl(String shortCode, String description) {
+		public PaymentPurposeDTOMock(String shortCode, String description) {
 			this.shortCode = shortCode;
 			this.description = description;
 		}
@@ -150,7 +150,7 @@ public class ReportTestCases {
 		customer.setId(1);
 		customer.setAccounts(accounts);
 		beneficiaryName = "anas";
-		paymentAmount = BigDecimal.valueOf(new Long(1000));
+		paymentAmount = BigDecimal.valueOf(new Long(155));
 
 		account.setAccountName("accountName");
 		account.setAccountNumber("123");
@@ -180,42 +180,46 @@ public class ReportTestCases {
 	
 	@Test(expected = ReportManagerException.class)
 	public void callingGenerateReportMethod_WithNullSettingsParams_ShouldThrowNullPointerException() throws ReportManagerException {
-		ReportSettings settings = new ReportSettings();
+		ReportSettingsImpl settings = new ReportSettingsImpl();
 		settings.setFileExtention(null);
 		settings.setFileName(null);
 		settings.setPath(null);
 		settings.setPayments(null);
+		settings.setTranscriberClass(null);
 			reportManager.generateReport(settings);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test(expected = ReportManagerException.class)
 	public void callingGenerateReportMethod_WithEmptySettingsParams_ShouldThrowReportManagerException() throws ReportManagerException {
-		ReportSettings settings = new ReportSettings();
+		ReportSettingsImpl settings = new ReportSettingsImpl();
 		settings.setFileExtention("");
 		settings.setFileName("");
 		settings.setPath(Paths.get("C:\\"));
 		settings.setPayments((Iterable<PaymentDTO>)Collections.EMPTY_LIST);
+		settings.setTranscriberClass(null);
 		reportManager.generateReport(settings);
 	}
 
 	@Test(expected = ReportManagerException.class)
-	public void callingGenerateReportMethod_WithUnsupportedExtension_ShouldThrowReportException() throws ReportManagerException {
-		ReportSettings settings = new ReportSettings();
+	public void callingGenerateReportMethod_WithUnsupportedExtension_ShouldThrowReportException() {
+		ReportSettingsImpl settings = new ReportSettingsImpl();
 		settings.setFileExtention("xyz");
 		settings.setFileName("name");
 		settings.setPath(Paths.get("C:/"));
 		settings.setPayments(payments);
+		settings.setTranscriberClass(null);
 		reportManager.generateReport(settings);
 	}
 	
 	@Test
 	public void callingGenerateReportMethod_WithValidParams_ShouldGenerateReport() throws ReportManagerException {
-		ReportSettings settings = new ReportSettings();
+		ReportSettingsImpl settings = new ReportSettingsImpl();
 		settings.setFileName("report");
 		settings.setPath(Paths.get("C:/Users/u620/Desktop/Success"));
 		settings.setFileExtention("csv");
 		settings.setPayments(payments);
+		settings.setTranscriberClass(EnglishTranscription.class);
 		reportManager.generateReport(settings);
 		settings.setFileExtention("xml");
 		reportManager.generateReport(settings);

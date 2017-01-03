@@ -2,6 +2,7 @@ package com.progressoft.jip.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Iterator;
 
@@ -68,6 +69,7 @@ public class AccountDAOTest extends DataSourceConfig {
 		IBANDTO ibandto = getIbandto(0);
 		AccountDTO accountDTO1 = saveAccountDTO(accountDTO, ibandto);
 		AccountDTO byId = accountPersistenceService.getById(accountDTO1.getId());
+		System.out.println(byId.getBalance());
 		assertEquals(accountDTO1.getId(), byId.getId());
 
 	}
@@ -168,6 +170,7 @@ public class AccountDAOTest extends DataSourceConfig {
 		accountDTO.setCustomerDTO(customerDTO);
 		accountDTO.setPaymentRule(RULE1);
 		accountDTO.setPaymentRuleInfo(RULE1_INFO);
+		accountDTO.setBalance(new BigDecimal("73"));
 		return accountDTO;
 	}
 
