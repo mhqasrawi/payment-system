@@ -38,10 +38,13 @@ public class FormDemo {
 
 	@Inject
 	private IBANValidator ibanValidator;
+	
 	@Inject
 	private PaymentDynamicFormActionBuilder<AccountDTO> dynamicFormActionBuilder;
+	
 	@Inject
 	private AccountPersistenceService accountService;
+	
 	@Inject
 	private DateRulesValidationProvider dateRulesValidationProvider;
 	
@@ -54,30 +57,40 @@ public class FormDemo {
 	public FormDemo(){
 		String appContextLocation = System.getProperty(APP_CONTEXT_LOCATION);
 		appContext = new FileSystemXmlApplicationContext(appContextLocation);
+		appContext.getAutowireCapableBeanFactory().autowireBean(this);
 	}
 
 	public String getForm(){
-		System.out.println("??? " + System.getProperty(APP_CONTEXT_LOCATION));
-		appContext.getAutowireCapableBeanFactory().autowireBean(this);
+		
 		FormImpl newAccountForm = new FormImpl(CREATE_NEW_ACCOUNT_FORM_DESCRIPTION);
+		
 		newAccountForm.addField(new StringField().setDescription(ENTER_ACCOUNT_NUMBER)
 				.setName(AccountDTOConstant.ACCOUNT_NUMBER_ACCOUNT_DTO));
+		
 		newAccountForm.addField(new StringField().setDescription(ENTER_ACCOUNT_NAME)
 				.setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO));
+		
 		newAccountForm.addField(
 				new CurrencyField().setDescription(ENTER_CURRENCY).setName(AccountDTOConstant.CURRENY_ACCOUNT_DTO));
+		
 		newAccountForm.addField(
 				new IBANField(ibanValidator).setDescription(ENTER_IBAN).setName(AccountDTOConstant.IBAN_ACCOUNT_DTO));
+		
 		newAccountForm.addField(new CustomerField().setDescription(ENTER_CUSTOMER_NAME)
 				.setName(AccountDTOConstant.CUSTOMER_DTO_ACCOUNT_DTO));
+		
 		newAccountForm.addField(new PaymentRulesField(dateRulesValidationProvider)
 				.setDescription(SELECT_PAYMENT_DATE_RULE).setName(AccountDTOConstant.ACCOUNT_PAYMENT_RULE));
+		
 		newAccountForm.addField(
 				new NumberOfDay().setDescription("Enter Number Of Day").setName(AccountDTOConstant.PAYMENT_RULE_INFO));
+		
 		newAccountForm.addHiddenField(
 				new IntegerField().setDescription("").setName(AccountDTOConstant.ID_NAME_ACCOUNT_DTO).setValue("0"));
+		
 		newAccountForm.addHiddenField(new AccountStatusField().setDescription("")
 				.setName(AccountDTOConstant.ACCOUNT_STATUS_ACCOUNT_DTO).setValue(AccountStatus.ACTIVE.name()));
+
 		return formRenderer.renderToHtml(newAccountForm);
 	}
 }
