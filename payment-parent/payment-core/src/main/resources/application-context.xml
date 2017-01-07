@@ -36,5 +36,5 @@
 	<bean id="reportManager"
 		class="com.progressoft.jip.payment.report.impl.ReportManagerImpl" />
 	<bean id="paymentBuilder" class="com.progressoft.jip.payment.impl.PaymentBuilderImpl" />
-	<bean id="paymentProcessor" class="com.progressoft.jip.NewPaymentUseCase" />
+	<bean id="paymentProcessor" class="com.progressoft.jip.payment.usecase.NewPaymentUseCase" />
 </beans>

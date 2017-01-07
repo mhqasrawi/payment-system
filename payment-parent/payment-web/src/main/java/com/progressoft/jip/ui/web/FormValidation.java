@@ -16,17 +16,23 @@ public class FormValidation extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		BufferedReader reader = req.getReader();
-		String readLine = reader.readLine();
-		System.out.println(readLine);
-		reader.lines().forEach(string -> {
-			System.out.println(string);
-		});
-		super.doGet(req, resp);
+
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+		BufferedReader reader = req.getReader();
+		String bodyContent = "";
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			bodyContent.concat(line);
+		}
+		String[] parameters = bodyContent.split("&");
+		if (parameters.length < 2)
+			return;
+
+		String propertyName = parameters[0];
+		String propertyValue = parameters[1];
+		System.out.println(String.format("Parameter Name %s   Value  %s", propertyName, propertyValue));
 	}
 }

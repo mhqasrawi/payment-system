@@ -40,7 +40,7 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
 	}
 
 	@Override
-	public void renderForm(Form form) {
+	public void renderForm(Form<T,?> form) {
 		printStream.println(form.getDescription());
 		printStream.println();
 		for (Field<?> field : form.getFields()) {

@@ -13,7 +13,7 @@ import com.progressoft.jip.ui.webrendering.form.impl.FormHtmlRenderer;
 
 public class FormHtmlRendererTests {
 
-	private static final String EXPECTED_FORM_HTML = "<div class=\"container\"><h2>form description</h2><form><div class=\"form-group\"><div class=\"form-group\"><label for=\"field-id-1\">field description 1</label><input type=\"text\" class=\"form-control\" id=\"field-id-1\"></div><div class=\"form-group\"><label for=\"field-id-2\">field description 2</label><input type=\"text\" class=\"form-control\" id=\"field-id-2\"></div><button type=\"submit\" class=\"btn btn-default\">Submit</button></form></div>";
+	private static final String EXPECTED_FORM_HTML = "<div class=\"container\"><h2>form description</h2><form><div class=\"form-group\"><div class=\"form-group\"><label for=\"field-id-1\">field description 1</label><input type=\"text\" class=\"form-control\" name=\"field-id-1\"></div><div class=\"form-group\"><label for=\"field-id-2\">field description 2</label><input type=\"text\" class=\"form-control\" name=\"field-id-2\"></div><button type=\"submit\" class=\"btn btn-default\">Submit</button></form></div>";
 	private FormHtmlRenderer formHtmlRenderer = new FormHtmlRenderer();
 	
 	@Test(expected = WebRenderingException.class)
@@ -46,7 +46,6 @@ public class FormHtmlRendererTests {
 
 		FakeForm fakeForm = new FakeForm();
 		fakeForm.setDescription("form description");
-
 		fakeForm.setFields(fields);
 		assertEquals(EXPECTED_FORM_HTML, formHtmlRenderer.renderToHtml(fakeForm));
 	}

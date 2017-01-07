@@ -34,6 +34,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.9</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -56,11 +57,11 @@
 					<systemProperties>
 						<systemProperty>
 							<key>app.context.location</key>
-							<value>C:\\Users\\u612\\Desktop\\payment\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml</value>
+							<value>D:\\payment\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml</value>
 						</systemProperty>
 						<systemProperty>
 							<key>configuration.file.path</key>
-							<value>C:\\Users\\u612\\Desktop\\payment\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml</value>
+							<value>D:\\payment\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml</value>
 						</systemProperty>
 					</systemProperties>
 					<!-- http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->

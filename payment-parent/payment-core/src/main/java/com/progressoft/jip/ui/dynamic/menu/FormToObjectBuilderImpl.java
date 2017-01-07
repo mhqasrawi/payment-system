@@ -10,7 +10,7 @@ import com.progressoft.jip.ui.menu.MenuContext;
 public class FormToObjectBuilderImpl<C extends MenuContext, T> implements FormToObjectBuilder<C, T> {
 
 	private String description;
-	private Form form;
+	private Form<C,T> form;
 	private Class<?> interfaceClass;
 	private SubmitAction<C, T> objectProssingStratege;
 	private DefaultValueProvider<C, T> defaultObjectProvider;
@@ -23,7 +23,7 @@ public class FormToObjectBuilderImpl<C extends MenuContext, T> implements FormTo
 	}
 
 	@Override
-	public FormToObjectBuilder<C, T> setForm(Form form) {
+	public FormToObjectBuilder<C, T> setForm(Form<C,T> form) {
 		this.form = form;
 		return this;
 	}

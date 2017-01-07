@@ -6,5 +6,5 @@ public interface MenuRenderManger<C extends MenuContext> {
 
 	void renderMenu(Menu<C> menu);
 
-	void renderForm(Form form);
+	void renderForm(Form<C,?>  form);
 }

@@ -11,7 +11,7 @@ public interface FormToObjectBuilder<C extends MenuContext, T> {
 
 	FormToObjectBuilder<C, T> setDescription(String description);
 
-	FormToObjectBuilder<C, T> setForm(Form form);
+	FormToObjectBuilder<C, T> setForm(Form<C,T> form);
 
 	FormToObjectBuilder<C, T> setInterfaceType(Class<T> interfaceClass);
 

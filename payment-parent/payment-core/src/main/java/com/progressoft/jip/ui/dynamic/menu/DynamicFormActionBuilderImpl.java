@@ -4,6 +4,14 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
 
 import com.progressoft.jip.ui.action.Action;
 import com.progressoft.jip.ui.action.ShowFormAction;
@@ -18,21 +26,26 @@ import com.progressoft.jip.ui.menu.MenuContext;
 public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 		implements Action<C>, DynamicFormActionBuilder<C, T> {
 
+	private static final Logger logger = LoggerFactory.getLogger(DynamicFormActionBuilderImpl.class);
 	private Map<String, Object> values = new HashMap<>();
-	private Form form;
+	private Form<C, T> form;
 	private Class<?> interfaceClass;
 	private SubmitAction<C, T> submitAction;
 	private DefaultValueProvider<C, T> defaultObjectProvider;
 	private InvocationHandler invocationHandler;
 
-	public DynamicFormActionBuilderImpl(Form form, Class<?> interfaceClass, SubmitAction<C, T> defaultObjectProvider) {
+	@Inject
+	private ApplicationContext applicationContext;
+
+	public DynamicFormActionBuilderImpl(Form<C, T> form, Class<?> interfaceClass,
+			SubmitAction<C, T> defaultObjectProvider) {
 		this.form = form;
 		this.interfaceClass = interfaceClass;
 		this.submitAction = defaultObjectProvider;
 	}
-	
-	public DynamicFormActionBuilderImpl(){
-		
+
+	public DynamicFormActionBuilderImpl() {
+
 	}
 
 	@Override
@@ -54,9 +67,21 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 	}
 
 	@Override
-	public DynamicFormActionBuilder<C, T> setForm(Form form) {
+	public DynamicFormActionBuilder<C, T> setForm(Form<C, T> form) {
 		this.form = form;
-		return this;
+		if (form instanceof SubmitAction) {
+			if (Objects.nonNull(applicationContext))
+				applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(this.form,
+						AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+		}
+		try {
+			form.getClass().getMethod("init").invoke(form);
+		} catch (NoSuchMethodException | SecurityException e) {
+			logger.warn(e.getMessage(), e);
+		} finally {
+			return this;
+
+		}
 	}
 
 	@Override
@@ -99,7 +124,19 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
 	}
 
 	private void showForm(C menuContext) {
-		(new ShowFormAction<C>(form)).doAction(menuContext);
+		(new ShowFormAction<C, T>(form)).doAction(menuContext);
+	}
+
+	@Override
+	public DynamicFormActionBuilder<C, T> refresh() {
+		values = new HashMap<>();
+		form = null;
+		interfaceClass = null;
+		submitAction = null;
+		defaultObjectProvider = null;
+		invocationHandler = null;
+
+		return this;
 	}
 
 }
