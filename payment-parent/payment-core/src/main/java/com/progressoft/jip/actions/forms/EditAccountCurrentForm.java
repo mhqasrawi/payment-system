@@ -6,6 +6,7 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
+import com.progressoft.jip.payment.usecase.EditAccountCurrencyUseCase;
 import com.progressoft.jip.ui.dynamic.menu.DefaultValueProvider;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.CurrencyField;
@@ -38,7 +39,7 @@ public class EditAccountCurrentForm extends FormImpl<PaymentMenuContext, Account
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDto) {
-		menuContext.setCurrentAccount(accountService.save(accountDto));
+		new EditAccountCurrencyUseCase(accountService).process(menuContext, accountDto);
 	}
 
 	@Override

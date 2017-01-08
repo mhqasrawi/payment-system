@@ -1,15 +1,16 @@
 package com.progressoft.jip.ui.web.form;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import com.progressoft.jip.ui.web.form.parameter.TestDto;
 
 public class WebFormControllerTest {
 
+	private WebFormController<TestDto> webFormController;
+	
 	@Test
-	public void test() {
+	public void whenSetFieldThenCallSingleFormSetValueMethod() {
 		
-		//fail("Not yet implemented");
 	}
 
 }

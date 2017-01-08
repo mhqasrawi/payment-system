@@ -9,6 +9,7 @@ import com.progressoft.jip.payment.account.AccountDTO.AccountStatus;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.payment.usecase.NewAccountUseCase;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.AbstractConditionalExtraField;
 import com.progressoft.jip.ui.field.AbstractField;
@@ -50,7 +51,7 @@ public class NewAccountForm extends FormImpl<PaymentMenuContext,AccountDTO> impl
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDto) {
-		menuContext.setCurrentAccount(accountService.save(accountDto));
+		new NewAccountUseCase(accountService).process(menuContext, accountDto);
 	}
 
 	public void init() {

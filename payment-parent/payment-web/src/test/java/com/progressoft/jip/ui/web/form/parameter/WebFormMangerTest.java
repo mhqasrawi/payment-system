@@ -83,7 +83,7 @@ public class WebFormMangerTest {
 		PaymentMenuContext menuContext = new MenuContextImpl();
 		webFormManger.submitFieldValue(FIELD_1, "Hi1");
 		webFormManger.submitFieldValue(FIELD_2, "Hi2");
-		SubmitAction<PaymentMenuContext, TestDto> submitAction = new SubmitAction<PaymentMenuContext, WebFormMangerTest.TestDto>() {
+		SubmitAction<PaymentMenuContext, TestDto> submitAction = new SubmitAction<PaymentMenuContext, TestDto>() {
 			@Override
 			public void submitAction(PaymentMenuContext paymentMenuContext, TestDto object) {
 				Assert.assertEquals(menuContext, paymentMenuContext);
@@ -93,15 +93,5 @@ public class WebFormMangerTest {
 		};
 		form.addSubmitAction(submitAction);
 		webFormManger.submitAction(menuContext);
-	}
-
-	private interface TestDto {
-
-		String getField1();
-
-		String getField2();
-
-		Integer getField3();
-
 	}
 }
