@@ -12,9 +12,9 @@ import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.field.IntegerField;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.FormImpl;
-import com.progressoft.jip.ui.web.form.manger.DynamicProxyWebFormManger;
+import com.progressoft.jip.ui.web.form.manger.DynamicProxySingleWebFormManger;
 import com.progressoft.jip.ui.web.form.manger.NoSuchFieldException;
-import com.progressoft.jip.ui.web.form.manger.WebFormManger;
+import com.progressoft.jip.ui.web.form.manger.SingleWebFormManger;
 
 import junit.framework.Assert;
 
@@ -33,7 +33,7 @@ public class WebFormMangerTest {
 	private Field<String> secoundField;
 	private Field<Integer> thirdIntegerField;
 	private FormImpl<PaymentMenuContext, TestDto> form;
-	private WebFormManger<PaymentMenuContext, TestDto> webFormManger;
+	private SingleWebFormManger<PaymentMenuContext, TestDto> webFormManger;
 
 	@Before
 	public void setup() {
@@ -45,7 +45,7 @@ public class WebFormMangerTest {
 				return TestDto.class;
 			};
 		}.addField(firstField).addField(secoundField).addField(thirdIntegerField);
-		webFormManger = new DynamicProxyWebFormManger<PaymentMenuContext, TestDto>(form);
+		webFormManger = new DynamicProxySingleWebFormManger<PaymentMenuContext, TestDto>(form);
 	}
 
 	@Test

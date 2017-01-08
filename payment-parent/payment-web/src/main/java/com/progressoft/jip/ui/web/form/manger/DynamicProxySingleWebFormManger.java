@@ -12,14 +12,14 @@ import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
 import com.progressoft.jip.ui.menu.MenuContext;
 
-public class DynamicProxyWebFormManger<C extends MenuContext, T> implements WebFormManger<C, T> {
+public class DynamicProxySingleWebFormManger<C extends MenuContext, T> implements SingleWebFormManger<C, T> {
 
 	private final Form<C, T> form;
 	private final Map<String, Object> values = new HashMap<>();
 	
 	private InvocationHandler invocationHandler;
 
-	public DynamicProxyWebFormManger(Form<C, T> form) {
+	public DynamicProxySingleWebFormManger(Form<C, T> form) {
 		this.form = form;
 	}
 
