@@ -1,7 +1,5 @@
 package com.progressoft.jip.payment.transcription;
 
-import org.omg.SendingContext.RunTime;
-
 /**
  * Created by mhqasrawi on 08/12/16.
  */

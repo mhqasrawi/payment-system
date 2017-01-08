@@ -5,14 +5,15 @@ import java.util.Objects;
 
 import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
+import com.progressoft.jip.ui.menu.MenuContext;
 import com.progressoft.jip.ui.webrendering.WebRenderingException;
 import com.progressoft.jip.ui.webrendering.field.impl.VisibleFieldHtmlRenderer;
 import com.progressoft.jip.ui.webrendering.form.FormRenderer;
 
-public class FormHtmlRenderer implements FormRenderer {
+public class FormHtmlRenderer<C extends MenuContext,T> implements FormRenderer<C,T>{
 
 	@Override
-	public String renderToHtml(Form form) {
+	public String renderToHtml(Form<C,T> form) {
 		if (Objects.isNull(form.getFields())) {
 			throw new WebRenderingException("Given form contains null fields");
 		}

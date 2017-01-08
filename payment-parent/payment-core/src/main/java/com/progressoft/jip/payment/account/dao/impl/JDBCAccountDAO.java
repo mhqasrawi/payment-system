@@ -257,7 +257,7 @@ public class JDBCAccountDAO implements AccountDAO {
 		accountDTO.setAccountNumber((String) account.get("account_number"));
 		accountDTO.setPaymentRule((String) account.get("rule"));
 		accountDTO.setPaymentRuleInfo((String) account.get("rule_info"));
-		accountDTO.setBalance(new BigDecimal((String) account.get("balance")));
+		accountDTO.setBalance(new BigDecimal((String) (account.get("balance")==null?"0":account.get("balance"))));
 		if (account.get("id") != null)
 			accountDTO.setId((Integer) account.get("id"));
 		return accountDTO;

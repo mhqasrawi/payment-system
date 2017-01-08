@@ -9,7 +9,8 @@ import com.progressoft.jip.ui.webrendering.field.impl.VisibleFieldHtmlRenderer;
 
 public class VisibleFieldHtmlRendererTests {
 	
-	private static final String EXPECTED_FIELD_HTML = "<div class=\"form-group\"><label for=\"field-id\">field description</label><input type=\"text\" class=\"form-control\" id=\"field-id\"></div>";
+	private static final String EXPECTED_FIELD_HTML = "<div class=\"form-group\"><label for=\"field-id\">field description</label"
+			+ "><input type=\"text\" class=\"form-control\" name=\"field-id\"></div>";
 	private VisibleFieldHtmlRenderer visibleFieldHtmlRenderer = new VisibleFieldHtmlRenderer();
 	
 	@Test(expected = WebRenderingException.class)

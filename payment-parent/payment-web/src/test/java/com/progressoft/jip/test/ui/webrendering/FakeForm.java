@@ -1,10 +1,12 @@
 package com.progressoft.jip.test.ui.webrendering;
 
 
+import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.Field;
 import com.progressoft.jip.ui.form.Form;
+import com.progressoft.jip.ui.menu.MenuContext;
 
-public class FakeForm implements Form {
+public class FakeForm<C extends MenuContext,T> implements Form<C,T>{
 
 	private Iterable<Field<?>> fields;
 	private String description;
@@ -29,6 +31,16 @@ public class FakeForm implements Form {
 
 	@Override
 	public Iterable<Field<?>> getAllFields() {
+		return null;
+	}
+
+	@Override
+	public SubmitAction<C, T> getSubmitAction() {
+		return null;
+	}
+
+	@Override
+	public Class<T> getClassType() {
 		return null;
 	}
 

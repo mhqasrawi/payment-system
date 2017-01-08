@@ -2,6 +2,8 @@ package com.progressoft.jip.payment.transcription;
 
 public class PaymentAmountException extends RuntimeException {
 
+	private static final long serialVersionUID = -8171505663425743668L;
+
 	public PaymentAmountException() {
 		super();
 	}

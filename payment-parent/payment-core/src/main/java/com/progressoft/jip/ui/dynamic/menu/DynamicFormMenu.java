@@ -9,12 +9,12 @@ import com.progressoft.jip.ui.menu.MenuImpl;
 
 public class DynamicFormMenu<C extends MenuContext, T> extends MenuImpl<C> {
 
-	DynamicFormMenu(String description, List<Menu<C>> subMenu, Form form, Class<?> interfaceClass,
+	DynamicFormMenu(String description, List<Menu<C>> subMenu, Form<C,T> form, Class<?> interfaceClass,
 			SubmitAction<C, T> submitAction) {
 		super(description, subMenu, new DynamicFormActionBuilderImpl<C, T>(form, interfaceClass, submitAction));
 	}
 
-	DynamicFormMenu(String description, List<Menu<C>> subMenu, Form form, Class<?> interfaceClass,
+	DynamicFormMenu(String description, List<Menu<C>> subMenu, Form<C,T> form, Class<?> interfaceClass,
 			SubmitAction<C, T> submitAction, DefaultValueProvider<C, T> defaultObjectProvider) {
 		super(description, subMenu, new DynamicFormActionBuilderImpl<C, T>(form, interfaceClass, submitAction)
 				.setDefaultObjectStrategy(defaultObjectProvider).build());

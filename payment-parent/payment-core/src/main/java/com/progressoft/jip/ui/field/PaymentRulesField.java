@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.progressoft.jip.DateRulesValidationProvider;
 import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.actions.impl.NewAccountAction;
+import com.progressoft.jip.actions.forms.NewAccountForm;
 
 public class PaymentRulesField extends AbstractMultipleChoiceField<String> implements FieldThatNeedMenuContext<PaymentMenuContext>{
 
@@ -27,7 +27,9 @@ public class PaymentRulesField extends AbstractMultipleChoiceField<String> imple
 	@Override
 	public AbstractField<String> setValue(String value) {
 		if ("xDays".equals(dateRules.get(value))) {
-			menuContext.put(NewAccountAction.IS_THERE_EXTRA_INFO, Boolean.valueOf(true));
+			menuContext.put(NewAccountForm.IS_THERE_EXTRA_INFO, Boolean.valueOf(true));
+		}else{
+			menuContext.put(NewAccountForm.IS_THERE_EXTRA_INFO, Boolean.valueOf(false));
 		}
 		this.value = dateRules.get(value);
 		return this;

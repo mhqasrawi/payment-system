@@ -18,7 +18,7 @@ public class VisibleFieldHtmlRenderer implements FieldRenderer {
 		}
 		return new StringBuilder().append("<div class=\"form-group\">").append("<label for=\"").append(field.getName())
 				.append("\">").append(field.getDescription()).append("</label>")
-				.append("<input type=\"text\" class=\"form-control\" id=\"").append(field.getName()).append("\">")
+				.append("<input type=\"text\" class=\"form-control\" name=\"").append(field.getName()).append("\">")
 				.append("</div>").toString();
 	}
 }

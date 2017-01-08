@@ -6,5 +6,5 @@ import com.progressoft.jip.ui.menu.MenuContext;
 public interface SubmitAction<C extends MenuContext, T> {
 
 	void submitAction(C menuContext, T object);
-
+	
 }

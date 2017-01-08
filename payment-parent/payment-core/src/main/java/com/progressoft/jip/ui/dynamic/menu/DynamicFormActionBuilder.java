@@ -14,10 +14,12 @@ public interface DynamicFormActionBuilder<C extends MenuContext, T> {
 
 	DynamicFormActionBuilder<C, T> setInterfaceType(Class<T> interfaceClass);
 
-	DynamicFormActionBuilder<C, T> setForm(Form form);
+	DynamicFormActionBuilder<C, T> setForm(Form<C,T> form);
 
 	DynamicFormActionBuilder<C, T> setSubmitAction(SubmitAction<C, T> submitAction);
 
 	Action<C> build();
+	
+	DynamicFormActionBuilder<C, T> refresh();
 
 }
