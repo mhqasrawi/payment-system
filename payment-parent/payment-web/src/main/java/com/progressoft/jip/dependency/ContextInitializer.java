@@ -11,6 +11,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 public class ContextInitializer implements ServletContextListener {
 
 	
+	private static final String SPRING_CONTEXT = "spring-context";
 	private static final String APP_CONTEXT_LOCATION = "app.context.location";
 
 	@Override
@@ -18,7 +19,7 @@ public class ContextInitializer implements ServletContextListener {
 		String appContextLocation = System.getProperty(APP_CONTEXT_LOCATION);
 		FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(appContextLocation);
 		ServletContext servletContext = sce.getServletContext();
-		servletContext.setAttribute("spring-context", appContext);
+		servletContext.setAttribute(SPRING_CONTEXT, appContext);
 		servletContext.setAttribute(ImplementationProvider.DEPENDENCY_PROVIDER, new SpringImplementationProvider(appContext));
 	}
 

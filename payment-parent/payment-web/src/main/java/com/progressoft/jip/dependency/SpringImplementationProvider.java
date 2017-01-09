@@ -3,7 +3,7 @@ package com.progressoft.jip.dependency;
 import org.springframework.context.ApplicationContext;
 
 public class SpringImplementationProvider implements ImplementationProvider {
-	
+
 	private final ApplicationContext applicationContext;
 
 	public SpringImplementationProvider(ApplicationContext applicationContext) {
@@ -13,6 +13,11 @@ public class SpringImplementationProvider implements ImplementationProvider {
 	@Override
 	public <T> T getImplementation(Class<T> clazz) {
 		return applicationContext.getBean(clazz);
+	}
+
+	@Override
+	public void injectObjectDependency(Object object) {
+		applicationContext.getAutowireCapableBeanFactory().autowireBean(object);
 	}
 
 }

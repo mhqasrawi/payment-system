@@ -1,13 +1,13 @@
 package com.progressoft.jip.session;
 
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import com.progressoft.jip.MenuContextImpl;
 import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.payment.account.AccountDTO;
-import com.progressoft.jip.ui.menu.Menu;
 
+@WebListener
 public class PaymentMenuContextConfigurator implements HttpSessionListener {
 
 	@Override

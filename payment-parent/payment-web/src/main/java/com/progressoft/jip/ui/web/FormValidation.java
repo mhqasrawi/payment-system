@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/form-validation")
+
 public class FormValidation extends HttpServlet {
 
 	private static final long serialVersionUID = 3083395460587763944L;
@@ -25,7 +25,7 @@ public class FormValidation extends HttpServlet {
 		String bodyContent = "";
 		String line = null;
 		while ((line = reader.readLine()) != null) {
-			bodyContent.concat(line);
+			bodyContent =bodyContent.concat(line);
 		}
 		String[] parameters = bodyContent.split("&");
 		if (parameters.length < 2)
