@@ -15,7 +15,7 @@ import com.progressoft.jip.payment.purpose.PaymentPurposeDTOImpl;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 import com.progressoft.jip.payment.usecase.NewPaymentPurposeUseCase;
 
-@WebServlet(urlPatterns="\new-payment-purpose")
+@WebServlet(urlPatterns="/new-payment-purpose")
 public class NewPaymentPurposeServlet extends HttpServlet {
 	private static final String APP_CONTEXT_LOCATION = "app.context.location";
 

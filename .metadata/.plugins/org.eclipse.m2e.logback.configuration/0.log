@@ -1,0 +1,246 @@
+2017-01-11 21:50:51,414 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using NULL lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-parent:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\pom.xml.
+2017-01-11 21:50:52,817 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-core:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\pom.xml.
+2017-01-11 21:50:53,618 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-date-rules:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\pom.xml.
+2017-01-11 21:50:53,883 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-main:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\pom.xml.
+2017-01-11 21:50:54,168 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-web:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\pom.xml.
+2017-01-11 21:50:58,926 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/main/java
+2017-01-11 21:50:58,927 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-core/src/main/resources
+2017-01-11 21:50:58,929 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/test/java
+2017-01-11 21:51:00,396 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/main/java
+2017-01-11 21:51:00,396 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-date-rules/src/main/resources
+2017-01-11 21:51:00,398 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/test/java
+2017-01-11 21:51:00,651 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/main/java
+2017-01-11 21:51:00,652 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/test/java
+2017-01-11 21:51:00,756 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/main/java
+2017-01-11 21:51:00,757 [Worker-9] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/test/java
+2017-01-11 21:51:02,578 [Worker-9] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 5 project(s) in 14 sec
+2017-01-11 21:51:08,910 [Worker-10] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:08,923 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 21:51:08,969 [Worker-10] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:08,975 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 21:51:11,296 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:11,298 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 21:51:11,310 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:11,311 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 21:51:11,839 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:11,840 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 21:51:11,842 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:11,843 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 21:51:13,562 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:13,563 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 21:51:13,566 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:51:13,569 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 21:52:20,245 [Worker-14] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-01-11 21:52:20,581 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using NULL lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-parent:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\pom.xml.
+2017-01-11 21:52:21,352 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-core:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\pom.xml.
+2017-01-11 21:52:21,614 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-date-rules:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\pom.xml.
+2017-01-11 21:52:21,768 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-main:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\pom.xml.
+2017-01-11 21:52:21,925 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-web:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\pom.xml.
+2017-01-11 21:52:24,124 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/main/java
+2017-01-11 21:52:24,124 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-core/src/main/resources
+2017-01-11 21:52:24,126 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/test/java
+2017-01-11 21:52:24,261 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/main/java
+2017-01-11 21:52:24,261 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-date-rules/src/main/resources
+2017-01-11 21:52:24,262 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/test/java
+2017-01-11 21:52:24,375 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/main/java
+2017-01-11 21:52:24,375 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/test/java
+2017-01-11 21:52:24,439 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/main/java
+2017-01-11 21:52:24,440 [Worker-14] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/test/java
+2017-01-11 21:52:26,338 [Worker-14] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for payment-web
+2017-01-11 21:52:26,345 [Worker-14] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 6 sec
+2017-01-11 21:52:27,887 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:27,890 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 21:52:27,936 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:27,937 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 21:52:29,024 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:29,025 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 21:52:29,033 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:29,034 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 21:52:29,355 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:29,356 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 21:52:29,358 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:29,359 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 21:52:30,215 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:30,216 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 21:52:30,218 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:52:30,219 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 21:52:30,219 [Worker-13] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of payment-web
+2017-01-11 21:52:30,220 [Worker-13] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for payment-web
+2017-01-11 21:52:30,388 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:38,655 [Worker-11] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\u623\Desktop\payment-system\payment-parent
+2017-01-11 21:53:38,655 [Worker-11] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B clean
+2017-01-11 21:53:42,263 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,273 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 21:53:42,308 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,309 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 21:53:42,360 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,362 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 21:53:42,370 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,371 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 21:53:42,403 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,405 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 21:53:42,406 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,407 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 21:53:42,542 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,543 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 21:53:42,544 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:42,546 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 21:53:42,546 [Worker-15] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of payment-web
+2017-01-11 21:53:42,546 [Worker-15] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for payment-web
+2017-01-11 21:53:42,551 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 21:53:51,043 [main] INFO  o.e.m2e.actions.ExecutePomAction - Creating new launch configuration
+2017-01-11 21:54:47,192 [main] INFO  o.e.m2e.actions.ExecutePomAction - Creating new launch configuration
+2017-01-11 21:55:36,895 [Worker-11] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\u623\Desktop\payment-system\payment-parent
+2017-01-11 21:55:36,895 [Worker-11] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B clean install
+2017-01-11 22:01:42,197 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,199 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-01-11 22:01:42,203 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,205 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 22:01:42,229 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,231 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-01-11 22:01:42,233 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,234 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 22:01:42,245 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,246 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 22:01:42,248 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,249 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 22:01:42,260 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,261 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:01:42,263 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:42,264 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:01:46,580 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:46,584 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 22:01:46,588 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:01:46,589 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 22:02:32,467 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,470 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 22:02:32,507 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,508 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 22:02:32,673 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,675 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 22:02:32,677 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,678 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 22:02:32,719 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,720 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 22:02:32,729 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:32,730 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 22:02:33,285 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:33,286 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:02:33,288 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:02:33,289 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:03:00,890 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:00,892 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 22:03:00,899 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:00,900 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 22:03:20,018 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:20,020 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 22:03:20,022 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:20,023 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 22:03:37,551 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:37,552 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:03:37,554 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:03:37,555 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:03:52,087 [Worker-21] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-01-11 22:03:52,387 [Worker-21] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using NULL lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-parent:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\pom.xml.
+2017-01-11 22:03:53,156 [Worker-21] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-core:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\pom.xml.
+2017-01-11 22:03:53,419 [Worker-21] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-date-rules:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\pom.xml.
+2017-01-11 22:03:53,540 [Worker-21] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-main:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\pom.xml.
+2017-01-11 22:03:53,665 [Worker-21] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.progressoft.jip.payment:payment-web:0.0.1-SNAPSHOT @ C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\pom.xml.
+2017-01-11 22:03:56,400 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/main/java
+2017-01-11 22:03:56,400 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-core/src/main/resources
+2017-01-11 22:03:56,401 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-core/src/test/java
+2017-01-11 22:03:56,515 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/main/java
+2017-01-11 22:03:56,515 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /payment-date-rules/src/main/resources
+2017-01-11 22:03:56,516 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-date-rules/src/test/java
+2017-01-11 22:03:56,619 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/main/java
+2017-01-11 22:03:56,620 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-main/src/test/java
+2017-01-11 22:03:56,695 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/main/java
+2017-01-11 22:03:56,696 [Worker-21] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /payment-web/src/test/java
+2017-01-11 22:03:58,196 [Worker-21] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for payment-web
+2017-01-11 22:03:58,202 [Worker-21] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 6 sec
+2017-01-11 22:04:00,776 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:00,778 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-11 22:04:00,828 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:00,830 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 22:04:02,163 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:02,164 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-01-11 22:04:02,172 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:02,173 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-date-rules\src\test\resources
+2017-01-11 22:04:02,672 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:02,673 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\main\resources
+2017-01-11 22:04:02,675 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:02,676 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-main\src\test\resources
+2017-01-11 22:04:05,644 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:05,645 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:04:05,646 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:05,647 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:04:05,648 [Worker-24] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of payment-web
+2017-01-11 22:04:05,649 [Worker-24] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for payment-web
+2017-01-11 22:04:05,668 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:04:59,903 [Worker-24] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\u623\Desktop\payment-system\payment-parent
+2017-01-11 22:04:59,903 [Worker-24] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B clean install
+2017-01-11 22:05:47,365 [Worker-18] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\u623\Desktop\payment-system\payment-parent
+2017-01-11 22:05:47,366 [Worker-18] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B -Dmaven.test.skip=true -DskipTests clean install
+2017-01-11 22:06:31,612 [main] INFO  o.e.m2e.actions.ExecutePomAction - Creating new launch configuration
+2017-01-11 22:07:20,423 [Worker-27] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\u623\Desktop\payment-system\payment-parent\payment-web
+2017-01-11 22:07:20,424 [Worker-27] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B jetty:run
+2017-01-11 22:12:33,121 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:12:33,124 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:12:33,125 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:12:33,126 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:12:34,192 [Worker-29] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:12:34,198 [Worker-29] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-01-11 22:12:34,201 [Worker-29] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:12:34,204 [Worker-29] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-11 22:14:53,258 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:14:53,263 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:14:53,265 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:14:53,266 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:14:59,800 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:14:59,804 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:14:59,849 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:14:59,850 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:15:48,135 [Worker-30] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:15:48,137 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:15:48,139 [Worker-30] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:15:48,140 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-11 22:16:30,294 [Worker-30] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:16:30,295 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-11 22:16:30,297 [Worker-30] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-11 22:16:30,298 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-12 08:07:54,091 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:07:54,177 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:07:54,181 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:07:54,182 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:07:59,184 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:07:59,188 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:07:59,192 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:07:59,193 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:08:07,619 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:07,628 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:08:07,637 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:07,638 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:08:17,364 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:17,372 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:08:17,378 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:17,381 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:08:18,488 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:18,492 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:08:18,497 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:18,502 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:08:18,528 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:18,529 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-12 08:08:18,530 [Worker-36] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:18,530 [Worker-36] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-12 08:08:31,974 [Worker-44] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:31,981 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 14 resources
+2017-01-12 08:08:31,986 [Worker-44] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:08:31,989 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\test\resources
+2017-01-12 08:09:35,885 [Worker-44] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:09:35,887 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-12 08:09:35,890 [Worker-44] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:09:35,891 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
+2017-01-12 08:09:41,572 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:09:41,573 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\main\resources
+2017-01-12 08:09:41,574 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-12 08:09:41,575 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\u623\Desktop\payment-system\payment-parent\payment-web\src\test\resources
