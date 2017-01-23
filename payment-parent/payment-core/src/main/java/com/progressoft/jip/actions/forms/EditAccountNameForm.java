@@ -6,6 +6,7 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOConstant;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
+import com.progressoft.jip.payment.usecase.EditAccountNameUseCase;
 import com.progressoft.jip.ui.dynamic.menu.DefaultValueProvider;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.StringField;
@@ -24,7 +25,7 @@ public class EditAccountNameForm extends FormImpl<PaymentMenuContext, AccountDTO
 		super(EDIT_ACCOUNT_NAME_FORM_DESCRIPTION);
 	}
 
-	public void init(){
+	public void init() {
 		StringField accountNameField = new StringField();
 		accountNameField.setDescription(ENTER_ACCOUNT_NAME);
 		accountNameField.setName(AccountDTOConstant.ACCOUNT_NAME_ACCOUNT_DTO);
@@ -33,7 +34,7 @@ public class EditAccountNameForm extends FormImpl<PaymentMenuContext, AccountDTO
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, AccountDTO accountDTO) {
-		menuContext.setCurrentAccount(accountService.save(accountDTO));
+		new EditAccountNameUseCase(accountService).process(menuContext, accountDTO);
 	}
 
 	@Override

@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.progressoft.jip.ui.web.FormDemo"%>
+<%@ page import="com.progressoft.jip.actions.forms.NewAccountForm"%>
+<%@ page import="com.progressoft.jip.ui.web.form.WebFormController"%>
+<%@ page import="com.progressoft.jip.payment.account.AccountDTO"%>
+<%@ page
+	import="com.progressoft.jip.ui.web.form.parameter.StreamParameterParser"%>
+<%@ page
+	import="com.progressoft.jip.ui.web.form.manger.DynamicProxySingleWebFormManger"%>
+<%@ page
+	import="com.progressoft.jip.ui.webrendering.form.impl.FormHtmlRenderer"%>
+<%@ page
+	import="com.progressoft.jip.ui.webrendering.form.impl.FormHtmlRenderer"%>
+<%@ page import="com.progressoft.jip.ui.webrendering.form.FormRenderer"%>
+<%@ page import="com.progressoft.jip.ui.form.Form"%>
+<%@ page import="com.progressoft.jip.dependency.ImplementationProvider"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,8 +29,17 @@
 </head>
 <body>
 	<%
-		FormDemo formDemo = new FormDemo();
-		out.write(formDemo.getForm());
+		StreamParameterParser parameterParser = new StreamParameterParser();
+		NewAccountForm form = new NewAccountForm();
+		DynamicProxySingleWebFormManger singleWebFormManger = new DynamicProxySingleWebFormManger(form);
+		WebFormController<AccountDTO> webFormController = new WebFormController<>(parameterParser,
+				singleWebFormManger);
+		webFormController.attachForm(
+				(ImplementationProvider) session.getServletContext().getAttribute("dependency-provider"), form);
+		session.putValue("current_form_controller", webFormController);
+		FormRenderer formRenderer = new FormHtmlRenderer();
+		String formString = formRenderer.renderToHtml(form);
+		out.write(formString);
 	%>
 
 	<script type="text/javascript">
@@ -29,11 +51,11 @@
 					console.log(v.value);
 					var data = new Object();
 					data[v.name] = v.value;
-					data[v.value] = v.name;
-					console.log(data[v.name]);
 					$.post("./form-validation", data, function(returned_data) {
-						console.log(returned_data.name);
-						console.log(returned_data.value);
+						var returnedMessage = $.parseJSON(returned_data);
+						if('null'!=returnedMessage.message){
+							$('[name="'+parameterValueTuple.parameter+'""]').							
+						}
 					});
 				});
 			});

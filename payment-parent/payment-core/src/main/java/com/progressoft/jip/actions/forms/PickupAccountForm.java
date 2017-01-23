@@ -30,7 +30,6 @@ public class PickupAccountForm extends FormImpl<PaymentMenuContext, StringContai
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, StringContainer stringContainer) {
 		new PikupAccountUseCase(menuContext, accountService).loadAccountByAccountNumber(stringContainer.getString());
-
 	}
 
 	@Override

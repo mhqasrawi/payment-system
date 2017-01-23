@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.progressoft.jip.ui.dynamic.menu.DefaultInvocationHandler;
 import com.progressoft.jip.ui.dynamic.menu.DefaultValueProvider;
 import com.progressoft.jip.ui.field.Field;
@@ -14,9 +17,10 @@ import com.progressoft.jip.ui.menu.MenuContext;
 
 public class DynamicProxySingleWebFormManger<C extends MenuContext, T> implements SingleWebFormManger<C, T> {
 
+	private final Logger logger = LoggerFactory.getLogger(DynamicProxySingleWebFormManger.class);
+
 	private final Form<C, T> form;
 	private final Map<String, Object> values = new HashMap<>();
-	
 	private InvocationHandler invocationHandler;
 
 	public DynamicProxySingleWebFormManger(Form<C, T> form) {
@@ -25,6 +29,7 @@ public class DynamicProxySingleWebFormManger<C extends MenuContext, T> implement
 
 	@Override
 	public void submitFieldValue(String fieldName, String value) {
+		logger.trace(" set field with name {} in form {} with value {}", fieldName, form, value);
 		Field<?> field = form.getFieldByName(fieldName);
 		if (Objects.isNull(field))
 			throw new NoSuchFieldException("no field with name " + fieldName);

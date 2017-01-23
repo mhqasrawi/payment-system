@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
+import com.progressoft.jip.payment.usecase.NewPaymentPurposeUseCase;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.FormImpl;
@@ -28,7 +29,7 @@ public class NewPaymentPurposeForm extends FormImpl<PaymentMenuContext, PaymentP
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, PaymentPurposeDTO paymentPurpose) {
-		paymentPurposeDAO.save(paymentPurpose);
+		new NewPaymentPurposeUseCase(paymentPurposeDAO).process(paymentPurpose);
 	}
 
 	@Override

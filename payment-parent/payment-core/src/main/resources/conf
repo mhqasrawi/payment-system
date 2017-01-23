@@ -1,3 +1,4 @@
--Dapp.context.location=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/application-context.xml 
- -Dconfiguration.file.path=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/conf.xml
- -Dlog4j.configuration=//home/mhqasrawi/Desktop/payment/payment-system/payment-parent/payment-core/src/main/resources/log4j.properties
+-Dapp.context.location=C://Users//u623//Desktop//payment-system//payment-parent//payment-core//src//main//resources//application-context.xml
+ -Dconfiguration.file.path=C://Users//u623//Desktop//payment-system//payment-parent//payment-core//src//main//resources//conf.xml
+ -Dlog4j.configuration=C://Users//u623//Desktop//payment-system//payment-parent//payment-core//src//main//resources//log4j.properties
+ -Dcurrency.code.file=C://Users//u623//Desktop//payment-system//payment-parent//payment-core//src//main//resources//currency-code.txt

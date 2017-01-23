@@ -9,12 +9,14 @@ import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.report.core.ReportManager;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.EnglishTranscription;
+import com.progressoft.jip.payment.usecase.NewReportUseCase;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.field.PathField;
 import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.FormImpl;
 
-public class NewReportForm extends FormImpl<PaymentMenuContext, ReportSettingWrapper> implements SubmitAction<PaymentMenuContext, ReportSettingWrapper>{
+public class NewReportForm extends FormImpl<PaymentMenuContext, ReportSettingWrapper>
+		implements SubmitAction<PaymentMenuContext, ReportSettingWrapper> {
 
 	private static final String FILE_NAME = "fileName";
 	private static final String PATH = "path";
@@ -22,13 +24,11 @@ public class NewReportForm extends FormImpl<PaymentMenuContext, ReportSettingWra
 	private static final String ENTER_REPORT_FILE_NAME = "Enter Report File Name";
 	private static final String ENTER_REPORT_INFO = "Enter Report Info";
 
-	
 	@Inject
 	private ReportManager reportManager;
 	@Inject
 	private PaymentDAO paymentDAO;
-	
-	
+
 	public NewReportForm() {
 		super(ENTER_REPORT_INFO);
 	}
@@ -41,23 +41,12 @@ public class NewReportForm extends FormImpl<PaymentMenuContext, ReportSettingWra
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, ReportSettingWrapper reportSetting) {
-		String accountNumber = menuContext.getCurrentAccount().getAccountNumber();
-		Iterable<PaymentDTO> payments = paymentDAO.get(accountNumber);
-		ReportSettingsImpl settings = new ReportSettingsImpl();
-		settings.setPath(reportSetting.getPath());
-		settings.setFileName(reportSetting.getFileName());
-		settings.setFileExtention("xml");
-		settings.setPayments(payments);
-		settings.setTranscriberClass(EnglishTranscription.class);
-		reportManager.generateReport(settings);
-		
+		new NewReportUseCase(reportManager, paymentDAO).process(menuContext, reportSetting);
 	}
 
 	@Override
 	public Class<ReportSettingWrapper> getClassType() {
 		return ReportSettingWrapper.class;
 	}
-	
-	
 
 }

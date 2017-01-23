@@ -14,7 +14,7 @@ public class ParameterValueTuple {
 		return value;
 	}
 
-	public String getParameter() {
+	public String getParameterName() {
 		return parameter;
 	}
 
