@@ -8,4 +8,5 @@ public interface PaymentPurposePersistenceService {
 
 	PaymentPurposeDTO getPaymentPurpose(String shortCode);
 
+	Iterable<PaymentPurposeDTO> getAll();
 }

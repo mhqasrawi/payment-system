@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
-import com.progressoft.jip.payment.usecase.PikupAccountUseCase;
+import com.progressoft.jip.payment.usecase.ChooseAccountUseCase;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 import com.progressoft.jip.ui.dynamic.menu.preemtivewrapper.StringContainer;
 import com.progressoft.jip.ui.field.StringField;
@@ -29,7 +29,7 @@ public class PickupAccountForm extends FormImpl<PaymentMenuContext, StringContai
 
 	@Override
 	public void submitAction(PaymentMenuContext menuContext, StringContainer stringContainer) {
-		new PikupAccountUseCase(menuContext, accountService).loadAccountByAccountNumber(stringContainer.getString());
+		new ChooseAccountUseCase(menuContext, accountService).loadAccountByAccountNumber(stringContainer.getString());
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
-import com.progressoft.jip.payment.usecase.PikupAccountUseCase;
+import com.progressoft.jip.payment.usecase.ChooseAccountUseCase;
 
 @WebServlet(urlPatterns = "/pikup_account")
 public class PickupAccountServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class PickupAccountServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1699665816065799380L;
 
-	private PikupAccountUseCase pikupAccountUseCase;
+	private ChooseAccountUseCase pikupAccountUseCase;
 
 	private AccountPersistenceService accountService = null;
 
@@ -35,8 +35,7 @@ public class PickupAccountServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String accountNumber = req.getParameter("account-number");
-		HttpSession session = req.getSession();
-		session.setAttribute(CURRENT_ACCOUNT, pikupAccountUseCase.loadAccountByAccountNumber(accountNumber));
+		pikupAccountUseCase.loadAccountByAccountNumber(accountNumber);
 	}
 
 }

@@ -8,7 +8,7 @@ import com.progressoft.jip.MenuContextImpl;
 import com.progressoft.jip.PaymentMenuContext;
 
 @WebListener
-public class PaymentMenuContextConfigurator implements HttpSessionListener {
+public class PaymentMenuContextConfiguratorListener implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {

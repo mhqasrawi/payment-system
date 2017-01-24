@@ -8,3 +8,4 @@
 target/
 .tern-project/
 *.tern-project
+*.iml
