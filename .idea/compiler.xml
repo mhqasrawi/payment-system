@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="payment-core" />
+        <module name="payment-core (1)" />
+        <module name="payment-date-rules" />
+        <module name="payment-date-rules (1)" />
+        <module name="payment-main" />
+        <module name="payment-main (1)" />
+        <module name="payment-web" />
+        <module name="payment-web (1)" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="payment-core" target="1.5" />
+      <module name="payment-core (1)" target="1.8" />
+      <module name="payment-core (2)" target="1.8" />
+      <module name="payment-core (3)" target="1.8" />
+      <module name="payment-date-rules" target="1.5" />
+      <module name="payment-date-rules (1)" target="1.8" />
+      <module name="payment-date-rules (2)" target="1.5" />
+      <module name="payment-date-rules (3)" target="1.8" />
+      <module name="payment-main" target="1.5" />
+      <module name="payment-main (1)" target="1.8" />
+      <module name="payment-main (2)" target="1.5" />
+      <module name="payment-main (3)" target="1.8" />
+      <module name="payment-parent" target="1.8" />
+      <module name="payment-web" target="1.5" />
+      <module name="payment-web (1)" target="1.8" />
+      <module name="payment-web (2)" target="1.8" />
+      <module name="payment-web (3)" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

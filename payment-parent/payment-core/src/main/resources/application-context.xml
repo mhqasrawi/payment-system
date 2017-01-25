@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -9,34 +10,71 @@
 	default-autowire="byType">
 	<context:annotation-config />
 
+	<bean
+		id="currencyProvider"
+		class="com.progressoft.jip.currency.currenciesprovider.CurrencyCodeProviderUtilImpl">
+	</bean>
 
-	<bean id="PaymentPurposePersistenceService" class="com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceServiceImpl" />
-	<bean id="dateRulesValidationProvider" class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl"/>
-	<bean id="paymentDao" class="com.progressoft.jip.payment.impl.PaymentDAOImpl" />
-	<bean id="configuration" class="com.progressoft.jip.configuration.XMLConfiguraionImpl"
-		lazy-init="false" init-method="init" />
-	<bean id="dataSource" class="com.progressoft.jip.DefaultDataSource"
+	<bean id="accountDToImpl" class="com.progressoft.jip.payment.account.AccountDTOImpl"></bean>
+	<bean
+		id="dateRulesValidationProvider"
+		class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl" />
+	<bean
+		id="paymentDao"
+		class="com.progressoft.jip.payment.impl.PaymentDAOImpl" />
+	<bean
+		id="configuration"
+		class="com.progressoft.jip.configuration.XMLConfiguraionImpl"
+		lazy-init="false"
+		init-method="init" />
+	<bean
+		id="dataSource"
+		class="com.progressoft.jip.DefaultDataSource"
 		init-method="config" />
-	<bean id="accountPersistenceService"
+	<bean
+		id="accountPersistenceService"
 		class="com.progressoft.jip.payment.account.service.AccountPersistenceServiceImpl" />
-	<bean id="accountDAO"
+	<bean
+		id="accountDAO"
 		class="com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO" />
-	<bean id="IBANPersistenceService"
+	<bean
+		id="IBANPersistenceService"
 		class="com.progressoft.jip.payment.iban.service.impl.IBANPersistenceServiceImpl" />
-	<bean id="IBANDAO" class="com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO" />
-	<bean id="IdDAO" class="com.progressoft.jip.payment.id.generator.IdDAOImpl" />
-	<bean id="IBANFormatsFileReader"
+	<bean
+		id="IBANDAO"
+		class="com.progressoft.jip.payment.iban.dao.impl.JDBCIBANDAO" />
+	<bean
+		id="IdDAO"
+		class="com.progressoft.jip.payment.id.generator.IdDAOImpl" />
+	<bean
+		id="IBANFormatsFileReader"
 		class="com.progressoft.jip.payment.iban.impl.IBANFormatsFileReader" />
-	<bean id="IBANValidator" class="com.progressoft.jip.payment.iban.impl.IBANValidatorImpl" />
-	<bean id="paymentDynamicFormAction"
+	<bean
+		id="IBANValidator"
+		class="com.progressoft.jip.payment.iban.impl.IBANValidatorImpl" />
+	<bean
+		id="paymentDynamicFormAction"
 		class="com.progressoft.jip.actions.PaymentDynamicFormActionBuilderImpl"
 		scope="prototype" />
-	<bean id="userInterfaceGenerator" class="com.progressoft.jip.XmlFileUserInterfaceGenerator" />
-	<bean id="jdbcPaymentPurposeDAO"
+	<bean
+		id="userInterfaceGenerator"
+		class="com.progressoft.jip.XmlFileUserInterfaceGenerator" />
+	<bean
+		id="jdbcPaymentPurposeDAO"
 		class="com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO" />
-	<bean id="springBasedActionGenerator" class="com.progressoft.jip.SpringBasedActionGenerator" />
-	<bean id="reportManager"
+	<bean
+		id="springBasedActionGenerator"
+		class="com.progressoft.jip.SpringBasedActionGenerator" />
+	<bean
+		id="reportManager"
 		class="com.progressoft.jip.payment.report.impl.ReportManagerImpl" />
-	<bean id="paymentBuilder" class="com.progressoft.jip.payment.impl.PaymentBuilderImpl" />
-	<bean id="paymentProcessor" class="com.progressoft.jip.payment.usecase.NewPaymentUseCase" />
+	<bean
+		id="paymentBuilder"
+		class="com.progressoft.jip.payment.impl.PaymentBuilderImpl" />
+	<bean
+		id="paymentProcessor"
+		class="com.progressoft.jip.payment.usecase.NewPaymentUseCase" />
+	<bean id="newAccountUseCase" class="com.progressoft.jip.payment.usecase.NewAccountUseCase">
+		<property name="accountService" ref="accountPersistenceService"></property>
+	</bean>
 </beans>

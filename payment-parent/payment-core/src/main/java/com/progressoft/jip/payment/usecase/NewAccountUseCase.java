@@ -6,7 +6,11 @@ import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 
 public class NewAccountUseCase {
 
-	private final AccountPersistenceService accountService;
+	private  AccountPersistenceService accountService;
+
+	public void setAccountService(AccountPersistenceService accountService) {
+		this.accountService = accountService;
+	}
 
 	public NewAccountUseCase(AccountPersistenceService accountService) {
 		this.accountService = accountService;

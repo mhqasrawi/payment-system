@@ -7,6 +7,7 @@ public class IBANDTOImpl implements IBANDTO {
 	private String ibanValue;
 
 	public IBANDTOImpl() {
+
 	}
 
 	public void setId(int id) {
@@ -18,6 +19,8 @@ public class IBANDTOImpl implements IBANDTO {
 	}
 
 	public void setIbanValue(String ibanValue) {
+		this.ibanValue = ibanValue.trim().replace(" ", "");
+		this.countryCode = this.ibanValue.substring(0, 2);
 		this.ibanValue = ibanValue;
 	}
 

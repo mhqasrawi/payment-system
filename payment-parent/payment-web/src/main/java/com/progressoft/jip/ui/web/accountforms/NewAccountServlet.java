@@ -1,35 +1,29 @@
 package com.progressoft.jip.ui.web.accountforms;
 
-import java.io.IOException;
+import com.progressoft.jip.PaymentMenuContext;
+import com.progressoft.jip.currency.currenciesprovider.CurrencyCodeProvider;
+import com.progressoft.jip.dependency.ImplementationProvider;
+import com.progressoft.jip.payment.account.AccountDTO;
+import com.progressoft.jip.payment.account.AccountDTOImpl;
+import com.progressoft.jip.payment.customer.CustomerDTOImpl;
+import com.progressoft.jip.payment.iban.IBANDTOImpl;
+import com.progressoft.jip.payment.iban.IBANValidationException;
+import com.progressoft.jip.payment.iban.IBANValidator;
+import com.progressoft.jip.payment.usecase.NewAccountUseCase;
+import com.progressoft.jip.session.PaymentMenuContextConstant;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.progressoft.jip.MenuContextImpl;
-import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.configuration.Configuration;
-import com.progressoft.jip.currency.currenciesprovider.CurrencyProvider;
-import com.progressoft.jip.currency.currenciesprovider.CurrencyProviderImpl;
-import com.progressoft.jip.dependency.ImplementationProvider;
-import com.progressoft.jip.payment.account.AccountDTOImpl;
-import com.progressoft.jip.payment.account.service.AccountPersistenceService;
-import com.progressoft.jip.payment.iban.IBANValidationException;
-import com.progressoft.jip.payment.iban.IBANValidator;
-import com.progressoft.jip.payment.usecase.NewAccountUseCase;
-import com.progressoft.jip.ui.field.AccountStatusField;
-import com.progressoft.jip.ui.field.BigDecimalField;
-import com.progressoft.jip.ui.field.CurrencyField;
-import com.progressoft.jip.ui.field.CustomerField;
-import com.progressoft.jip.ui.field.IBANField;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Currency;
 
 /**
- * @author u623
- *
+ * @author u623 i8i
  */
 @WebServlet(urlPatterns = "/newAccount")
 public class NewAccountServlet extends HttpServlet {
@@ -37,15 +31,13 @@ public class NewAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = -3033338791739821939L;
 
 	private ImplementationProvider implementationProvider;
-	private Iterable<String> listAllCurrency;
-	private String property;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
+
 		implementationProvider = (ImplementationProvider) config.getServletContext()
 				.getAttribute(ImplementationProvider.DEPENDENCY_PROVIDER);
-		Configuration configuration = implementationProvider.getImplementation(Configuration.class);
-		property = configuration.getProperty("currency.code.file");
+
 	}
 
 	@Override
@@ -56,62 +48,57 @@ public class NewAccountServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		AccountPersistenceService persistenceService = implementationProvider
-				.getImplementation(AccountPersistenceService.class);
-		PaymentMenuContext paymentMenuContext = new MenuContextImpl();
-		NewAccountUseCase accountUseCase = new NewAccountUseCase(persistenceService);
-		AccountDTOImpl account = new AccountDTOImpl();
 
+		PaymentMenuContext paymentMenuContext = (PaymentMenuContext) req.getSession()
+				.getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT);
+
+		NewAccountUseCase accountUseCase = implementationProvider.getImplementation(NewAccountUseCase.class);
+		AccountDTOImpl accountDto = new AccountDTOImpl();
 		try {
-			account.setAccountNumber(req.getParameter("accountNumber"));
-			setNewAccountInfo(req, account);
-			accountUseCase.process(paymentMenuContext, account);
-			resp.sendRedirect("/accountInfo?accountNumber=" + account.getAccountNumber());
-
-		} catch (IBANValidationException e) {
+			setNewAccountInfo(req, accountDto);
+			accountUseCase.process(paymentMenuContext, accountDto);
+//			req.setAttribute("pageContent", "/WEB-INF/views/accountInfo.jsp");
+			req.getRequestDispatcher("/accountInfo").forward(req, resp);
+		} catch (IBANValidationException | NumberFormatException e) {
 			req.setAttribute("IBANError", e);
 			forwardToNewAccountForm(req, resp);
 		}
 
 	}
 
+	private void setNewAccountInfo(HttpServletRequest req, AccountDTOImpl accountDto) {
+		accountDto.setIbandto(parseIban(req));
+		accountDto.setAccountNumber(req.getParameter("accountNumber"));
+		accountDto.setAccountName(req.getParameter("accountName"));
+		accountDto.setCurrency(Currency.getInstance(req.getParameter("currency")));
+		accountDto.setAccountStatus(AccountDTO.AccountStatus.valueOf(req.getParameter("accountStatus")));
+		CustomerDTOImpl customer = new CustomerDTOImpl();
+		customer.setName(req.getParameter("customerDTO"));
+		accountDto.setCustomerDTO(customer);
+		accountDto.setPaymentRule(req.getParameter("paymentRule"));
+		accountDto.setPaymentRuleInfo(req.getParameter("paymentRuleInfo"));
+		accountDto.setBalance(new BigDecimal(req.getParameter("balance")));
+	}
+
+	private IBANDTOImpl parseIban(HttpServletRequest req) {
+		IBANDTOImpl ibandto = new IBANDTOImpl();
+		ibandto.setIbanValue(req.getParameter("ibandto"));
+		validateIban(ibandto);
+		return ibandto;
+	}
+
+	private void validateIban(IBANDTOImpl ibandto) {
+		IBANValidator ibanValidator = implementationProvider.getImplementation(IBANValidator.class);
+		ibanValidator.validate(ibandto);
+	}
+
 	private void forwardToNewAccountForm(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		CurrencyProvider currencyProvider = new CurrencyProviderImpl(property);
-		listAllCurrency = currencyProvider.listAllCurrency();
+		CurrencyCodeProvider provider = implementationProvider.getImplementation(CurrencyCodeProvider.class);
+		Iterable<String> listAllCurrency = provider.listAllCurrency();
 		req.setAttribute("currencyList", listAllCurrency);
+		req.getRequestDispatcher("/newaccount-view.jsp").forward(req, resp);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/newaccount-view.jsp");
-		requestDispatcher.forward(req, resp);
 	}
 
-	private void setNewAccountInfo(HttpServletRequest req, AccountDTOImpl account) {
-		IBANValidator ibanValidator = implementationProvider.getImplementation(IBANValidator.class);
-
-		IBANField ibanField = new IBANField(ibanValidator);
-		ibanField.setValue(req.getParameter("ibandto"));
-
-		account.setIbandto(ibanField.getValue());
-
-		account.setAccountName(req.getParameter("accountName"));
-
-		CurrencyField currencyField = new CurrencyField();
-		currencyField.setValue(req.getParameter("currency"));
-		account.setCurrency(currencyField.getValue());
-
-		AccountStatusField statusField = new AccountStatusField();
-		statusField.setValue(req.getParameter("accountStatus"));
-		account.setAccountStatus(statusField.getValue());
-
-		CustomerField customerField = new CustomerField();
-		customerField.setValue(req.getParameter("customerDTO"));
-		account.setCustomerDTO(customerField.getValue());
-
-		account.setPaymentRule(req.getParameter("paymentRule"));
-		account.setPaymentRuleInfo(req.getParameter("paymentRuleInfo"));
-
-		BigDecimalField decimalField = new BigDecimalField();
-		decimalField.setValue(req.getParameter("balance"));
-		account.setBalance(decimalField.getValue());
-	}
 }

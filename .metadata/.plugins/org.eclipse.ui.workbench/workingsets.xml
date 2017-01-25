@@ -2,10 +2,10 @@
 <workingSetManager>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1484164248006_0" label="payment-parent" name="payment-parent">
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-parent" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-core" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-web" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-date-rules" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-main" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-web" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/payment-core" type="4"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1484201139484_1" label="Window Working Set" name="Aggregate for window 1484201139483"/>
 </workingSetManager>
