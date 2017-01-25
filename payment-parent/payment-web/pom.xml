@@ -77,7 +77,12 @@
 			<artifactId>jstl</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.progressoft.jip.payment</groupId>
+            <artifactId>payment-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<finalName>payment-web</finalName>
 		<plugins>

@@ -17,9 +17,5 @@
 			<path>C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\main\resources\ui.xml</path>
 		</xml>
 	</ui>
-	<currency>
-	<code>
-	<file>C:\Users\u623\Desktop\payment-system\payment-parent\payment-core\src\main\resources\currency-code.txt</file>
-	</code>
-	</currency>
+
 </configuraion>

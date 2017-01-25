@@ -12,7 +12,7 @@ public class PaymentMenuContextConfigurator implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		se.getSession().setAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT, new MenuContextImpl());
+		se.getSession().setAttribute("PAYMENT_MENU_CONTEXT", new MenuContextImpl());
 		PaymentMenuContext context= (PaymentMenuContext) se.getSession().getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT);
 	}
 

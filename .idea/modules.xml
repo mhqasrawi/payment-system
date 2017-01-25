@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-core/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-core/payment-core.iml" filepath="$PROJECT_DIR$/payment-parent/payment-core/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-core/payment-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-core/payment-core (1).iml" filepath="$PROJECT_DIR$/payment-parent/payment-core/payment-core (1).iml" group="payment-parent and modules" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-date-rules/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-date-rules/payment-date-rules.iml" filepath="$PROJECT_DIR$/payment-parent/payment-date-rules/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-date-rules/payment-date-rules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-date-rules/payment-date-rules (1).iml" filepath="$PROJECT_DIR$/payment-parent/payment-date-rules/payment-date-rules (1).iml" group="payment-parent and modules" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-main/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-main/payment-main.iml" filepath="$PROJECT_DIR$/payment-parent/payment-main/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-main/payment-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-main/payment-main (1).iml" filepath="$PROJECT_DIR$/payment-parent/payment-main/payment-main (1).iml" group="payment-parent and modules" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-parent.iml" filepath="$PROJECT_DIR$/payment-parent/payment-parent.iml" group="payment-parent and modules" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-web/target/m2e-wtp/web-resources/META-INF/maven/com.progressoft.jip.payment/payment-web/payment-web.iml" filepath="$PROJECT_DIR$/payment-parent/payment-web/target/m2e-wtp/web-resources/META-INF/maven/com.progressoft.jip.payment/payment-web/payment-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-parent/payment-web/payment-web (1).iml" filepath="$PROJECT_DIR$/payment-parent/payment-web/payment-web (1).iml" group="payment-parent and modules" />
+    </modules>
+  </component>
+</project>

@@ -12,9 +12,6 @@ public class EditAccountCurrencyUseCase {
 		this.accountService = accountService;
 	}
 
-
-
-
 	public void process(PaymentMenuContext menuContext, AccountDTO accountDto) {
 		menuContext.setCurrentAccount(accountService.save(accountDto));
 	}
