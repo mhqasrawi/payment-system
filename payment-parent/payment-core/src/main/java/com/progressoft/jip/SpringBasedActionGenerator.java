@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import javax.inject.Inject;
 
+import com.progressoft.jip.actions.exceptions.ActionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -30,7 +31,7 @@ public class SpringBasedActionGenerator implements ActionGenerator {
 			return autowiredAction;
 		} catch (ClassNotFoundException ex) {
 			logger.error(ex.getMessage(), ex);
-			throw new RuntimeException(ex);
+			throw new ActionException(ex);
 		}
 	}
 
@@ -57,7 +58,7 @@ public class SpringBasedActionGenerator implements ActionGenerator {
 			method.invoke(autowiredAction);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			logger.error("Error While Invoke Init Mehotd", e);
-			throw new RuntimeException(e);
+			throw new  ActionException(e);
 		}
 	}
 }

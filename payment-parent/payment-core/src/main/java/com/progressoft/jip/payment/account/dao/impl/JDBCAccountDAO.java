@@ -200,7 +200,7 @@ public class JDBCAccountDAO implements AccountDAO {
 			LOGGER.error(e.getMessage(), e);
 			throw new DAOException("Error While Fetching All Accounts", e);
 		}
-		if (accountsDTO.size() == 0) {
+		if (accountsDTO.isEmpty()) {
 			LOGGER.error("There's No Accounts , Table Is Empty");
 			throw new DAOException("There's No Accounts , Table Is Empty");
 		}

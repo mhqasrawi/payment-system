@@ -21,36 +21,36 @@ public class SubMenu {
     public static final String END_SUB_MENU = "</ul>";
     private static final String END_ITEM = "</li>";
 
-    private String subMenu = "";
+    private StringBuilder subMenu = new StringBuilder();
 
     public SubMenu(SingleMenuItemBuilder singleMenuItemBuilder) {
         this.singleMenuItemBuilder = singleMenuItemBuilder;
     }
 
     public String buildSubMenuItems(Menu menu) {
-        subMenu += SUB_MENU_START_HEADER + menu.getId() + SUB_MENU_START_HEDAER_END + menu.getDescription() + SUB_MENU_END_HEADER;
+        subMenu.append(SUB_MENU_START_HEADER).append(menu.getId()).append(SUB_MENU_START_HEDAER_END).append(menu.getDescription()).append(SUB_MENU_END_HEADER);
         List<Menu> subMenuList = menu.getSubMenu();
         for (Menu subMenuItem : subMenuList) {
-            if (subMenuItem.getSubMenu().size()>0) {
-                subMenu += SUB_MENU_START_HEADER + subMenuItem.getId() + SUB_MENU_START_HEDAER_END + subMenuItem.getDescription() + SUB_MENU_END_HEADER;
+            if (subMenuItem.getSubMenu().size() > 0) {
+                subMenu.append(SUB_MENU_START_HEADER).append(subMenuItem.getId()).append(SUB_MENU_START_HEDAER_END).append(subMenuItem.getDescription()).append(SUB_MENU_END_HEADER);
                 String singleSubMenu = buildMenuItem(subMenuItem.getSubMenu());
-                subMenu += singleSubMenu+END_SUB_MENU + END_ITEM;
+                subMenu.append(singleSubMenu).append(END_SUB_MENU).append(END_ITEM);
             } else {
-               subMenu+= buildSingleMenuItem(subMenuItem);
+                subMenu.append(buildSingleMenuItem(subMenuItem));
             }
         }
-        subMenu += END_SUB_MENU;
-        return subMenu;
+        subMenu.append(END_SUB_MENU);
+        return subMenu.toString();
     }
 
     private String buildMenuItem(List<Menu> subMenuItem) {
         String htmlItemString = "";
         for (Menu item : subMenuItem) {
-            if (item.getSubMenu().size()==0)
-                 htmlItemString += buildSingleMenuItem(item);
+            if (item.getSubMenu().size() == 0)
+                htmlItemString += buildSingleMenuItem(item);
             else return htmlItemString + buildMenuItem(item.getSubMenu());
         }
-        return htmlItemString ;
+        return htmlItemString;
     }
 
     private String buildSingleMenuItem(Menu item) {
