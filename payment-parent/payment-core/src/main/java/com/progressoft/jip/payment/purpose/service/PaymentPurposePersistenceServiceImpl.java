@@ -21,4 +21,9 @@ public class PaymentPurposePersistenceServiceImpl implements PaymentPurposePersi
 		return this.paymentPurposeDAO.get(shortCode);
 	}
 
+	@Override
+	public Iterable<PaymentPurposeDTO> getAll() {
+		return this.paymentPurposeDAO.getAll();
+	}
+
 }

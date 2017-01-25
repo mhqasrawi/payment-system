@@ -1,7 +1,10 @@
 
 package com.progressoft.jip.payment.purpose.dao.impl;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -9,7 +12,11 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.springframework.asm.Handle;
 
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.id.generator.IdDAO;
@@ -52,13 +59,31 @@ public class JDBCPaymentPurposeDAO implements PaymentPurposeDAO {
 			Map<String, Object> query = this.queryRunner.query("select * from payment_purpose where short_code=?",
 					new MapHandler(), shortCode);
 			if (query == null)
-				throw new DAOException("No Payment With Short Code "+shortCode);
+				throw new DAOException("No Payment With Short Code " + shortCode);
 			PaymentPurposeDTOImpl paymentPurposeDTOImpl = new PaymentPurposeDTOImpl();
 			paymentPurposeDTOImpl.setShortCode((String) query.get("short_code"));
 			paymentPurposeDTOImpl.setDescription((String) query.get("description"));
 			return paymentPurposeDTOImpl;
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		}
+	}
+
+	@Override
+	public Iterable<PaymentPurposeDTO> getAll() {
+		try {
+			List<PaymentPurposeDTO> paymentPurpose = new ArrayList<>();
+			List<Map<String, Object>> result = this.queryRunner.query("select * from payment_purpose ",
+					new MapListHandler());
+			for (Map<String, Object> element : result) {
+				PaymentPurposeDTOImpl paymentPurposeDTOImpl = new PaymentPurposeDTOImpl();
+				paymentPurposeDTOImpl.setShortCode((String) element.get("short_code"));
+				paymentPurposeDTOImpl.setDescription((String) element.get("description"));
+				paymentPurpose.add(paymentPurposeDTOImpl);
+			}
+			return paymentPurpose;
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage(), e);
 		}
 	}
 

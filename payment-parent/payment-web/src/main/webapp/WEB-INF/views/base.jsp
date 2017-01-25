@@ -94,21 +94,21 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 250 pixels when the sidenav is visible -->
-<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-left:260px">
 
-  <div class="w3-row w3-padding-64">
-    <div class="w3-twothird w3-container">
-     
+		<div class="w3-row w3-padding-64">
+			<div class="w3-twothird w3-container">
+
 				<c:if test="${pageContent ne null}">
 					<jsp:include page="${pageContent}">
-					<jsp:param value ="${account}" name ="account"/>
+						<jsp:param value="${account}" name="account" />
 					</jsp:include>
 				</c:if>
-			
-   
-    </div>
-    </div>
-    </div>
+
+
+			</div>
+		</div>
+	</div>
    
 
 <!-- END MAIN -->

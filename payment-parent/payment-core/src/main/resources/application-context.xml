@@ -9,6 +9,8 @@
 	default-autowire="byType">
 	<context:annotation-config />
 
+
+	<bean id="PaymentPurposePersistenceService" class="com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceServiceImpl" />
 	<bean id="dateRulesValidationProvider" class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl"/>
 	<bean id="paymentDao" class="com.progressoft.jip.payment.impl.PaymentDAOImpl" />
 	<bean id="configuration" class="com.progressoft.jip.configuration.XMLConfiguraionImpl"

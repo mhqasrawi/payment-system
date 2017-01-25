@@ -33,19 +33,19 @@ import com.progressoft.jip.ui.field.IBANField;
  */
 @WebServlet(urlPatterns = "/newAccount")
 public class NewAccountServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -3033338791739821939L;
+
 	private ImplementationProvider implementationProvider;
 	private Iterable<String> listAllCurrency;
-	String property;
+	private String property;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		implementationProvider = (ImplementationProvider) config.getServletContext()
 				.getAttribute(ImplementationProvider.DEPENDENCY_PROVIDER);
 		Configuration configuration = implementationProvider.getImplementation(Configuration.class);
-		 property = configuration.getProperty("currency.code.file");
-		System.out.println(property);
-		
-	
+		property = configuration.getProperty("currency.code.file");
 	}
 
 	@Override
@@ -56,7 +56,6 @@ public class NewAccountServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		AccountPersistenceService persistenceService = implementationProvider
 				.getImplementation(AccountPersistenceService.class);
 		PaymentMenuContext paymentMenuContext = new MenuContextImpl();
