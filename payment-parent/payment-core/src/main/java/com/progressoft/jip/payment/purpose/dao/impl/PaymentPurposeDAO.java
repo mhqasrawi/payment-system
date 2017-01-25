@@ -8,4 +8,6 @@ public interface PaymentPurposeDAO {
 
 	PaymentPurposeDTO get(String shortCode);
 
+	Iterable<PaymentPurposeDTO> getAll();
+
 }

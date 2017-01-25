@@ -27,6 +27,9 @@ import java.util.Currency;
  */
 @WebServlet(urlPatterns = "/newAccount")
 public class NewAccountServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -3033338791739821939L;
+
 	private ImplementationProvider implementationProvider;
 
 	@Override

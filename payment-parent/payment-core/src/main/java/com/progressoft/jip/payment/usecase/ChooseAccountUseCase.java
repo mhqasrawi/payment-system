@@ -4,12 +4,12 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 
-public class PikupAccountUseCase {
+public class ChooseAccountUseCase {
 
 	private final AccountPersistenceService accountService;
 	private final PaymentMenuContext menuContext;
 
-	public PikupAccountUseCase(PaymentMenuContext menuContext, AccountPersistenceService accountService) {
+	public ChooseAccountUseCase(PaymentMenuContext menuContext, AccountPersistenceService accountService) {
 		this.accountService = accountService;
 		this.menuContext = menuContext;
 	}
