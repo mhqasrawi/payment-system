@@ -60,6 +60,7 @@ public class WebFormController<T> {
 			single.submitFieldValue(parameterValueTuple.getParameterName(), parameterValueTuple.getValue());
 		} catch (RuntimeException ex) {
 			formErros.add(new FormError(parameterValueTuple, ex.getMessage()));
+			logger.error(ex.getMessage(),ex);
 		}
 	}
 

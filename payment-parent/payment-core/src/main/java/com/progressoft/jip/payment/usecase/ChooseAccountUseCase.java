@@ -4,6 +4,7 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 
+
 public class ChooseAccountUseCase {
 
 	private final AccountPersistenceService accountService;
@@ -17,7 +18,7 @@ public class ChooseAccountUseCase {
 	public AccountDTO loadAccountByAccountNumber(String accountNumber) {
 		AccountDTO account = accountService.getAccount(accountNumber);
 		if (account == null) {
-			throw new RuntimeException("Can't find Account With Number " + accountNumber);
+			throw new UseCaseExecutionException("Can't find Account With Number " + accountNumber);
 		}
 		menuContext.setCurrentAccount(account);
 		return account;

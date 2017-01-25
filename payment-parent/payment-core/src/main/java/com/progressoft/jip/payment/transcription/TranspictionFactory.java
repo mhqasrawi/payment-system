@@ -14,9 +14,8 @@ public class TranspictionFactory {
 
     static {
         ServiceLoader<Transcription> availableTranscriptionsImpl = ServiceLoader.load(Transcription.class);
-        if (availableTranscriptionsImpl != null) {
-            availableTranscriptionsImpl.forEach((transcription) -> transpictions.add(transcription));
-        }
+        if (availableTranscriptionsImpl != null)
+            availableTranscriptionsImpl.forEach(transcription -> transpictions.add(transcription));
     }
 
     private TranspictionFactory() {
@@ -24,12 +23,12 @@ public class TranspictionFactory {
 
     }
 
-    public static Transcription newInstance(String lang, Currency currency) {
+    public static Transcription newInstance(String lang) {
         for (Transcription transpiction : transpictions) {
-            if(transpiction.getSupportedLanguage().equals(lang)){
+            if (transpiction.getSupportedLanguage().equals(lang)) {
                 return transpiction;
             }
         }
-        throw new LanguageNotSupportedException("Language Not Supporter: " + lang.toString());
+        throw new LanguageNotSupportedException("Language Not Supporter: " + lang);
     }
 }

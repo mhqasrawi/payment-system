@@ -24,7 +24,7 @@ public class EnglishTranscriptionTest {
 
 	@Before
 	public void setUp() {
-		transcription = TranspictionFactory.newInstance("ENG", Currency.getInstance("USD"));
+		transcription = TranspictionFactory.newInstance("ENG");
 	}
 
 	private void testEnglishTranscription(String expected, float number) {

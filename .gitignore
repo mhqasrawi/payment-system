@@ -9,3 +9,5 @@ target/
 .tern-project/
 *.tern-project
 *.iml
+.idea/
+.sonar/
