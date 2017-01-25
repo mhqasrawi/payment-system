@@ -160,7 +160,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		AccountDAO accountDAO = new JDBCAccountDAO(dataSource);
 		AccountDTOImpl orderingAccount = (AccountDTOImpl) accountDAO.get(accountNumber);
 
-		Integer id = orderingAccount.getId();
 
 		String sql = "select " + " * from " + TABLE_NAME + " where " + orderingAccountIDColumn + " = " + accountNumber;
 
@@ -191,7 +190,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 				listOfPayments.add(paymentDTOImpl);
 			}
-			if (listOfPayments.size() > 0)
+			if (!listOfPayments.isEmpty())
 				return listOfPayments;
 			throw new NoPaymentsException("There's No Payments done before for account " + accountNumber);
 		} catch (SQLException e) {

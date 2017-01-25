@@ -31,19 +31,17 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 
 	public AccountDTO getAccount(String accountNumber) {
 		AccountDTO account = accountDAO.get(accountNumber);
-		AccountDTOImpl accountDTO = getIBAN(account);
-		return accountDTO;
+		return getIBAN(account);
 	}
 
 	public AccountDTO getById(int id) {
 		AccountDTO account = accountDAO.getById(id);
-		AccountDTOImpl accountDTO = getIBAN(account);
-		return accountDTO;
+		return getIBAN(account);
 
 	}
 
 	public Iterable<AccountDTO> getAll() {
-		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
+		List<AccountDTO> accounts = new ArrayList<>();
 		Iterable<AccountDTO> accountsDTO = this.accountDAO.getAll();
 
 		for (AccountDTO account : accountsDTO) {
@@ -63,8 +61,7 @@ public class AccountPersistenceServiceImpl implements AccountPersistenceService 
 	}
 
 	private IBANDTO saveIBAN(IBANDTO ibandto) {
-		ibandto = ibanServiceImpl.save(ibandto);
-		return ibandto;
+		return  ibanServiceImpl.save(ibandto);
 	}
 
 }
