@@ -4,9 +4,9 @@ import com.progressoft.jip.payment.PaymentInfo;
 
 public interface DateRule {
 
-	boolean validatePaymentDate(PaymentInfo paymentInfo);
+    boolean validatePaymentDate(PaymentInfo paymentInfo);
 
-	String getId();
+    String getId();
 
-	String getDescription();
+    String getDescription();
 }
