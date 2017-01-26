@@ -45,27 +45,28 @@ public class XmlUserInterfaceGenerator<T extends MenuContext> implements UserInt
         }
     }
 
-    private Menu<T> generateNewMenu(String menuId, String description, String actionId, List<String> subMenuId) {
-        if (actionId != null) {
-            if (Objects.isNull(subMenuId) && !subMenuId.isEmpty()) {
-                return new MenuImpl<>(description, getSubMenus(subMenuId), getAction(actionId));
-            } else {
-                return new MenuImpl<>(description, getAction(actionId));
-            }
-        } else if (subMenuId != null && subMenuId.size() > 0) {
-            return new MenuImpl<>(description, getSubMenus(subMenuId));
-        }
-        return new MenuImpl<>(description);
-    }
 
     private void generateMenus(List<MenuXml> meuns) {
         for (MenuXml menuXml : meuns) {
-            Menu<T> generatedMenu = generateNewMenu(menuXml.getMenuId(), menuXml.getDescription(),
+            Menu<T> generatedMenu = generateNewMenu(menuXml.getDescription(),
                     menuXml.getActionId(), menuXml.getSubMenuId());
             loadedMenus.put(menuXml.getMenuId(), generatedMenu);
         }
     }
 
+    private Menu<T> generateNewMenu(String description, String actionId, List<String> subMenuId) {
+        if (actionId != null) {
+            if (Objects.nonNull(subMenuId) && !subMenuId.isEmpty()) {
+                return new MenuImpl<>(description, getSubMenus(subMenuId), getAction(actionId));
+            }
+            return new MenuImpl<>(description, getAction(actionId));
+        } else if (subMenuId != null && subMenuId.isEmpty()) {
+            return new MenuImpl<>(description, getSubMenus(subMenuId));
+        }
+        return new MenuImpl<>(description);
+    }
+
+    @Override
     public Menu<T> generateUserInterface() {
         try {
             UserInterfaceXml uiXml = readInputStream(is);
@@ -81,9 +82,7 @@ public class XmlUserInterfaceGenerator<T extends MenuContext> implements UserInt
     private Action<T> generateAction(ActionXml actionXml) {
         try {
             Object newInstance = newActionInstance(actionXml);
-            @SuppressWarnings("unchecked")
-            Action<T> action = (Action<T>) newInstance;
-            return action;
+            return (Action<T>) newInstance;
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SecurityException
                 | NoSuchMethodException | IllegalArgumentException | InvocationTargetException e) {
             throw new UserInterfaceParsingException(e);
