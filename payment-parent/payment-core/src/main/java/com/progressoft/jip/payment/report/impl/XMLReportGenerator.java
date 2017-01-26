@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.report.impl;
 
+import com.progressoft.jip.payment.report.core.ReportException;
 import com.progressoft.jip.payment.report.core.ReportNode;
 import javanet.staxutils.IndentingXMLStreamWriter;
 
@@ -11,9 +12,13 @@ public class XMLReportGenerator extends AbstractReportGenerator {
     private IndentingXMLStreamWriter xmlStreamWriter;
     private FileWriter fileWriter;
     private final WriteOperation flushAndClose = () -> {
-        xmlStreamWriter.flush();
-        xmlStreamWriter.close();
-        fileWriter.close();
+        try {
+            xmlStreamWriter.flush();
+            xmlStreamWriter.close();
+            fileWriter.close();
+        } catch (Exception e) {
+            throw new ReportException(e);
+        }
     };
 
     public XMLReportGenerator() {
@@ -23,18 +28,28 @@ public class XMLReportGenerator extends AbstractReportGenerator {
     @Override
     protected void startWrite() {
         writeAndHandleException(() -> {
-            XMLOutputFactory factory = XMLOutputFactory.newInstance();
-            fileWriter = new FileWriter(
-                    settingsSpi.getPath().resolve(settingsSpi.getFileName() + "." + this.supportedFileExtension).toString());
-            xmlStreamWriter = new IndentingXMLStreamWriter(factory.createXMLStreamWriter(fileWriter));
-            xmlStreamWriter.writeStartDocument();
-            xmlStreamWriter.writeStartElement(REPORT_NAME_TAG);
+            try {
+                XMLOutputFactory factory = XMLOutputFactory.newInstance();
+                fileWriter = new FileWriter(
+                        settingsSpi.getPath().resolve(settingsSpi.getFileName() + "." + this.supportedFileExtension).toString());
+                xmlStreamWriter = new IndentingXMLStreamWriter(factory.createXMLStreamWriter(fileWriter));
+                xmlStreamWriter.writeStartDocument();
+                xmlStreamWriter.writeStartElement(REPORT_NAME_TAG);
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
         });
     }
 
     @Override
     protected void startPayment() {
-        writeAndHandleException(() -> xmlStreamWriter.writeStartElement(PAYMENT_TAG));
+        writeAndHandleException(() -> {
+            try {
+                xmlStreamWriter.writeStartElement(PAYMENT_TAG);
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
+        });
     }
 
     @Override
@@ -42,21 +57,31 @@ public class XMLReportGenerator extends AbstractReportGenerator {
     protected void writeNode(ReportNode node) {
         Object value = node.getValue();
         writeAndHandleException(() -> {
-            this.xmlStreamWriter.writeStartElement(node.getName());
-            if (node instanceof HierarchicalReportNode) {
-                for (ReportNode reportNode : ((HierarchicalReportNode) node).getValue()) {
-                    writeNode(reportNode);
+            try {
+                this.xmlStreamWriter.writeStartElement(node.getName());
+                if (node instanceof HierarchicalReportNode) {
+                    for (ReportNode reportNode : ((HierarchicalReportNode) node).getValue()) {
+                        writeNode(reportNode);
+                    }
+                } else {
+                    this.xmlStreamWriter.writeCharacters(String.valueOf(value));
                 }
-            } else {
-                this.xmlStreamWriter.writeCharacters(String.valueOf(value));
+                this.xmlStreamWriter.writeEndElement();
+            } catch (Exception e) {
+                throw new ReportException(e);
             }
-            this.xmlStreamWriter.writeEndElement();
         });
     }
 
     @Override
     protected void endPayment() {
-        writeAndHandleException(this.xmlStreamWriter::writeEndElement);
+        writeAndHandleException(() -> {
+            try {
+                this.xmlStreamWriter.writeEndElement();
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
+        });
     }
 
     @Override
@@ -67,9 +92,13 @@ public class XMLReportGenerator extends AbstractReportGenerator {
     @Override
     protected void endWrite() {
         writeAndHandleException(() -> {
-            this.xmlStreamWriter.writeEndElement();
-            this.xmlStreamWriter.writeEndDocument();
-            flushAndClose();
+            try {
+                this.xmlStreamWriter.writeEndElement();
+                this.xmlStreamWriter.writeEndDocument();
+                flushAndClose();
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
         });
     }
 
