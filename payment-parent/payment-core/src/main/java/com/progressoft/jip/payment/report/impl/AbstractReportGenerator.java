@@ -2,6 +2,7 @@ package com.progressoft.jip.payment.report.impl;
 
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
+import com.progressoft.jip.payment.report.core.ReportException;
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportGeneratorException;
 import com.progressoft.jip.payment.report.core.ReportNode;
@@ -57,10 +58,10 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
     protected void writeAndHandleException(WriteOperation writeOperation, WriteOperation onException, String message) {
         try {
             writeOperation.execute();
-        } catch (Exception e1) {
+        } catch (ReportException e1) {
             try {
                 onException.execute();
-            } catch (Exception e2) {
+            } catch (ReportException e2) {
                 LOGGER.error("Failed while generating report", e2);
             }
             throw new ReportGeneratorException(message, e1);
@@ -91,7 +92,6 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
             startPayment();
             AccountDTO orderingAccount = payment.getOrderingAccount();
             writeOrderingAccountInfo(orderingAccount);
-            // TODO remove parse
             writeBeneficiaryInfo(payment, this.settingsSpi.newTranscriberInstance()
                     .transcript(Float.parseFloat(payment.getPaymentAmount().toString())));
             endPayment();
@@ -125,14 +125,5 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
     private ReportNode newNode(String name, Object value) {
         return (value instanceof String) ? new TerminalReportNode(name, (String) value)
                 : new HierarchicalReportNode(name, (Iterable<ReportNode>) value);
-    }
-
-    @FunctionalInterface
-    protected interface WriteOperation {
-
-        public static final WriteOperation noOp = () -> {
-        };
-
-        void execute() throws Exception;
     }
 }
