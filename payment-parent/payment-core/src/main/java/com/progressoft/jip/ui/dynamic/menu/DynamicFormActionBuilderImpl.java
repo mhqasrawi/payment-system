@@ -42,7 +42,7 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
     }
 
     public DynamicFormActionBuilderImpl() {
-
+        /* default constructor */
     }
 
     @Override
@@ -66,19 +66,16 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
     @Override
     public DynamicFormActionBuilder<C, T> setForm(Form<C, T> form) {
         this.form = form;
-        if (form instanceof SubmitAction) {
-            if (Objects.nonNull(applicationContext))
-                applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(this.form,
-                        AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+        if (form instanceof SubmitAction && Objects.nonNull(applicationContext)) {
+            applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(this.form,
+                    AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
         }
         try {
             form.getClass().getMethod("init").invoke(form);
-        } catch (NoSuchMethodException | SecurityException e) {
+        } catch (Exception e) {
             logger.warn(e.getMessage(), e);
-        } finally {
-            return this;
-
         }
+        return this;
     }
 
     @Override
@@ -102,10 +99,8 @@ public class DynamicFormActionBuilderImpl<C extends MenuContext, T>
     }
 
     private T generateDynamicWrapper(C menuContext) {
-        @SuppressWarnings("unchecked")
-        T newProxyInstance = ((T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-                new Class[]{interfaceClass}, getInvocationHandler(menuContext)));
-        return newProxyInstance;
+        return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+                new Class[]{interfaceClass}, getInvocationHandler(menuContext));
     }
 
     private InvocationHandler getInvocationHandler(C menuContext) {
