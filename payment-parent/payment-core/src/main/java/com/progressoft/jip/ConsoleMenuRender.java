@@ -72,7 +72,7 @@ public class ConsoleMenuRender<T extends MenuContext> implements MenuRenderMange
             if (!skipAction) {
                 doMenuAction(menu);
             }
-            if (!menu.getSubMenu().isEmpty()) {
+            if (menu.getSubMenu().isEmpty()) {
                 printDescreption(menu);
                 showSubMenu(menu);
                 while (!showChoosenSubMenu(menu, getEnteredOption()))
