@@ -13,28 +13,17 @@ import java.util.List;
 /**
  * @author u623
  */
-<<<<<<< HEAD:payment-parent/payment-core/src/main/java/com/progressoft/jip/currency/currenciesprovider/CurrencyProviderImpl.java
-public class CurrencyProviderImpl implements CurrencyProvider {
-=======
 public class CurrencyCodeProviderImpl implements CurrencyCodeProvider {
-	private List<String> currencyList = new ArrayList<>();
-	private String path = "";
-
-	public CurrencyCodeProviderImpl() {
-
-	}
-
-	public CurrencyCodeProviderImpl(String path) {
-		this.path = path;
-	}
->>>>>>> df8214f18965db1632c898a0900347c510b08bd0:payment-parent/payment-core/src/main/java/com/progressoft/jip/currency/currenciesprovider/CurrencyCodeProviderImpl.java
-
-    private static Logger logger = LoggerFactory.getLogger(CurrencyProviderImpl.class);
-
+    private static Logger logger = LoggerFactory.getLogger(CurrencyCodeProviderImpl.class);
     private List<String> currencyList = new ArrayList<>();
-    private String path;
 
-    public CurrencyProviderImpl(String path) {
+    private String path = "";
+
+    public CurrencyCodeProviderImpl() {
+        /* default constructor */
+    }
+
+    public CurrencyCodeProviderImpl(String path) {
         this.path = path;
     }
 
@@ -43,7 +32,7 @@ public class CurrencyCodeProviderImpl implements CurrencyCodeProvider {
 
         try (FileReader fileReader = new FileReader(path);
              BufferedReader reader = new BufferedReader(fileReader)) {
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 currencyList.add(line);
             }
