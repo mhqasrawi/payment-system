@@ -103,7 +103,7 @@ public class XMLReportGenerator extends AbstractReportGenerator {
     }
 
     private void flushAndClose() {
-        super.writeAndHandleException(flushAndClose, WriteOperation.noOp, GENERIC_FAILURE_MESSAGE);
+        super.writeAndHandleException(flushAndClose, WriteOperation.DefaultWriteOperations.noOp, GENERIC_FAILURE_MESSAGE);
     }
 
     private void writeAndHandleException(WriteOperation op) {
