@@ -144,7 +144,7 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
     }
 
     private void flushAndCloseWriter() {
-        super.writeAndHandleException(flushAndClose, WriteOperation.noOp, GENERIC_FAILURE_MESSAGE);
+        super.writeAndHandleException(flushAndClose, WriteOperation.DefaultWriteOperations.noOp, GENERIC_FAILURE_MESSAGE);
     }
 
     @FunctionalInterface
