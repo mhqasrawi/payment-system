@@ -1,14 +1,13 @@
 package com.progressoft.jip.test;
 
-import static org.junit.Assert.assertEquals;
-
-import javax.sql.DataSource;
-
+import com.progressoft.jip.payment.id.generator.IdDAO;
+import com.progressoft.jip.payment.id.generator.IdDAOImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.progressoft.jip.payment.id.generator.IdDAO;
-import com.progressoft.jip.payment.id.generator.IdDAOImpl;
+import javax.sql.DataSource;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by mhqasrawi on 02/12/16.
@@ -48,9 +47,9 @@ public class IdDAOImplTest extends DataSourceConfig {
     }
 
     @Test
-    public void test(){
+    public void test() {
         long dummy = idDAO.save("dummy");
-        assertEquals(2,dummy);
+        assertEquals(2, dummy);
     }
 
 }

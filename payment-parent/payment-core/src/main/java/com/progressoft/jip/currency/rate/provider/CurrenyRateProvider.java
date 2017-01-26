@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface CurrenyRateProvider {
 
-	BigDecimal get(String currency);
+    BigDecimal get(String currency);
 
 }

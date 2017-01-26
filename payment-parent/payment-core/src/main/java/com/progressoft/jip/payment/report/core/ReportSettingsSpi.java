@@ -1,20 +1,20 @@
 package com.progressoft.jip.payment.report.core;
 
-import java.nio.file.Path;
-
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.transcription.Transcription;
 
+import java.nio.file.Path;
+
 public interface ReportSettingsSpi {
 
-	Iterable<PaymentDTO> getPayments();
+    Iterable<PaymentDTO> getPayments();
 
-	Path getPath();
+    Path getPath();
 
-	String getFileName();
+    String getFileName();
 
-	String getFileExtention();
+    String getFileExtention();
 
-	Transcription newTranscriberInstance();
+    Transcription newTranscriberInstance();
 
 }

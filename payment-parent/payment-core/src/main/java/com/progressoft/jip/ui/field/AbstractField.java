@@ -2,36 +2,36 @@ package com.progressoft.jip.ui.field;
 
 public abstract class AbstractField<T> implements Field<T> {
 
-	private String name;
-	protected T value;
-	private String description;
+    protected T value;
+    private String name;
+    private String description;
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	public AbstractField<T> setName(String name) {
-		this.name = name;
-		return this;
-	}
+    public AbstractField<T> setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-	@Override
-	public T getValue() {
-		return value;
-	}
+    @Override
+    public T getValue() {
+        return value;
+    }
 
-	abstract public AbstractField<T> setValue(String value) ;
-	
-	@Override
-	public String getDescription() {
-		return description;
-	}
+    abstract public AbstractField<T> setValue(String value);
 
-	public AbstractField<T> setDescription(String description) {
-		this.description = description;
-		return this;
-	}
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
-	
+    public AbstractField<T> setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+
 }

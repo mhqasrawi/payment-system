@@ -5,8 +5,7 @@ import com.progressoft.jip.ui.dynamic.menu.DynamicFormActionBuilder;
 
 /**
  * @author Ahmad.Jardat
- *
  */
-public interface PaymentDynamicFormActionBuilder<T> extends DynamicFormActionBuilder<PaymentMenuContext,T>{
+public interface PaymentDynamicFormActionBuilder<T> extends DynamicFormActionBuilder<PaymentMenuContext, T> {
 
 }

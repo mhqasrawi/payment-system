@@ -1,56 +1,56 @@
 package com.progressoft.jip.payment.account;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-
 import com.progressoft.jip.payment.customer.CustomerDTO;
 import com.progressoft.jip.payment.iban.DTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 public interface AccountDTO extends DTO {
 
-	String getAccountNumber();
+    String getAccountNumber();
 
-	IBANDTO getIban();
+    IBANDTO getIban();
 
-	String getAccountName();
+    String getAccountName();
 
-	CustomerDTO getCustomerDTO();
+    CustomerDTO getCustomerDTO();
 
-	Currency getCurreny();
+    Currency getCurreny();
 
-	AccountStatus getAccountStatus();
-	
-	String getPaymentRule();
-	
-	String getPaymentRuleInfo();
-	
-	BigDecimal getBalance();
+    AccountStatus getAccountStatus();
 
-	int getIbanId();
+    String getPaymentRule();
 
-	public enum AccountStatus {
+    String getPaymentRuleInfo();
 
-		ACTIVE(0), INACTIVE(1);
+    BigDecimal getBalance();
 
-		private int index;
+    int getIbanId();
 
-		private AccountStatus(int index) {
-			this.index = index;
-		}
+    public enum AccountStatus {
 
-		public int getIndex() {
-			return index;
-		}
+        ACTIVE(0), INACTIVE(1);
 
-		public AccountStatus getAccountStatus(int index) {
-			for (AccountStatus accountStatus : values()) {
-				if (accountStatus.getIndex() == index) {
-					return accountStatus;
-				}
-			}
-			return null;
-		}
-	}
+        private int index;
+
+        private AccountStatus(int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public AccountStatus getAccountStatus(int index) {
+            for (AccountStatus accountStatus : values()) {
+                if (accountStatus.getIndex() == index) {
+                    return accountStatus;
+                }
+            }
+            return null;
+        }
+    }
 
 }

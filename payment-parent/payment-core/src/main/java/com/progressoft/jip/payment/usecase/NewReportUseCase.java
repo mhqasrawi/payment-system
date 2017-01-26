@@ -10,23 +10,23 @@ import com.progressoft.jip.payment.transcription.EnglishTranscription;
 
 public class NewReportUseCase {
 
-	private final ReportManager reportManager;
-	private final PaymentDAO paymentDAO;
+    private final ReportManager reportManager;
+    private final PaymentDAO paymentDAO;
 
-	public NewReportUseCase(ReportManager reportManager, PaymentDAO paymentDAO) {
-		this.reportManager = reportManager;
-		this.paymentDAO = paymentDAO;
-	}
+    public NewReportUseCase(ReportManager reportManager, PaymentDAO paymentDAO) {
+        this.reportManager = reportManager;
+        this.paymentDAO = paymentDAO;
+    }
 
-	public void process(PaymentMenuContext menuContext, ReportSettingWrapper reportSetting) {
-		String accountNumber = menuContext.getCurrentAccount().getAccountNumber();
-		Iterable<PaymentDTO> payments = paymentDAO.get(accountNumber);
-		ReportSettingsImpl settings = new ReportSettingsImpl();
-		settings.setPath(reportSetting.getPath());
-		settings.setFileName(reportSetting.getFileName());
-		settings.setFileExtention("xml");
-		settings.setPayments(payments);
-		settings.setTranscriberClass(EnglishTranscription.class);
-		reportManager.generateReport(settings);
-	}
+    public void process(PaymentMenuContext menuContext, ReportSettingWrapper reportSetting) {
+        String accountNumber = menuContext.getCurrentAccount().getAccountNumber();
+        Iterable<PaymentDTO> payments = paymentDAO.get(accountNumber);
+        ReportSettingsImpl settings = new ReportSettingsImpl();
+        settings.setPath(reportSetting.getPath());
+        settings.setFileName(reportSetting.getFileName());
+        settings.setFileExtention("xml");
+        settings.setPayments(payments);
+        settings.setTranscriberClass(EnglishTranscription.class);
+        reportManager.generateReport(settings);
+    }
 }

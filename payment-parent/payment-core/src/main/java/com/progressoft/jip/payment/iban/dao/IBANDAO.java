@@ -4,12 +4,12 @@ import com.progressoft.jip.payment.iban.IBANDTO;
 
 public interface IBANDAO {
 
-	IBANDTO save(IBANDTO ibandto);
+    IBANDTO save(IBANDTO ibandto);
 
-	IBANDTO get(String iban);
+    IBANDTO get(String iban);
 
-	IBANDTO getById(int id);
+    IBANDTO getById(int id);
 
-	Iterable<IBANDTO> getAll();
+    Iterable<IBANDTO> getAll();
 
 }

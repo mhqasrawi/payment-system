@@ -1,55 +1,54 @@
 package com.progressoft.jip.ui.xml.element;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MenuXml {
 
-	@XmlElement(name="menu-id",required=true)
-	private String menuId;
+    @XmlElement(name = "menu-id", required = true)
+    private String menuId;
 
-	@XmlElement(required = true)
-	private String description;
-	
-	@XmlElement(name = "action-id")
-	private String actionId;
-	
-	@XmlElement(name = "sub-menus")
-	private List<String> subMenuId;
-	
-	public String getMenuId() {
-		return menuId;
-	}
+    @XmlElement(required = true)
+    private String description;
 
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
-	}
+    @XmlElement(name = "action-id")
+    private String actionId;
 
-	public String getDescription() {
-		return description;
-	}
+    @XmlElement(name = "sub-menus")
+    private List<String> subMenuId;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getMenuId() {
+        return menuId;
+    }
 
-	public String getActionId() {
-		return actionId;
-	}
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
-	public void setActionId(String actionId) {
-		this.actionId = actionId;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public List<String> getSubMenuId() {
-		return subMenuId;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setSubMenuId(List<String> subMenuId) {
-		this.subMenuId = subMenuId;
-	}
+    public String getActionId() {
+        return actionId;
+    }
+
+    public void setActionId(String actionId) {
+        this.actionId = actionId;
+    }
+
+    public List<String> getSubMenuId() {
+        return subMenuId;
+    }
+
+    public void setSubMenuId(List<String> subMenuId) {
+        this.subMenuId = subMenuId;
+    }
 }

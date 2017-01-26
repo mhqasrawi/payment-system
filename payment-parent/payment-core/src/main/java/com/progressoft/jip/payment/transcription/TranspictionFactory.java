@@ -1,7 +1,6 @@
 package com.progressoft.jip.payment.transcription;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 import java.util.ServiceLoader;
 

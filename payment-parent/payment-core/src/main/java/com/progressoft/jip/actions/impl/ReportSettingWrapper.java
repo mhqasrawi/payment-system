@@ -4,8 +4,8 @@ import java.nio.file.Path;
 
 public interface ReportSettingWrapper {
 
-	Path getPath();
+    Path getPath();
 
-	String getFileName();
+    String getFileName();
 
 }

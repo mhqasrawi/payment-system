@@ -6,11 +6,11 @@ import com.progressoft.jip.payment.PaymentInfo;
 
 public class PaymentBuilderImpl implements PaymentBuilder {
 
-	@Override
-	public Payment getNewPayment(PaymentInfo paymentInfo) {
-		PaymentImpl payment = new PaymentImpl(paymentInfo);
-		payment.validatePayment();
-		return payment;
-	}
+    @Override
+    public Payment getNewPayment(PaymentInfo paymentInfo) {
+        PaymentImpl payment = new PaymentImpl(paymentInfo);
+        payment.validatePayment();
+        return payment;
+    }
 
 }

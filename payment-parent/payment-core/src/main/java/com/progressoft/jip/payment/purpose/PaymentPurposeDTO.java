@@ -4,8 +4,8 @@ import com.progressoft.jip.payment.iban.DTO;
 
 public interface PaymentPurposeDTO extends DTO {
 
-	String getShortCode();
+    String getShortCode();
 
-	String getDescription();
+    String getDescription();
 
 }

@@ -14,8 +14,8 @@ public class CurrencyCodeProviderUtilImpl implements CurrencyCodeProvider {
     @Override
     public Iterable<String> listAllCurrency() {
         Set<Currency> availableCurrencies = Currency.getAvailableCurrencies();
-        for(Currency currency : availableCurrencies){
-           currencyCodeList.add( currency.getCurrencyCode());
+        for (Currency currency : availableCurrencies) {
+            currencyCodeList.add(currency.getCurrencyCode());
         }
         return currencyCodeList;
     }

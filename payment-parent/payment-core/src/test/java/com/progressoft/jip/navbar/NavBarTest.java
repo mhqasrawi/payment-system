@@ -2,14 +2,13 @@ package com.progressoft.jip.navbar;
 
 import com.progressoft.jip.ui.menu.Menu;
 import com.progressoft.jip.ui.menu.MenuImpl;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by mhqasrawi on 27/12/16.
@@ -36,8 +35,6 @@ public class NavBarTest {
         subMenu = new SubMenu(singleItem);
         navBar = new NavBar(menu, singleItem, subMenu);
     }
-
-
 
 
     @Test

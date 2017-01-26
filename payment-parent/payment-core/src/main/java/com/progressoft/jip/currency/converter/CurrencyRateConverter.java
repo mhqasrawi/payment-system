@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface CurrencyRateConverter {
 
-	BigDecimal convert(String from, String to, double amount);
+    BigDecimal convert(String from, String to, double amount);
 
 }

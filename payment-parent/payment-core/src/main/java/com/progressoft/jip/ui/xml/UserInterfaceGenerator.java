@@ -8,5 +8,5 @@ import com.progressoft.jip.ui.menu.MenuContext;
  */
 public interface UserInterfaceGenerator<T extends MenuContext> {
 
-	Menu<T> generateUserInterface();
+    Menu<T> generateUserInterface();
 }

@@ -4,8 +4,7 @@ import java.util.List;
 
 /**
  * @author u612
- * Understand Execution Of Menu Action
- * 
+ *         Understand Execution Of Menu Action
  */
 public interface Menu<C extends MenuContext> {
 

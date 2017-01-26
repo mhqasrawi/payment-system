@@ -4,7 +4,7 @@ import com.progressoft.jip.ui.form.Form;
 
 public interface MenuRenderManger<C extends MenuContext> {
 
-	void renderMenu(Menu<C> menu);
+    void renderMenu(Menu<C> menu);
 
-	void renderForm(Form<C,?>  form);
+    void renderForm(Form<C, ?> form);
 }

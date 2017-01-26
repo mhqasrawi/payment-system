@@ -3,6 +3,6 @@ package com.progressoft.jip;
 @FunctionalInterface
 public interface DateRulesValidationProvider {
 
-	Iterable<IdDescreptionPair> getDateRules();
+    Iterable<IdDescreptionPair> getDateRules();
 
 }

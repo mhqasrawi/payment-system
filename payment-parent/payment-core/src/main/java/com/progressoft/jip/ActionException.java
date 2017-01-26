@@ -3,7 +3,7 @@ package com.progressoft.jip;
 /**
  * Created by u612 on 1/25/2017.
  */
-public class ActionException extends RuntimeException{
+public class ActionException extends RuntimeException {
 
     public ActionException() {
     }

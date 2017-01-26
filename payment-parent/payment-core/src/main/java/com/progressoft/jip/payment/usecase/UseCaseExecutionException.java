@@ -3,7 +3,7 @@ package com.progressoft.jip.payment.usecase;
 /**
  * Created by u612 on 1/25/2017.
  */
-public class UseCaseExecutionException extends  RuntimeException{
+public class UseCaseExecutionException extends RuntimeException {
 
     public UseCaseExecutionException() {
     }

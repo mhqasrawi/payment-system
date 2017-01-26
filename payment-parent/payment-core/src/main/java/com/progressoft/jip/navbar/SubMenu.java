@@ -9,17 +9,15 @@ import java.util.List;
  */
 public class SubMenu {
 
-    private SingleMenuItemBuilder singleMenuItemBuilder;
     public static final String SUB_MENU_START_HEADER = "<li class=\"dropdown\">\n" +
             "<a href=\"";
-    String SUB_MENU_START_HEDAER_END = "\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" " +
-            "aria-expanded=\"false\">";
     public static final String SUB_MENU_END_HEADER = " <span class=\"caret\"></span></a>" +
             "<ul class=\"dropdown-menu\">";
-
     public static final String END_SUB_MENU = "</ul>";
     private static final String END_ITEM = "</li>";
-
+    String SUB_MENU_START_HEDAER_END = "\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" " +
+            "aria-expanded=\"false\">";
+    private SingleMenuItemBuilder singleMenuItemBuilder;
     private StringBuilder subMenuString = new StringBuilder();
 
     public SubMenu(SingleMenuItemBuilder singleMenuItemBuilder) {

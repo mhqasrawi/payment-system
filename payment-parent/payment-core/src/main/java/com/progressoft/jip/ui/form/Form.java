@@ -6,22 +6,22 @@ import com.progressoft.jip.ui.menu.MenuContext;
 
 public interface Form<C extends MenuContext, T> {
 
-	Iterable<Field<?>> getFields();
+    Iterable<Field<?>> getFields();
 
-	String getDescription();
+    String getDescription();
 
-	Iterable<Field<?>> getAllFields();
+    Iterable<Field<?>> getAllFields();
 
-	SubmitAction<C, T> getSubmitAction();
+    SubmitAction<C, T> getSubmitAction();
 
-	Class<T> getClassType();
-	
-	default Field<?> getFieldByName(String fieldName) {
-		for (Field<?> field : getFields()) {
-			if (field.getName().equals(fieldName))
-				return field;
-		}
-		return null;
-	}
+    Class<T> getClassType();
+
+    default Field<?> getFieldByName(String fieldName) {
+        for (Field<?> field : getFields()) {
+            if (field.getName().equals(fieldName))
+                return field;
+        }
+        return null;
+    }
 
 }

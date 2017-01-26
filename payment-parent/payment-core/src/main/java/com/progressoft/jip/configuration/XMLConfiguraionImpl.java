@@ -5,25 +5,24 @@ import org.apache.commons.configuration.XMLConfiguration;
 
 /**
  * @author u612
- *
  */
 public class XMLConfiguraionImpl implements Configuration {
 
-	private static final String CONFIGURATION_FILE_PATH = "configuration.file.path";
+    private static final String CONFIGURATION_FILE_PATH = "configuration.file.path";
 
-	private XMLConfiguration configuration;
+    private XMLConfiguration configuration;
 
-	public void init() throws ConfigurationException {
-		String configuraitonFilePath = System.getProperty(CONFIGURATION_FILE_PATH);
-		configuration = new XMLConfiguration(configuraitonFilePath);
-	}
+    public void init() throws ConfigurationException {
+        String configuraitonFilePath = System.getProperty(CONFIGURATION_FILE_PATH);
+        configuration = new XMLConfiguration(configuraitonFilePath);
+    }
 
-	@Override
-	public String getProperty(String key) {
-		Object property = configuration.getProperty(key);
-		if (property == null)
-			return null;
-		return (String) property;
-	}
+    @Override
+    public String getProperty(String key) {
+        Object property = configuration.getProperty(key);
+        if (property == null)
+            return null;
+        return (String) property;
+    }
 
 }

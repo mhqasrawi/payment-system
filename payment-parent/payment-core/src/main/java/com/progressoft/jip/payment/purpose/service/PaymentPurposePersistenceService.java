@@ -4,9 +4,9 @@ import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public interface PaymentPurposePersistenceService {
 
-	PaymentPurposeDTO save(PaymentPurposeDTO paymentPurposeDTO);
+    PaymentPurposeDTO save(PaymentPurposeDTO paymentPurposeDTO);
 
-	PaymentPurposeDTO getPaymentPurpose(String shortCode);
+    PaymentPurposeDTO getPaymentPurpose(String shortCode);
 
-	Iterable<PaymentPurposeDTO> getAll();
+    Iterable<PaymentPurposeDTO> getAll();
 }

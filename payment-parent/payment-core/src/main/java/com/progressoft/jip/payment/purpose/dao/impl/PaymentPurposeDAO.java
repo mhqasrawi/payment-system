@@ -4,10 +4,10 @@ import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 
 public interface PaymentPurposeDAO {
 
-	PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose);
+    PaymentPurposeDTO save(PaymentPurposeDTO paymentPurpose);
 
-	PaymentPurposeDTO get(String shortCode);
+    PaymentPurposeDTO get(String shortCode);
 
-	Iterable<PaymentPurposeDTO> getAll();
+    Iterable<PaymentPurposeDTO> getAll();
 
 }

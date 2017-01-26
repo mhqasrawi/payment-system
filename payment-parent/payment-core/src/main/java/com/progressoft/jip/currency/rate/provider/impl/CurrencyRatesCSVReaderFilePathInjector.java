@@ -5,17 +5,17 @@ import java.nio.file.Paths;
 
 public class CurrencyRatesCSVReaderFilePathInjector {
 
-	public CurrencyRatesCSVReader getCurrencyRatesCsvReaderInstance(String fileName) {
-		return new CurrencyRatesCSVReader(getFilePathFromFileName(fileName));
-	}
+    public CurrencyRatesCSVReader getCurrencyRatesCsvReaderInstance(String fileName) {
+        return new CurrencyRatesCSVReader(getFilePathFromFileName(fileName));
+    }
 
-	private String getFilePathFromFileName(String fileName) {
-		return Paths.get(getResourcesPath()).resolve(fileName)
-				.toAbsolutePath().toString();
-	}
+    private String getFilePathFromFileName(String fileName) {
+        return Paths.get(getResourcesPath()).resolve(fileName)
+                .toAbsolutePath().toString();
+    }
 
-	private String getResourcesPath() {
-		return new File("src/main/resources").getAbsolutePath();
-	}
+    private String getResourcesPath() {
+        return new File("src/main/resources").getAbsolutePath();
+    }
 
 }

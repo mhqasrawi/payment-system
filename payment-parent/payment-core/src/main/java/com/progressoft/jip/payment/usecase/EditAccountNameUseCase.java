@@ -6,14 +6,14 @@ import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 
 public class EditAccountNameUseCase {
 
-	private final AccountPersistenceService accountService;
+    private final AccountPersistenceService accountService;
 
-	public EditAccountNameUseCase(AccountPersistenceService accountService) {
-		this.accountService = accountService;
-	}
+    public EditAccountNameUseCase(AccountPersistenceService accountService) {
+        this.accountService = accountService;
+    }
 
-	public void process(PaymentMenuContext menuContext, AccountDTO accountDTO) {
-		menuContext.setCurrentAccount(accountService.save(accountDTO));
-	}
+    public void process(PaymentMenuContext menuContext, AccountDTO accountDTO) {
+        menuContext.setCurrentAccount(accountService.save(accountDTO));
+    }
 
 }

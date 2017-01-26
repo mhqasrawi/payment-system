@@ -2,38 +2,38 @@ package com.progressoft.jip.payment.iban;
 
 public class IBANDTOImpl implements IBANDTO {
 
-	private int id;
-	private String countryCode;
-	private String ibanValue;
+    private int id;
+    private String countryCode;
+    private String ibanValue;
 
-	public IBANDTOImpl() {
+    public IBANDTOImpl() {
 
-	}
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setIbanValue(String ibanValue) {
+        this.ibanValue = ibanValue.trim().replace(" ", "");
+        this.countryCode = this.ibanValue.substring(0, 2);
+        this.ibanValue = ibanValue;
+    }
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public void setIbanValue(String ibanValue) {
-		this.ibanValue = ibanValue.trim().replace(" ", "");
-		this.countryCode = this.ibanValue.substring(0, 2);
-		this.ibanValue = ibanValue;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public String getCountryCode() {
+        return this.countryCode;
+    }
 
-	public String getCountryCode() {
-		return this.countryCode;
-	}
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 
-	public String getIBANValue() {
-		return this.ibanValue;
-	}
+    public String getIBANValue() {
+        return this.ibanValue;
+    }
 
 }

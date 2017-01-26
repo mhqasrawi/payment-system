@@ -2,8 +2,8 @@ package com.progressoft.jip.payment.report.core;
 
 public interface ReportNode<T> {
 
-	String getName();
+    String getName();
 
-	T getValue();
+    T getValue();
 
 }

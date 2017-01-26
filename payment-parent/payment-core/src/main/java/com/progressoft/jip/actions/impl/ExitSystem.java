@@ -5,14 +5,13 @@ import com.progressoft.jip.actions.PaymentAction;
 
 /**
  * @author Ahmad.Jardat
- *
  */
-public class ExitSystem implements PaymentAction{
+public class ExitSystem implements PaymentAction {
 
-	@Override
-	public PaymentMenuContext doAction(PaymentMenuContext menuContext) {
-		System.exit(0);
-		return null;
-	}
+    @Override
+    public PaymentMenuContext doAction(PaymentMenuContext menuContext) {
+        System.exit(0);
+        return null;
+    }
 
 }

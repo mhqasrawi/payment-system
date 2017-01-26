@@ -5,14 +5,14 @@ import com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceServ
 
 public class LoadAllPaymentPurposeUseCase {
 
-	private PaymentPurposePersistenceService paymentPurposePersistenceService;
+    private PaymentPurposePersistenceService paymentPurposePersistenceService;
 
-	public LoadAllPaymentPurposeUseCase(PaymentPurposePersistenceService paymentPurposePersistenceService) {
-		this.paymentPurposePersistenceService = paymentPurposePersistenceService;
-	}
+    public LoadAllPaymentPurposeUseCase(PaymentPurposePersistenceService paymentPurposePersistenceService) {
+        this.paymentPurposePersistenceService = paymentPurposePersistenceService;
+    }
 
-	public Iterable<PaymentPurposeDTO> loadPaymentPurpose() {
-		return paymentPurposePersistenceService.getAll();
-	}
+    public Iterable<PaymentPurposeDTO> loadPaymentPurpose() {
+        return paymentPurposePersistenceService.getAll();
+    }
 
 }

@@ -7,25 +7,25 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ActionXml {
 
-	@XmlElement(name = "action-id", required = true)
-	private String actionId;
-	@XmlElement(name = "action-class-name", required = true)
-	private String actionClassName;
+    @XmlElement(name = "action-id", required = true)
+    private String actionId;
+    @XmlElement(name = "action-class-name", required = true)
+    private String actionClassName;
 
-	public String getActionId() {
-		return actionId;
-	}
+    public String getActionId() {
+        return actionId;
+    }
 
-	public void setActionId(String actionId) {
-		this.actionId = actionId;
-	}
+    public void setActionId(String actionId) {
+        this.actionId = actionId;
+    }
 
-	public String getActionClassName() {
-		return actionClassName;
-	}
+    public String getActionClassName() {
+        return actionClassName;
+    }
 
-	public void setActionClassName(String actionClassName) {
-		this.actionClassName = actionClassName;
-	}
+    public void setActionClassName(String actionClassName) {
+        this.actionClassName = actionClassName;
+    }
 
 }

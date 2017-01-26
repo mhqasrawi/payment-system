@@ -1,29 +1,27 @@
 package com.progressoft.jip.payment.iban.dao.impl;
 
-import java.sql.SQLException;
-import java.util.*;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
-
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.id.generator.IdDAO;
 import com.progressoft.jip.payment.id.generator.IdDAOImpl;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.*;
 
 public class JDBCIBANDAO implements IBANDAO {
 
     private static final String SELECT_IBAN_STATMRNT_BASED_ON_IBANID = "select * from iban WHERE iban_id=";
     private static final String SELECT_ALL_IBAN_STATMENT = "select * from iban ; ";
     private static final String INSERT_IBAN_STATMENT = "insert into iban values(?,?,?)";
+    private static final String TABLE_NAME = "iban";
     private final QueryRunner queryRunner;
     private final IdDAO idDAO;
-    private static final String TABLE_NAME = "iban";
 
     public JDBCIBANDAO(DataSource dataSource) {
         this.queryRunner = new QueryRunner(dataSource);
@@ -72,9 +70,9 @@ public class JDBCIBANDAO implements IBANDAO {
 
     public IBANDTO getById(int id) {
         try {
-            Map<String, Object> query = this.queryRunner.query(SELECT_IBAN_STATMRNT_BASED_ON_IBANID+ id, new MapHandler());
+            Map<String, Object> query = this.queryRunner.query(SELECT_IBAN_STATMRNT_BASED_ON_IBANID + id, new MapHandler());
             IBANDTO populateIBANDTO = populateIBANDTO(query);
-            if (Objects.isNull(populateIBANDTO ))
+            if (Objects.isNull(populateIBANDTO))
                 throw new DAOException("cannot get iban by id : " + id);
             return populateIBANDTO;
         } catch (SQLException e) {

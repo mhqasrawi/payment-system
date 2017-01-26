@@ -5,8 +5,7 @@ import com.progressoft.jip.ui.action.Action;
 
 /**
  * @author Ahmad.Jardat
- *
  */
-public interface PaymentAction extends Action<PaymentMenuContext>{
+public interface PaymentAction extends Action<PaymentMenuContext> {
 
 }

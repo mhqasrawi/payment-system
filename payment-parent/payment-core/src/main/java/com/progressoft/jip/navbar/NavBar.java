@@ -10,16 +10,16 @@ import java.util.List;
 public class NavBar {
 
 
-    private String navbar = "";
     private final Menu menu;
     private final SingleMenuItemBuilder singleMenuItemBuilder;
     private final SubMenu subMenu;
+    private String navbar = "";
 
     public NavBar(Menu menu, SingleMenuItemBuilder singleMenuItemBuilder, SubMenu subMenu) {
         this.menu = menu;
         this.singleMenuItemBuilder = singleMenuItemBuilder;
         this.subMenu = subMenu;
-        navbar+=generateNavBarHeader(menu.getDescription());
+        navbar += generateNavBarHeader(menu.getDescription());
     }
 
     public String generate() {

@@ -7,15 +7,13 @@ import com.progressoft.jip.ui.menu.Menu;
  */
 public class SingleMenuItemBuilder {
 
+    public static final String END_ANCOR = "</a>";
     private static final String START_ITEM = "<li>";
     private static final String END_ITEM = "</li>";
-
     private static final String START_ANCOR = "<a href=\"";
-    public static final String END_ANCOR = "</a>";
-
 
     public String buildSingleMenuItem(Menu singleMenuItem) {
-        return START_ITEM + START_ANCOR + singleMenuItem.getId() + "\">"+singleMenuItem.getDescription() +END_ANCOR + END_ITEM;
+        return START_ITEM + START_ANCOR + singleMenuItem.getId() + "\">" + singleMenuItem.getDescription() + END_ANCOR + END_ITEM;
 
 
     }

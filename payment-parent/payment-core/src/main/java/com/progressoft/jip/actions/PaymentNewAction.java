@@ -5,8 +5,7 @@ import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
 
 /**
  * @author Ahmad.Jardat
- *
  */
-public interface PaymentNewAction<T> extends PaymentAction,  SubmitAction<PaymentMenuContext, T>{ 
+public interface PaymentNewAction<T> extends PaymentAction, SubmitAction<PaymentMenuContext, T> {
 
 }

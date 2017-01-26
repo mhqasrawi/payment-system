@@ -5,14 +5,13 @@ import java.nio.file.Paths;
 
 /**
  * @author u612
- *
  */
 public class PathField extends AbstractField<Path> {
 
-	@Override
-	public AbstractField<Path> setValue(String value) {
-		this.value = Paths.get(value);
-		return this;
-	}
+    @Override
+    public AbstractField<Path> setValue(String value) {
+        this.value = Paths.get(value);
+        return this;
+    }
 
 }

@@ -2,12 +2,12 @@ package com.progressoft.jip.ui.field;
 
 public interface Field<T> {
 
-	String getName();
+    String getName();
 
-	String getDescription();
+    String getDescription();
 
-	T getValue();
-	
-	AbstractField<T> setValue(String value);
+    T getValue();
+
+    AbstractField<T> setValue(String value);
 
 }
