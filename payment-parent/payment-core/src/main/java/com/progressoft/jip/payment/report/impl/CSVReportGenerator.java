@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.report.impl;
 
+import com.progressoft.jip.payment.report.core.ReportException;
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportNode;
 
@@ -19,8 +20,12 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
     private int divergenceCounter = actionOnFirstRecord;
     private FileWriter writer;
     private final WriteOperation flushAndClose = () -> {
-        this.writer.flush();
-        this.writer.close();
+        try {
+            this.writer.flush();
+            this.writer.close();
+        } catch (Exception e) {
+            throw new ReportException(e);
+        }
     };
     private LinkedList<ReportNode> tempNodeCache = new LinkedList<>();
     private CSVWriteActionHandler[] writeNodeActions = new CSVWriteActionHandler[2];
@@ -33,10 +38,14 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
 
     @Override
     protected void startWrite() {
-        executeAndHandleException(() ->
+        executeAndHandleException(() -> {
+            try {
                 this.writer = new FileWriter(new File(settingsSpi.getPath()
-                        .resolve(this.settingsSpi.getFileName() + "." + this.supportedFileExtension).toString()))
-        );
+                        .resolve(this.settingsSpi.getFileName() + "." + this.supportedFileExtension).toString()));
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
+        });
     }
 
     @Override
@@ -121,7 +130,13 @@ public class CSVReportGenerator extends AbstractReportGenerator implements Repor
     }
 
     private void put(String field) {
-        executeAndHandleException(() -> this.writer.append(field));
+        executeAndHandleException(() -> {
+            try {
+                this.writer.append(field);
+            } catch (Exception e) {
+                throw new ReportException(e);
+            }
+        });
     }
 
     private void executeAndHandleException(WriteOperation op) {
