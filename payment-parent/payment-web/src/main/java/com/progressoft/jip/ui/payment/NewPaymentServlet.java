@@ -7,13 +7,13 @@ import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.iban.IBANDTO;
-import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceService;
 import com.progressoft.jip.payment.usecase.LoadAllPaymentPurposeUseCase;
 import com.progressoft.jip.payment.usecase.NewPaymentUseCase;
 import com.progressoft.jip.session.PaymentMenuContextConstant;
+import com.progressoft.jip.ui.payment.conversion.TypeConverters;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -40,15 +38,15 @@ public class NewPaymentServlet extends HttpServlet {
     private static final String JSP_PAGE_URL = "/WEB-INF/views/new-payment.jsp";
     private List<PaymentPurposeDTO> allPaymentPurpose;
 
-    private List<String> currencies = new ArrayList<String>();
+    private List<String> currencyList = new ArrayList<>();
 
     private ImplementationProvider implementationProvider;
 
     @Override
     public void init() throws ServletException {
-        currencies.add("JOD");
-        currencies.add("KWD");
-        currencies.add("USD");
+        currencyList.add("JOD");
+        currencyList.add("KWD");
+        currencyList.add("USD");
 
         implementationProvider = (ImplementationProvider) getServletContext()
                 .getAttribute(ImplementationProvider.DEPENDENCY_PROVIDER);
@@ -66,17 +64,10 @@ public class NewPaymentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String beneficaryIban = req.getParameter("beneficary-iban");
-        String beneficiaryName = req.getParameter("beneficiary-name");
-        String paymentAmount = req.getParameter("payment-amount");
-        String transferCurrency = req.getParameter("transfer-currency");
-        String paymentDate = req.getParameter("payment-date");
-        String paymentPurpose = req.getParameter("payment-purpose");
-
         PaymentInfo info = new PaymentInfoImpl(
                 (PaymentMenuContext) req.getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT))
-                .buildPaymentInfo(beneficaryIban, beneficiaryName, paymentAmount, transferCurrency, paymentDate,
-                        paymentPurpose);
+                .buildPaymentInfo(req.getParameter("beneficary-iban"), req.getParameter("beneficiary-name"), req.getParameter("payment-amount"), req.getParameter("transfer-currency"), req.getParameter("payment-date"),
+                        req.getParameter("payment-purpose"));
         NewPaymentUseCase newPaymentUseCase = new NewPaymentUseCase(implementationProvider.getImplementation(PaymentDAO.class),
                 implementationProvider.getImplementation(IBANDAO.class),
                 implementationProvider.getImplementation(AccountDAO.class));
@@ -85,7 +76,7 @@ public class NewPaymentServlet extends HttpServlet {
 
     private void refreshAttribute(HttpServletRequest req) {
         req.setAttribute(PAGE_CONTENT, JSP_PAGE_URL);
-        req.setAttribute(CURRENCIES, currencies);
+        req.setAttribute(CURRENCIES, currencyList);
         allPaymentPurpose = new ArrayList<>();
         allPaymentPurpose = (List<PaymentPurposeDTO>) new LoadAllPaymentPurposeUseCase(
                 implementationProvider.getImplementation(PaymentPurposePersistenceService.class)).loadPaymentPurpose();
@@ -143,22 +134,14 @@ public class NewPaymentServlet extends HttpServlet {
 
         public PaymentInfo buildPaymentInfo(String beneficaryIban, String beneficiaryName, String paymentAmount,
                                             String transferCurrency, String paymentDate, String paymentPurpose) {
-            String[] date = paymentDate.split("/");
-            this.paymentDate = LocalDateTime.of(
-                    LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0])),
-                    LocalTime.now());
+            TypeConverters typeConverters = new TypeConverters(implementationProvider);
+            this.paymentDate = typeConverters.convertString(LocalDateTime.class, paymentDate);
+            this.paymentPurposeDTO = typeConverters.convertString(PaymentPurposeDTO.class, paymentPurpose);
+            this.beneficiaryIBAN = typeConverters.convertString(IBANDTO.class, beneficaryIban);
+            this.paymentAmount = typeConverters.convertString(BigDecimal.class, paymentAmount);
+            this.transferCurrency = typeConverters.convertString(Currency.class, transferCurrency);
             this.beneficiaryName = beneficiaryName;
-            this.paymentPurposeDTO = allPaymentPurpose.stream().filter(p -> paymentPurpose.equals(p.getShortCode()))
-                    .findAny().orElse(null);
-            IBANDTOImpl ibandtoImpl = new IBANDTOImpl();
-            ibandtoImpl.setIbanValue(beneficaryIban.substring(2));
-            ibandtoImpl.setCountryCode(beneficaryIban.substring(0, 2));
-            this.beneficiaryIBAN = ibandtoImpl;
-            this.paymentAmount = BigDecimal.valueOf(Long.valueOf(paymentAmount));
-            this.transferCurrency = Currency.getInstance(transferCurrency);
             return this;
         }
-
     }
-
 }
