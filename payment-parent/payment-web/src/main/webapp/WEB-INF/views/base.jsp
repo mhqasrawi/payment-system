@@ -83,12 +83,6 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							<li><a href="/accountInfo"> Account Info</a></li>
 						</ul></li>
 					<li class="divider"></li>
-					<li><label class="tree-toggler nav-header">Update
-							Account</label>
-						<ul class="nav nav-list tree">
-							<li><a href="#">Edit Account Type</a></li>
-						</ul></li>
-					<li class="divider"></li>
 					<li><label class="tree-toggler nav-header">Create New
 							Payment</label>
 						<ul class="nav nav-list tree">
