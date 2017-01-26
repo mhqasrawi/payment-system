@@ -4,6 +4,6 @@ import java.io.InputStream;
 
 public interface ParameterParser {
 
-	Iterable<ParameterValueTuple> getParameters(InputStream is);
+    Iterable<ParameterValueTuple> getParameters(InputStream is);
 
 }

@@ -2,7 +2,7 @@ package com.progressoft.jip.ui;
 
 public class WiredUtility {
 
-	public void wiredObjectDependency(Object object){
-		
-	}
+    public void wiredObjectDependency(Object object) {
+
+    }
 }

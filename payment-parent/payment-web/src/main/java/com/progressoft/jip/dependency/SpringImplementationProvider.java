@@ -4,20 +4,20 @@ import org.springframework.context.ApplicationContext;
 
 public class SpringImplementationProvider implements ImplementationProvider {
 
-	private final ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
-	public SpringImplementationProvider(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
-	}
+    public SpringImplementationProvider(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
-	@Override
-	public <T> T getImplementation(Class<T> clazz) {
-		return applicationContext.getBean(clazz);
-	}
+    @Override
+    public <T> T getImplementation(Class<T> clazz) {
+        return applicationContext.getBean(clazz);
+    }
 
-	@Override
-	public void injectObjectDependency(Object object) {
-		applicationContext.getAutowireCapableBeanFactory().autowireBean(object);
-	}
+    @Override
+    public void injectObjectDependency(Object object) {
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(object);
+    }
 
 }

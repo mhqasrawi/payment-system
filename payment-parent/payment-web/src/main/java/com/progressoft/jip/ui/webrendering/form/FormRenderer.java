@@ -5,7 +5,7 @@ import com.progressoft.jip.ui.menu.MenuContext;
 
 @FunctionalInterface
 public interface FormRenderer<C extends MenuContext, T> {
-	
-	String renderToHtml(Form<C, T> form);
+
+    String renderToHtml(Form<C, T> form);
 
 }

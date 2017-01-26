@@ -1,20 +1,11 @@
 package com.progressoft.jip.ui.web.accountforms;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.progressoft.jip.PaymentMenuContext;
-import com.progressoft.jip.dependency.ImplementationProvider;
-import com.progressoft.jip.payment.account.AccountDTO;
-import com.progressoft.jip.payment.account.service.AccountPersistenceService;
-import com.progressoft.jip.session.PaymentMenuContextConstant;
+import java.io.IOException;
 
 /**
  * @author u623
@@ -36,8 +27,8 @@ public class ShowAccountInfoServlet extends HttpServlet {
 //                        getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT);
 //        AccountDTO account = context.getCurrentAccount();
 //        req.setAttribute("account", account);
-    	req.setAttribute("pageContent", "/WEB-INF/views/accountInfo.jsp");
-		req.getRequestDispatcher("/WEB-INF/views/base.jsp").forward(req, resp);
+        req.setAttribute("pageContent", "/WEB-INF/views/accountInfo.jsp");
+        req.getRequestDispatcher("/WEB-INF/views/base.jsp").forward(req, resp);
     }
 
     @Override

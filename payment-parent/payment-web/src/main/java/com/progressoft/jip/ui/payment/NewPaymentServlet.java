@@ -1,20 +1,5 @@
 package com.progressoft.jip.ui.payment;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.dependency.ImplementationProvider;
 import com.progressoft.jip.payment.PaymentDAO;
@@ -30,21 +15,29 @@ import com.progressoft.jip.payment.usecase.LoadAllPaymentPurposeUseCase;
 import com.progressoft.jip.payment.usecase.NewPaymentUseCase;
 import com.progressoft.jip.session.PaymentMenuContextConstant;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+
 @WebServlet(urlPatterns = "/" + NewPaymentServlet.URL)
 public class NewPaymentServlet extends HttpServlet {
 
-    private static final String CURRENCIES = "currencies";
-
-    private static final String PAGE_CONTENT = "pageContent";
-
-    private static final String BASE_JSP_URL = "/WEB-INF/views/base.jsp";
-
-    private static final long serialVersionUID = -739079731396671416L;
-
-    private static final String JSP_PAGE_URL = "/WEB-INF/views/new-payment.jsp";
-
     static final String URL = "new-payment";
-
+    private static final String CURRENCIES = "currencies";
+    private static final String PAGE_CONTENT = "pageContent";
+    private static final String BASE_JSP_URL = "/WEB-INF/views/base.jsp";
+    private static final long serialVersionUID = -739079731396671416L;
+    private static final String JSP_PAGE_URL = "/WEB-INF/views/new-payment.jsp";
     private List<PaymentPurposeDTO> allPaymentPurpose;
 
     private List<String> currencies = new ArrayList<String>();

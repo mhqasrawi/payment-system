@@ -1,12 +1,11 @@
 package com.progressoft.jip.ui.web;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 
 public class FormValidation extends HttpServlet {
@@ -18,7 +17,7 @@ public class FormValidation extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         String bodyContent = "";
-        String line ;
+        String line;
         while ((line = reader.readLine()) != null) {
             bodyContent = bodyContent.concat(line);
         }
