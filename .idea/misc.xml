@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
-=======
   <component name="ClientPropertiesManager">
     <properties class="javax.swing.AbstractButton">
       <property name="hideActionText" class="java.lang.Boolean" />
@@ -41,19 +38,23 @@
       <property name="caretWidth" class="java.lang.Integer" />
     </properties>
   </component>
-  <component name="MavenProjectsManager">
-    <option name="originalFiles">
-      <list>
-        <option value="$PROJECT_DIR$/payment-parent/pom.xml" />
-        <option value="$PROJECT_DIR$/payment-parent/payment-web/target/m2e-wtp/web-resources/META-INF/maven/com.progressoft.jip.payment/payment-web/pom.properties" />
-        <option value="$PROJECT_DIR$/payment-parent/payment-core/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-core/pom.properties" />
-        <option value="$PROJECT_DIR$/payment-parent/payment-main/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-main/pom.properties" />
-        <option value="$PROJECT_DIR$/payment-parent/payment-date-rules/target/classes/META-INF/maven/com.progressoft.jip.payment/payment-date-rules/pom.properties" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
->>>>>>> df8214f18965db1632c898a0900347c510b08bd0
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
 </project>

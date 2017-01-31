@@ -32,6 +32,7 @@ public class IBANValidatorImpl implements IBANValidator {
 
     @Override
     public void validate(IBANDTO iban) {
+    	System.out.println("i'm here");
         this.iban = iban;
         try {
             if (!checkFormat()) {

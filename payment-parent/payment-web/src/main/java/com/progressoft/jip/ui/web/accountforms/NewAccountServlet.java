@@ -1,5 +1,6 @@
 package com.progressoft.jip.ui.web.accountforms;
 
+import com.progressoft.jip.IdDescreptionPair;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.currency.currenciesprovider.CurrencyCodeProvider;
 import com.progressoft.jip.dependency.ImplementationProvider;
@@ -10,6 +11,7 @@ import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.iban.IBANValidationException;
 import com.progressoft.jip.payment.iban.IBANValidator;
 import com.progressoft.jip.payment.usecase.NewAccountUseCase;
+import com.progressoft.jip.payment.validation.rules.DateValidationRules;
 import com.progressoft.jip.session.PaymentMenuContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -84,19 +86,25 @@ public class NewAccountServlet extends HttpServlet {
     private IBANDTOImpl parseIban(HttpServletRequest req) {
         IBANDTOImpl ibandto = new IBANDTOImpl();
         ibandto.setIbanValue(req.getParameter("ibandto"));
+        System.out.println(req.getParameter("ibandto"));
         validateIban(ibandto);
+        System.out.println(req.getParameter("ibandto")+" done");
         return ibandto;
     }
 
     private void validateIban(IBANDTOImpl ibandto) {
         IBANValidator ibanValidator = implementationProvider.getImplementation(IBANValidator.class);
+        System.out.println("validateIban here" + ibanValidator);
         ibanValidator.validate(ibandto);
+        System.out.println("validateIban here2");
     }
 
     private void forwardToNewAccountForm(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         CurrencyCodeProvider provider = implementationProvider.getImplementation(CurrencyCodeProvider.class);
         Iterable<String> listAllCurrency = provider.listAllCurrency();
+        Iterable<IdDescreptionPair> dateRulesDescription = DateValidationRules.getDateValidationRulesDescription();
+        req.setAttribute("dataRules", dateRulesDescription);
         req.setAttribute("currencyList", listAllCurrency);
         req.getRequestDispatcher("/newaccount-view.jsp").forward(req, resp);
 
