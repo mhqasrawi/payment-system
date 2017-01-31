@@ -57,6 +57,11 @@
             <version>2.1.1</version>
         </dependency>
         <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
@@ -80,7 +85,22 @@
     </dependencies>
     <build>
         <finalName>payment-web</finalName>
+
+
         <plugins>
+
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <path>/</path>
+                    <port>8585</port>
+                </configuration>
+            </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -88,6 +108,16 @@
                 <configuration>
                     <!-- web.xml is not mandatory since JavaEE 5 -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+
+                    <path>/</path>
+                    <port>8080</port>
                 </configuration>
             </plugin>
             <plugin>
@@ -99,19 +129,19 @@
                         <systemProperty>
                             <key>app.context.location</key>
                             <value>
-                                C:\\Users\\u625\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml
+                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml
                             </value>
                         </systemProperty>
                         <systemProperty>
                             <key>configuration.file.path</key>
                             <value>
-                                C:\\Users\\u625\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml
+                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml
                             </value>
                         </systemProperty>
                         <systemProperty>
                             <key>log4j.configuration</key>
                             <value>
-                                C:\\Users\\u625\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\log4j.properties
+                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\log4j.properties
                             </value>
 
 

@@ -34,6 +34,7 @@ public class NewPaymentPurposeServlet extends HttpServlet {
         NewPaymentPurposeUseCase newPaymentPurposeUseCase = new NewPaymentPurposeUseCase(
                 springImplementationProvider.getImplementation(PaymentPurposeDAO.class));
         newPaymentPurposeUseCase.process(paymentPurposeDTO);
+        req.getRequestDispatcher(req.getContextPath()+"/new-payment-purpose").forward(req,resp);
     }
 
 }
