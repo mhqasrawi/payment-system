@@ -60,7 +60,7 @@
             id="userInterfaceGenerator"
             class="com.progressoft.jip.XmlFileUserInterfaceGenerator"/>
     <bean
-            id="jdbcPaymentPurposeDAO"
+            id="paymentPurposeDAO"
             class="com.progressoft.jip.payment.purpose.dao.impl.JDBCPaymentPurposeDAO"/>
     <bean
             id="springBasedActionGenerator"
@@ -77,4 +77,9 @@
     <bean id="newAccountUseCase" class="com.progressoft.jip.payment.usecase.NewAccountUseCase">
         <property name="accountService" ref="accountPersistenceService"></property>
     </bean>
+    <bean id="newPaymentPurposeUseCase" class="com.progressoft.jip.payment.usecase.NewPaymentPurposeUseCase">
+        <constructor-arg ref="paymentPurposeDAO"/>
+
+    </bean>
+
 </beans>
