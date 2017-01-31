@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.validation.rules.test;
 
+import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
@@ -44,7 +45,7 @@ public class SameMonthDateRuleTest {
     }
 
     private class PaymentInfoMock implements PaymentInfo {
-        private LocalDateTime paymentDate;
+        private LocalDateTime settlementDate;
 
         @Override
         public AccountDTO getOrderingAccount() {
@@ -71,18 +72,28 @@ public class SameMonthDateRuleTest {
             return null;
         }
 
-        @Override
-        public LocalDateTime getPaymentDate() {
-            return paymentDate;
-        }
-
         public void setPaymentDate(LocalDateTime paymentDate) {
-            this.paymentDate = paymentDate;
+            this.settlementDate = paymentDate;
         }
 
         @Override
         public PaymentPurposeDTO getPaymentPurpose() {
             return null;
         }
+
+		@Override
+		public LocalDateTime getSettlementDate() {
+			return settlementDate;
+		}
+
+		@Override
+		public PaymentStatus getStatus() {
+			return null;
+		}
+
+		@Override
+		public LocalDateTime getCreationDate() {
+			return null;
+		}
     }
 }

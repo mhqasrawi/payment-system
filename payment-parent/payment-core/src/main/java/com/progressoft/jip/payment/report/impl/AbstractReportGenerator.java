@@ -117,7 +117,7 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
         writeNode(newNode(PAYMENT_AMOUNT_TAG, String.valueOf(payment.getPaymentAmount())));
         writeNode(newNode(PAYMENT_AMOUNT_TRANSCRIPTION_TAG, transcribedPayment));
         writeNode(newNode(TRANSFER_CURRENCY_TAG, payment.getTransferCurrency().getDisplayName()));
-        writeNode(newNode(PAYMENT_DATE_TAG, payment.getPaymentDate().toString()));
+        writeNode(newNode(PAYMENT_DATE_TAG, payment.getSettlementDate().toString()));
         writeNode(newNode(PAYMENT_PURPOSE_TAG, payment.getPaymentPurpose().getDescription()));
     }
 

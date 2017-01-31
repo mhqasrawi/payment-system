@@ -27,11 +27,11 @@ public class SameYearDateRule implements DateRule {
     private boolean isPastPaymentDate(PaymentInfo paymentInfo) {
         return Duration.between(
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute())),
-                paymentInfo.getPaymentDate()).isNegative();
+                paymentInfo.getSettlementDate()).isNegative();
     }
 
     private boolean isPaymentWithinOneYear(PaymentInfo paymentInfo) {
-        return Duration.between(LocalDateTime.now(), paymentInfo.getPaymentDate())
+        return Duration.between(LocalDateTime.now(), paymentInfo.getSettlementDate())
                 .compareTo(Duration.ofDays(DAYS_OF_YEAR)) <= 0;
     }
 

@@ -4,6 +4,7 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentBuilder;
 import com.progressoft.jip.payment.PaymentDAO;
+import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
@@ -113,13 +114,23 @@ public class NewPaymentForm extends FormImpl<PaymentMenuContext, PaymentInfo> im
         }
 
         @Override
-        public LocalDateTime getPaymentDate() {
-            return LocalDateTime.now();
-        }
-
-        @Override
         public PaymentPurposeDTO getPaymentPurpose() {
             return null;
         }
+
+		@Override
+		public LocalDateTime getSettlementDate() {
+			return null;
+		}
+
+		@Override
+		public PaymentStatus getStatus() {
+			return null;
+		}
+
+		@Override
+		public LocalDateTime getCreationDate() {
+			return null;
+		}
     }
 }

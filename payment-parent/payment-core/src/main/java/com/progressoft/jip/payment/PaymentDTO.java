@@ -10,18 +10,44 @@ import java.time.LocalDateTime;
 import java.util.Currency;
 
 public interface PaymentDTO extends DTO {
+	AccountDTO getOrderingAccount();
 
-    AccountDTO getOrderingAccount();
+	IBANDTO getBeneficiaryIBAN();
 
-    IBANDTO getBeneficiaryIBAN();
+	String getBeneficiaryName();
 
-    String getBeneficiaryName();
+	BigDecimal getPaymentAmount();
 
-    BigDecimal getPaymentAmount();
+	Currency getTransferCurrency();
 
-    Currency getTransferCurrency();
+	LocalDateTime getSettlementDate();
 
-    LocalDateTime getPaymentDate();
+	PaymentPurposeDTO getPaymentPurpose();
 
-    PaymentPurposeDTO getPaymentPurpose();
+	PaymentStatus getStatus();
+
+	LocalDateTime getCreationDate();
+
+	public enum PaymentStatus {
+		CREATED(1), APPROVED(2), REJECTED(3);
+
+		private int value;
+
+		private PaymentStatus(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static PaymentStatus getStatus(int value) {
+			for (PaymentStatus paymentStatus : PaymentStatus.values()) {
+				if (paymentStatus.getValue() == value) {
+					return paymentStatus;
+				}
+			}
+			return null;
+		}
+	}
 }
