@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -71,8 +72,10 @@ public class XmlUserInterfaceGeneratorTest {
         InputStream is = new ByteArrayInputStream(buf);
         XmlUserInterfaceGenerator generator = new XmlUserInterfaceGenerator(is);
         Menu mainMenu = generator.generateUserInterface();
+        MenuImpl menu = new MenuImpl<>("Pikup Account", NullableAction.INSTANCE);
+        List<Menu<MenuContext>> menus = Arrays.asList(menu);
         MenuImpl<MenuContext> menuImpl = new MenuImpl<>("Choose  Option : ",
-                Arrays.asList(new MenuImpl<>("Pikup Account", NullableAction.INSTANCE)));
+                menus);
         assertEquals(mainMenu, menuImpl);
     }
 }

@@ -65,7 +65,7 @@ public class GenerateReportServlet extends HttpServlet {
         settings.setPayments(paymentDao.getAll());
         settings.setFileExtention(req.getParameter("extension"));
         settings.setFileName("test");
-        settings.setPath(Paths.get("C:/Users/u623/Desktop"));
+        settings.setPath(Paths.get("C:/Users/u625/Desktop"));
         settings.setTranscriberClass(EnglishTranscription.class);
         ReportManager manager = implementationProvider.getImplementation(ReportManager.class);
         manager.generateReport(settings);

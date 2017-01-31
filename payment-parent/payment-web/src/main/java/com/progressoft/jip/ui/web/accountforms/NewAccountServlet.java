@@ -60,6 +60,7 @@ public class NewAccountServlet extends HttpServlet {
 //			req.setAttribute("pageContent", "/WEB-INF/views/accountInfo.jsp");
             req.getRequestDispatcher("/accountInfo").forward(req, resp);
         } catch (IBANValidationException | NumberFormatException e) {
+            //TODO log this exception
             req.setAttribute("IBANError", e);
             forwardToNewAccountForm(req, resp);
         }

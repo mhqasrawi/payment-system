@@ -29,6 +29,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/" + NewPaymentServlet.URL)
 public class NewPaymentServlet extends HttpServlet {
+    //TODO FIX IT OR E7REG IT
 
     static final String URL = "new-payment";
     private static final String CURRENCIES = "currencies";

@@ -26,6 +26,10 @@ import java.util.List;
 import java.util.Map;
 
 public class PaymentDAOImpl implements PaymentDAO {
+    //TODO add Columns
+    // Creation Date
+    // Change Payment Date To Delivery DAte
+    // Status
 
     private static final String TABLE_NAME = "payment";
     private DataSource dataSource;

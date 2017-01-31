@@ -17,12 +17,14 @@ public class PickupAccountServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1699665816065799380L;
 
+
     private ChooseAccountUseCase pikupAccountUseCase;
 
     private AccountPersistenceService accountService = null;
 
     @Override
     public void init() throws ServletException {
+        //TODO get implementaion of pickAccountUSeCase from ImplProvider
     }
 
     @Override
