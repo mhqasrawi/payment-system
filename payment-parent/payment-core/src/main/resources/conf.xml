@@ -1,0 +1,21 @@
+<configuraion>
+    <iban>
+        <format>
+            <file>
+                C:\Users\u625\Desktop\payment-system\payment-parent\payment-core\src\main\resources\IBAN_Formats.txt
+            </file>
+        </format>
+    </iban>
+    <db>
+        <username>root</username>
+        <password>root</password>
+        <url>jdbc:mysql://localhost:3306/payment_db</url>
+        <driver-classname>com.mysql.cj.jdbc.Driver</driver-classname>
+    </db>
+    <ui>
+        <xml>
+            <path>C:\Users\u625\Desktop\payment-system\payment-parent\payment-core\src\main\resources\ui.xml</path>
+        </xml>
+    </ui>
+
+</configuraion>
