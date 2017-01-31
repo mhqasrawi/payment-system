@@ -3,7 +3,6 @@ package com.progressoft.jip.payment.report.impl;
 import com.progressoft.jip.payment.report.core.ReportException;
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportNode;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.LinkedList;

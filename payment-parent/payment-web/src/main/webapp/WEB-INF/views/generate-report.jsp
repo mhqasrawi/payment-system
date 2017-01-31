@@ -24,77 +24,7 @@
 	<!-- 	</div> -->
 
 	<div class="col-xs-12">
-		<div class="row form-group">
 
-			<div class="col-xs-2">from</div>
-			<!-- 			&nbsp; -->
-			<div class="col-xs-3">
-				<select name="date-from-year" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<!-- 			&nbsp; -->
-			<!-- 			<div class="col-xs-2">Date from (Month)</div> -->
-			<!-- 			&nbsp; -->
-			<div class="col-xs-3">
-				<select name="date-from-month" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<!-- 			&nbsp; -->
-			<!-- 			<div class="col-xs-2">Date from (Day)</div> -->
-			<!-- 			&nbsp; -->
-			<div class="col-xs-3">
-				<select name="date-from-day" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-
-		</div>
-
-
-		<div class="row form-group">
-
-			<div class="col-xs-2">To</div>
-			<div class="col-xs-3">
-				<select name="date-to-year" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-			&nbsp;
-
-			<!-- 			<div class="col-xs-2">Date To (Month)</div> -->
-			<div class="col-xs-3">
-				<select name="date-to-month" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-			&nbsp;
-			<!-- 			<div class="col-xs-2">To</div> -->
-			<div class="col-xs-3">
-				<select name="date-to-day" class="form-control">
-					<option value=" ">------</option>
-					<c:forEach var="cat" items="${requestScope.allCategory}">
-						<option value="${cat.categoryName}">${cat.categoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
 
 		<div class="col-xs-2">Extension</div>
 		<div class="col-xs-3">

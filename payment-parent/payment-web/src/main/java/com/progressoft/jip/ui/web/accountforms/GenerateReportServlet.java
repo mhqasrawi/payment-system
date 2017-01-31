@@ -6,7 +6,6 @@ import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportManager;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.EnglishTranscription;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,6 @@ public class GenerateReportServlet extends HttpServlet {
         return extensions;
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("extensions", getSupportedExtensions());
@@ -51,12 +49,6 @@ public class GenerateReportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
-        out.println("<h1>" + req.getParameter("date-from-year") + "</h1>");
 //		out.println("<h1>" + ((PaymentMenuContext) req.getSession().getAttribute("PAYMENT_MENU_CONTEXT")).getCurrentAccount().getAccountNumber() + "</h1>");
 //		out.println("<h1>" +  + "</h1>");
         ReportSettingsImpl settings = new ReportSettingsImpl();

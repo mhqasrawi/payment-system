@@ -10,11 +10,11 @@ import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.report.core.ReportManagerException;
 import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
+import com.progressoft.jip.payment.report.impl.ReportNodeProviderImpl;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.EnglishTranscription;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -22,8 +22,6 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
-
-//import com.progressoft.jip.payment.PaymentPurpose;
 
 public class ReportTestCases {
     private ReportManagerImpl reportManager = new ReportManagerImpl();
@@ -113,10 +111,11 @@ public class ReportTestCases {
     public void callingGenerateReportMethod_WithValidParams_ShouldGenerateReport() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileName("report");
-        settings.setPath(Paths.get("C:/Users/u620/Desktop/Success"));
+        settings.setPath(Paths.get("C:/Users/u620/Desktop"));
         settings.setFileExtention("csv");
         settings.setPayments(payments);
         settings.setTranscriberClass(EnglishTranscription.class);
+        settings.setReportNodeProviderClass(ReportNodeProviderImpl.class);
         reportManager.generateReport(settings);
         settings.setFileExtention("xml");
         reportManager.generateReport(settings);
