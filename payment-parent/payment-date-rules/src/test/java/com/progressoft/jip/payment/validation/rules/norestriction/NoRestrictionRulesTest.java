@@ -44,7 +44,7 @@ public class NoRestrictionRulesTest {
 
     @Test
     public void WhenCallingValidateWithValidPayment_ShouldReturnTrue() {
-        Mockito.when(paymentInfo.getPaymentDate()).thenReturn(LocalDateTime.now());
+        Mockito.when(paymentInfo.getSettlementDate()).thenReturn(LocalDateTime.now());
         noRestrictionRules.validatePaymentDate(paymentInfo);
     }
 

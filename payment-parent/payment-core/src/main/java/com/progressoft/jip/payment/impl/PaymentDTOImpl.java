@@ -11,88 +11,108 @@ import java.util.Currency;
 
 public class PaymentDTOImpl implements PaymentDTO {
 
-    private int id;
-    private AccountDTO orderingAccount;
-    private IBANDTO beneficiaryIBAN;
-    private String beneficiaryName;
-    private BigDecimal paymentAmount;
-    private Currency transferCurrency;
-    private LocalDateTime paymentDate;
-    private PaymentPurposeDTO paymentPurpose;
+	private int id;
+	private AccountDTO orderingAccount;
+	private IBANDTO beneficiaryIBAN;
+	private String beneficiaryName;
+	private BigDecimal paymentAmount;
+	private Currency transferCurrency;
+	private PaymentPurposeDTO paymentPurpose;
+	private LocalDateTime settlementDate;
+	private LocalDateTime creationDate;
+	private PaymentStatus status;
 
-    public PaymentDTOImpl() {
-    }
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
+	}
 
-    @Override
-    public int getId() {
-        return id;
-    }
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public PaymentDTOImpl() {
+	}
 
-    @Override
-    public AccountDTO getOrderingAccount() {
-        return orderingAccount;
-    }
+	@Override
+	public int getId() {
+		return id;
+	}
 
-    public void setOrderingAccount(AccountDTO orderingAccount) {
-        this.orderingAccount = orderingAccount;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    @Override
-    public IBANDTO getBeneficiaryIBAN() {
-        return beneficiaryIBAN;
-    }
+	@Override
+	public AccountDTO getOrderingAccount() {
+		return orderingAccount;
+	}
 
-    public void setBeneficiaryIBAN(IBANDTO beneficiaryIBAN) {
-        this.beneficiaryIBAN = beneficiaryIBAN;
-    }
+	public void setOrderingAccount(AccountDTO orderingAccount) {
+		this.orderingAccount = orderingAccount;
+	}
 
-    @Override
-    public String getBeneficiaryName() {
-        return beneficiaryName;
-    }
+	@Override
+	public IBANDTO getBeneficiaryIBAN() {
+		return beneficiaryIBAN;
+	}
 
-    public void setBeneficiaryName(String beneficiaryName) {
-        this.beneficiaryName = beneficiaryName;
-    }
+	public void setBeneficiaryIBAN(IBANDTO beneficiaryIBAN) {
+		this.beneficiaryIBAN = beneficiaryIBAN;
+	}
 
-    @Override
-    public BigDecimal getPaymentAmount() {
-        return paymentAmount;
-    }
+	@Override
+	public String getBeneficiaryName() {
+		return beneficiaryName;
+	}
 
-    public void setPaymentAmount(BigDecimal paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
+	public void setBeneficiaryName(String beneficiaryName) {
+		this.beneficiaryName = beneficiaryName;
+	}
 
-    @Override
-    public Currency getTransferCurrency() {
-        return transferCurrency;
-    }
+	@Override
+	public BigDecimal getPaymentAmount() {
+		return paymentAmount;
+	}
 
-    public void setTransferCurrency(Currency transferCurrency) {
-        this.transferCurrency = transferCurrency;
-    }
+	public void setPaymentAmount(BigDecimal paymentAmount) {
+		this.paymentAmount = paymentAmount;
+	}
 
-    @Override
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
+	@Override
+	public Currency getTransferCurrency() {
+		return transferCurrency;
+	}
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
+	public void setTransferCurrency(Currency transferCurrency) {
+		this.transferCurrency = transferCurrency;
+	}
 
-    @Override
-    public PaymentPurposeDTO getPaymentPurpose() {
-        return paymentPurpose;
-    }
+	@Override
+	public LocalDateTime getSettlementDate() {
+		return settlementDate;
+	}
 
-    public void setPaymentPurpose(PaymentPurposeDTO paymentPurpose) {
-        this.paymentPurpose = paymentPurpose;
-    }
+	public void setSettlementDate(LocalDateTime settlementDate) {
+		this.settlementDate = settlementDate;
+	}
+
+	@Override
+	public PaymentPurposeDTO getPaymentPurpose() {
+		return paymentPurpose;
+	}
+
+	public void setPaymentPurpose(PaymentPurposeDTO paymentPurpose) {
+		this.paymentPurpose = paymentPurpose;
+	}
+
+	@Override
+	public PaymentStatus getStatus() {
+		return status;
+	}
+
+	@Override
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
 
 }

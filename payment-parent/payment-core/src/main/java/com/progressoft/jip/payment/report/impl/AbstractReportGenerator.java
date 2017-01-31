@@ -32,7 +32,6 @@ public abstract class AbstractReportGenerator implements ReportGenerator {
 
     protected abstract void startPayment();
 
-
     protected abstract void writeNode(ReportNode node);
 
     protected abstract void endPayment();
