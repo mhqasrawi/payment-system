@@ -11,6 +11,8 @@ import com.progressoft.jip.payment.iban.IBANValidationException;
 import com.progressoft.jip.payment.iban.IBANValidator;
 import com.progressoft.jip.payment.usecase.NewAccountUseCase;
 import com.progressoft.jip.session.PaymentMenuContextConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,6 +33,8 @@ public class NewAccountServlet extends HttpServlet {
     private static final long serialVersionUID = -3033338791739821939L;
 
     private ImplementationProvider implementationProvider;
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewAccountServlet.class);
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -57,9 +61,9 @@ public class NewAccountServlet extends HttpServlet {
         try {
             setNewAccountInfo(req, accountDto);
             accountUseCase.process(paymentMenuContext, accountDto);
-//			req.setAttribute("pageContent", "/WEB-INF/views/accountInfo.jsp");
-            req.getRequestDispatcher("/accountInfo").forward(req, resp);
+            resp.sendRedirect(req.getServletPath() + "/accountInfo");
         } catch (IBANValidationException | NumberFormatException e) {
+            LOGGER.error(e.getMessage(), e);
             req.setAttribute("IBANError", e);
             forwardToNewAccountForm(req, resp);
         }
