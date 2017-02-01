@@ -32,7 +32,7 @@ h1.padding {
 
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Verdana", sans-serif;
-	font-weight:lighter; 
+	font-weight: lighter;
 	color: rgb(30, 205, 151);
 }
 
@@ -51,9 +51,6 @@ label.padding2 {
 	font-weight: bold;
 	color: rgb(30, 205, 151);
 }
-
-
-
 </style>
 </head>
 <body>
@@ -86,43 +83,46 @@ label.padding2 {
 
 	<form class="form-horizontal" action="/newAccount" method="post">
 		<div class="form-group" style="margin-top: 30px">
-			<label  class="control-label col-sm-2 "  for="accountNumber"
-				class="padding2"style="font-weight: normal;">Account Number:</label>
+			<label class="control-label col-sm-2 " for="accountNumber"
+				class="padding2" style="font-weight: normal;">Account
+				Number:</label>
 			<div class="col-sm-3">
-				<input type="text" class="form-control" name="accountNumber"
-					id="accountNumber" placeholder="Enter Account Number" required>
+				<input text" class="form-control" name="accountNumber"
+					id="accountNumber" placeholder="Enter Account Number" required style="width: 370px;">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="ibandto" class="padding2"style="font-weight: normal;">IBAN:</label>
+			<label class="control-label col-sm-2" for="ibandto" class="padding2"
+				style="font-weight: normal;">IBAN:</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" name="ibandto" id="ibandto"
-					placeholder="Enter IBAN" required>
+					placeholder="Enter IBAN" required style="width: 370px;">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="accountName"
-				class="padding2 " style="font-weight: normal;">	Account Type:</label>
+				class="padding2 " style="font-weight: normal;"> Account
+				Type:</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" name="accountName"
-					id="accountName" placeholder="Enter Account Type" required>
+					id="accountName" placeholder="Enter Account Type" required style="width: 370px;">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="balance" class="padding2" style="font-weight: normal;">Account
-				Balance:</label>
+			<label class="control-label col-sm-2" for="balance" class="padding2"
+				style="font-weight: normal;">Account Balance:</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" name="balance" id="balance"
-					placeholder="Enter balance" required>
+					placeholder="Enter balance" required style="width: 370px;">
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="balance"style="font-weight: normal;">Choose
-				Currency Code:</label>
+			<label class="control-label col-sm-2" for="balance"
+				style="font-weight: normal;">Choose Currency Code:</label>
 			<div class="col-sm-3">
 				<select class="form-control" id="currency" name="currency"
-					onmouseover="this.size=4;" onmouseout="this.size=1;">
+					onmouseover="this.size=4;" onmouseout="this.size=1;" style="width: 370px;">
 					<c:forEach var="currencyItem" items="${requestScope.currencyList}">
 						<option value="${currencyItem}">${currencyItem}</option>
 					</c:forEach>
@@ -132,19 +132,21 @@ label.padding2 {
 
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="customerDTO"
-				class="padding2"style="font-weight: normal;">Account Holder's Name:</label>
+				class="padding2" style="font-weight: normal;">Account
+				Holder's Name:</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" name="customerDTO"
-					id="customerDTO" placeholder="Enter Holder's Name" required>
+					id="customerDTO" placeholder="Enter Holder's Name" required style="width: 370px;">
 			</div>
 		</div>
 
 
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="accountStatus"
-				class="padding2"style="font-weight: normal;">Account Status :</label>
+				class="padding2" style="font-weight: normal;">Account Status
+				:</label>
 			<div class="col-sm-3">
-				<select class="form-control" name="accountStatus">
+				<select class="form-control" name="accountStatus" style="width: 370px;">
 					<option value="ACTIVE">ACTIVE</option>
 					<option value="INACTIVE">INACTIVE</option>
 				</select>
@@ -167,18 +169,15 @@ label.padding2 {
 
 
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="daterule" class="padding2"style="font-weight: normal;">Choose
-				Payment Date Rule:</label>
+			<label class="control-label col-sm-2" for="daterule" class="padding2"
+				style="font-weight: normal;">Choose Payment Date Rule:</label>
 			<div class="col-sm-3">
 				<!--<select class="form-control"  id="paymentRule" name="paymentRule" >-->
 				<select class="form-control" id="paymentRule" name="paymentRule"
-					onmouseover="this.size=4;" onmouseout="this.size=1;">
-
-					<option value="no-restriction-rules">no-restriction-rules</option>
-					<option value="same-month">same-month</option>
-					<option value="same-year">same-year</option>
-					<option value="same-day">same-day</option>
-					<option value="xDays">xDays</option>
+					onmouseover="this.size=4;" onmouseout="this.size=1;" style="width: 370px;">
+					<c:forEach var="dataRule" items="${requestScope.dataRules}">
+						<option value="${dataRule.getId()}">${dataRule.getDescription()}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -186,7 +185,7 @@ label.padding2 {
 		<div id="paymentRuleInfo" style="display: none">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="paymentRuleInfo"
-					class="padding2"style="font-weight: normal;">Days Count :</label>
+					class="padding2" style="font-weight: normal;">Days Count :</label>
 				<div class="col-sm-2">
 
 					<input class="form-control" type="text" name="paymentRuleInfo"
@@ -197,8 +196,10 @@ label.padding2 {
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default"style="margin-left: 60px;">Submit</button>
-				<button  class="btn btn-default" onclick="window.location.href='/paymentSystem'"
+				<button type="submit" class="btn btn-default"
+					style="margin-left: 60px;">Submit</button>
+				<button class="btn btn-default"
+					onclick="window.location.href='/paymentSystem'"
 					style="margin-left: 20px; width: 80px;">Back</button>
 			</div>
 		</div>

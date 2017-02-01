@@ -15,6 +15,7 @@
 		<module>payment-date-rules</module>
 		<module>payment-main</module>
 		<module>payment-web</module>
+		<module>payment-parser</module>
 	</modules>
 	<dependencies>
 		<dependency>

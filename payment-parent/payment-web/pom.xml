@@ -129,19 +129,19 @@
                         <systemProperty>
                             <key>app.context.location</key>
                             <value>
-                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml
+                               C:\\Users\\trn162\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\application-context.xml
                             </value>
                         </systemProperty>
                         <systemProperty>
                             <key>configuration.file.path</key>
                             <value>
-                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml
+                                C:\\Users\\trn162\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\conf.xml
                             </value>
                         </systemProperty>
                         <systemProperty>
                             <key>log4j.configuration</key>
                             <value>
-                                C:\\Users\\u623\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\log4j.properties
+                                C:\\Users\\trn162\\Desktop\\payment-system\\payment-parent\\payment-core\\src\\main\\resources\\log4j.properties
                             </value>
 
 

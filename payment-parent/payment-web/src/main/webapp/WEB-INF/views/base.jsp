@@ -72,21 +72,19 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				});
 			});
 		</script>
-
-
 		<div class="well" style="width: 400px; padding: 8px 0;">
 			<div style="overflow-y: scroll; overflow-x: hidden; height: 600px;">
 				<ul class="nav nav-list">
 					<li><label class="tree-toggler nav-header">Show
 							Account Info</label>
 						<ul class="nav nav-list tree">
-							<li><a href="/accountInfo"> Account Info</a></li>
+							<li><a href="<c:url value="/accountInfo" />"> Account Info</a></li>
 						</ul></li>
 					<li class="divider"></li>
 					<li><label class="tree-toggler nav-header">Create New
 							Payment</label>
 						<ul class="nav nav-list tree">
-							<li><a href="#">Create Payment</a></li>
+							<li><a href="<c:url value="/new-payment" />">Create Payment</a></li>
 						</ul></li>
 					<li class="divider"></li>
 					<li><label class="tree-toggler nav-header">Generate

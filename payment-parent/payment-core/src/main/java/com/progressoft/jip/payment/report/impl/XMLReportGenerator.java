@@ -3,7 +3,6 @@ package com.progressoft.jip.payment.report.impl;
 import com.progressoft.jip.payment.report.core.ReportException;
 import com.progressoft.jip.payment.report.core.ReportNode;
 import javanet.staxutils.IndentingXMLStreamWriter;
-
 import javax.xml.stream.XMLOutputFactory;
 import java.io.FileWriter;
 

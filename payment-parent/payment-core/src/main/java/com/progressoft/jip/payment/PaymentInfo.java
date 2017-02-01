@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment;
 
+import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
@@ -10,18 +11,21 @@ import java.util.Currency;
 
 public interface PaymentInfo {
 
-    AccountDTO getOrderingAccount();
+	AccountDTO getOrderingAccount();
 
-    IBANDTO getBeneficiaryIBAN();
+	IBANDTO getBeneficiaryIBAN();
 
-    String getBeneficiaryName();
+	String getBeneficiaryName();
 
-    BigDecimal getPaymentAmount();
+	BigDecimal getPaymentAmount();
 
-    Currency getTransferCurrency();
+	Currency getTransferCurrency();
 
-    LocalDateTime getPaymentDate();
+	LocalDateTime getSettlementDate();
 
-    PaymentPurposeDTO getPaymentPurpose();
+	PaymentPurposeDTO getPaymentPurpose();
 
+	PaymentStatus getStatus();
+
+	LocalDateTime getCreationDate();
 }

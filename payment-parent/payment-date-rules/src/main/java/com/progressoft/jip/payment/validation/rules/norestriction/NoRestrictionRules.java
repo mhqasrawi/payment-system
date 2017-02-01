@@ -14,7 +14,7 @@ public class NoRestrictionRules implements DateRule {
     public boolean validatePaymentDate(PaymentInfo paymentInfo) {
         if (Objects.isNull(paymentInfo))
             throw new NoRestrictionRulesException("Payment Info Shouldn't Be Null");
-        if (Objects.isNull(paymentInfo.getPaymentDate()))
+        if (Objects.isNull(paymentInfo.getSettlementDate()))
             throw new NoRestrictionRulesException("Payment Date should't be Null");
         return true;
     }

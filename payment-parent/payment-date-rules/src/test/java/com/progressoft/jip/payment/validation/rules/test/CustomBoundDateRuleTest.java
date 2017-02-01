@@ -1,5 +1,6 @@
 package com.progressoft.jip.payment.validation.rules.test;
 
+import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.customer.CustomerDTO;
@@ -151,11 +152,11 @@ public class CustomBoundDateRuleTest {
     }
 
     private class PaymentInfoMock implements PaymentInfo {
-        private LocalDateTime date;
+        private LocalDateTime settlementDate;
         private AccountDTO account;
 
         public void setDate(LocalDateTime date) {
-            this.date = date;
+            this.settlementDate = date;
         }
 
         public void setAccount(AccountDTO account) {
@@ -168,8 +169,8 @@ public class CustomBoundDateRuleTest {
         }
 
         @Override
-        public LocalDateTime getPaymentDate() {
-            return date;
+        public LocalDateTime getSettlementDate() {
+            return settlementDate;
         }
 
         @Override
@@ -196,5 +197,15 @@ public class CustomBoundDateRuleTest {
         public PaymentPurposeDTO getPaymentPurpose() {
             return null;
         }
+
+		@Override
+		public PaymentStatus getStatus() {
+			return null;
+		}
+
+		@Override
+		public LocalDateTime getCreationDate() {
+			return null;
+		}
     }
 }
