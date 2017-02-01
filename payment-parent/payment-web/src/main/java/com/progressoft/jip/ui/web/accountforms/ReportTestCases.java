@@ -1,4 +1,4 @@
-package com.progressoft.jip.test;
+package com.progressoft.jip.ui.web.accountforms;
 
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -12,8 +12,6 @@ import com.progressoft.jip.payment.report.core.ReportManagerException;
 import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.EnglishTranscription;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.nio.file.Paths;
@@ -44,7 +42,6 @@ public class ReportTestCases {
         return payments;
     }
 
-    @Before
     public void setup() {
         iban.setIbanValue("123456789");
         date = LocalDateTime.now();
@@ -75,12 +72,10 @@ public class ReportTestCases {
         payments.add(payment);
     }
 
-    @Test(expected = NullPointerException.class)
     public void callingGenerateReportMethod_WithNullSettings_ShouldThrowNullPointerException() throws ReportManagerException {
         reportManager.generateReport(null);
     }
 
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithNullSettingsParams_ShouldThrowNullPointerException() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention(null);
@@ -92,7 +87,6 @@ public class ReportTestCases {
     }
 
     @SuppressWarnings("unchecked")
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithEmptySettingsParams_ShouldThrowReportManagerException() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention("");
@@ -103,7 +97,6 @@ public class ReportTestCases {
         reportManager.generateReport(settings);
     }
 
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithUnsupportedExtension_ShouldThrowReportException() {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention("xyz");
@@ -114,7 +107,6 @@ public class ReportTestCases {
         reportManager.generateReport(settings);
     }
 
-    @Test
     public void callingGenerateReportMethod_WithValidParams_ShouldGenerateReport() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileName("report");

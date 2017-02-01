@@ -9,7 +9,17 @@
 
 <h1 style="color: DarkSlateBlue;" class="padding">Generate Report</h1>
 
+<c:if test="${param['success'] ne null}">
+		<div class="alert alert-success" role="alert">
+           Report generated successfully
+        </div>
+	</c:if>
 
+	<c:if test="${error ne null}">
+    		<div class="alert alert-warning" role="alert">
+                Report generation failed. Please check your input: ${error}
+             </div>
+    	</c:if>
 <form class="form-horizontal" action="/generateReport" method="post">
 
 
