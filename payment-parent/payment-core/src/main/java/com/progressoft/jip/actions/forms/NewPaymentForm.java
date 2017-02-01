@@ -1,5 +1,11 @@
 package com.progressoft.jip.actions.forms;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Currency;
+
+import javax.inject.Inject;
+
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentBuilder;
@@ -16,13 +22,12 @@ import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
 import com.progressoft.jip.payment.usecase.NewPaymentUseCase;
 import com.progressoft.jip.ui.dynamic.menu.DefaultValueProvider;
 import com.progressoft.jip.ui.dynamic.menu.SubmitAction;
-import com.progressoft.jip.ui.field.*;
+import com.progressoft.jip.ui.field.BigDecimalField;
+import com.progressoft.jip.ui.field.CurrencyField;
+import com.progressoft.jip.ui.field.IBANField;
+import com.progressoft.jip.ui.field.PaymentPurposeField;
+import com.progressoft.jip.ui.field.StringField;
 import com.progressoft.jip.ui.form.FormImpl;
-
-import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Currency;
 
 public class NewPaymentForm extends FormImpl<PaymentMenuContext, PaymentInfo> implements
         SubmitAction<PaymentMenuContext, PaymentInfo>, DefaultValueProvider<PaymentMenuContext, PaymentInfo> {

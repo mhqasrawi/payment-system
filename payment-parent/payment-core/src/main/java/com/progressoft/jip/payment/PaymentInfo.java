@@ -28,4 +28,5 @@ public interface PaymentInfo {
 	PaymentStatus getStatus();
 
 	LocalDateTime getCreationDate();
+
 }
