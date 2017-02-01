@@ -63,7 +63,7 @@ public class ReportNodeProviderImpl implements ReportNodeProvider {
 		nodes.add(newNode(PAYMENT_AMOUNT_TAG, String.valueOf(payment.getPaymentAmount())));
 		nodes.add(newNode(PAYMENT_AMOUNT_TRANSCRIPTION_TAG, transcribedPayment));
 		nodes.add(newNode(TRANSFER_CURRENCY_TAG, payment.getTransferCurrency().getDisplayName()));
-		nodes.add(newNode(PAYMENT_DATE_TAG, payment.getPaymentDate().toString()));
+		nodes.add(newNode(PAYMENT_DATE_TAG, payment.getSettlementDate().toString()));
 		nodes.add(newNode(PAYMENT_PURPOSE_TAG, payment.getPaymentPurpose().getDescription()));
 	}
 

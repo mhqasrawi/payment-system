@@ -173,7 +173,7 @@ public class ReportTestCases {
         }
 
         @Override
-        public LocalDateTime getPaymentDate() {
+        public LocalDateTime getSettlementDate() {
             return date;
         }
 
@@ -199,6 +199,18 @@ public class ReportTestCases {
         public int getId() {
             return 0;
         }
+
+		@Override
+		public PaymentStatus getStatus() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public LocalDateTime getCreationDate() {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     private class PaymentPurposeDTOMock implements PaymentPurposeDTO {
