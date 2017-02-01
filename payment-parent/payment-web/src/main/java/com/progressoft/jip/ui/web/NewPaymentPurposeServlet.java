@@ -1,5 +1,6 @@
 package com.progressoft.jip.ui.web;
 
+import com.progressoft.jip.dependency.ImplementationProvider;
 import com.progressoft.jip.dependency.SpringImplementationProvider;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTOImpl;
 import com.progressoft.jip.payment.purpose.dao.impl.PaymentPurposeDAO;
@@ -17,9 +18,19 @@ import java.io.IOException;
 public class NewPaymentPurposeServlet extends HttpServlet {
     private static final String APP_CONTEXT_LOCATION = "app.context.location";
 
+    private ImplementationProvider implementationProvider;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        implementationProvider = (ImplementationProvider) getServletContext().getAttribute(ImplementationProvider.DEPENDENCY_PROVIDER);
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/new-payment-purpose.jsp").forward(req, resp);
+        req.setAttribute("pageContent", "/WEB-INF/jsp/new-payment-purpose.jsp");
+        req.getRequestDispatcher("/WEB-INF/views/base.jsp").forward(req, resp);
     }
 
     @Override
@@ -28,12 +39,9 @@ public class NewPaymentPurposeServlet extends HttpServlet {
         paymentPurposeDTO.setShortCode(req.getParameter("shortCode"));
         paymentPurposeDTO.setDescription(req.getParameter("description"));
 
-        FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(
-                System.getProperty(APP_CONTEXT_LOCATION));
-        SpringImplementationProvider springImplementationProvider = new SpringImplementationProvider(appContext);
-        NewPaymentPurposeUseCase newPaymentPurposeUseCase = new NewPaymentPurposeUseCase(
-                springImplementationProvider.getImplementation(PaymentPurposeDAO.class));
+        NewPaymentPurposeUseCase newPaymentPurposeUseCase = implementationProvider.getImplementation(NewPaymentPurposeUseCase.class);
         newPaymentPurposeUseCase.process(paymentPurposeDTO);
+        resp.sendRedirect(req.getContextPath() + "/new-payment-purpose");
     }
 
 }

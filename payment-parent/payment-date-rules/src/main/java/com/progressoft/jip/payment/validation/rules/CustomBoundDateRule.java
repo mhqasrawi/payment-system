@@ -21,7 +21,7 @@ public class CustomBoundDateRule implements DateRule {
         }
         if (days < 0)
             throwException("Days cannot be negative");
-        LocalDateTime paymentDate = paymentInfo.getPaymentDate();
+        LocalDateTime paymentDate = paymentInfo.getSettlementDate();
         Duration period = Duration.between(LocalDateTime.now(), paymentDate);
         return period.minusDays(days).isNegative() || period.minusDays(days).isZero();
     }
@@ -37,9 +37,9 @@ public class CustomBoundDateRule implements DateRule {
                 || paymentInfo.getOrderingAccount().getPaymentRuleInfo().isEmpty()) {
             throwException("Payment rule info cannot be null or empty for a Custom Bound Date Rule");
         }
-        if (!Duration.between(paymentInfo.getPaymentDate(), LocalDateTime.now()).minus(Duration.ofSeconds(3))
+        if (!Duration.between(paymentInfo.getSettlementDate(), LocalDateTime.now()).minus(Duration.ofSeconds(3))
                 .isNegative()) {
-            throwException("Invalid payment date: " + paymentInfo.getPaymentDate());
+            throwException("Invalid payment date: " + paymentInfo.getSettlementDate());
         }
     }
 

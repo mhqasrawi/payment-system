@@ -16,5 +16,7 @@ public interface ReportSettingsSpi {
     String getFileExtention();
 
     Transcription newTranscriberInstance();
+    
+    ReportNodeProvider newReportNodeProviderInstance();
 
 }

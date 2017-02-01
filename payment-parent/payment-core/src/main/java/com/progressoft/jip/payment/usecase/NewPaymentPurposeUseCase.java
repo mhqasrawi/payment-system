@@ -15,4 +15,5 @@ public class NewPaymentPurposeUseCase {
         paymentPurposeDAO.save(paymentPurpose);
     }
 
+
 }

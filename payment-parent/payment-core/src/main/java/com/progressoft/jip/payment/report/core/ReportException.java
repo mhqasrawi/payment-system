@@ -3,6 +3,7 @@ package com.progressoft.jip.payment.report.core;
 /**
  * Created by u624 on 1/26/2017.
  */
+@SuppressWarnings("serial")
 public class ReportException extends Exception {
     public ReportException() {
         /* default constructor */
