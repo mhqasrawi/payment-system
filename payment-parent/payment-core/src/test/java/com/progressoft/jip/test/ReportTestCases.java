@@ -207,14 +207,12 @@ public class ReportTestCases {
 
 		@Override
 		public PaymentStatus getStatus() {
-			// TODO Auto-generated method stub
-			return null;
+			return PaymentStatus.CREATED;
 		}
 
 		@Override
 		public LocalDateTime getCreationDate() {
-			// TODO Auto-generated method stub
-			return null;
+			return LocalDateTime.now();
 		}
     }
 

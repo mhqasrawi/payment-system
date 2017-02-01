@@ -5,6 +5,7 @@ import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.report.core.ReportGenerator;
 import com.progressoft.jip.payment.report.core.ReportManager;
 import com.progressoft.jip.payment.report.core.ReportSettingsSpi;
+import com.progressoft.jip.payment.report.impl.ReportNodeProviderImpl;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.Transcription;
 
@@ -91,6 +92,7 @@ public class GenerateReportServlet extends HttpServlet {
             settings.setPath(validatePath(req, resp, fileDirectoryParam));
             settings.setTranscriberClass(clazz);
             settings.setPayments(getPayments());
+            settings.setReportNodeProviderClass(ReportNodeProviderImpl.class);
         } catch (ClassNotFoundException | InvalidPathException e) {
             redirectAndSetError(req, resp, e);
             return null;
