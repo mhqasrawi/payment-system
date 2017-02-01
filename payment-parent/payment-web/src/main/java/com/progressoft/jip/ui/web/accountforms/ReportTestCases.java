@@ -1,4 +1,4 @@
-package com.progressoft.jip.test;
+package com.progressoft.jip.ui.web.accountforms;
 
 import com.progressoft.jip.payment.PaymentDTO;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -10,11 +10,9 @@ import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.report.core.ReportManagerException;
 import com.progressoft.jip.payment.report.impl.ReportManagerImpl;
-import com.progressoft.jip.payment.report.impl.ReportNodeProviderImpl;
 import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
 import com.progressoft.jip.payment.transcription.EnglishTranscription;
-import org.junit.Before;
-import org.junit.Test;
+
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -22,6 +20,8 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+
+//import com.progressoft.jip.payment.PaymentPurpose;
 
 public class ReportTestCases {
     private ReportManagerImpl reportManager = new ReportManagerImpl();
@@ -42,7 +42,6 @@ public class ReportTestCases {
         return payments;
     }
 
-    @Before
     public void setup() {
         iban.setIbanValue("123456789");
         date = LocalDateTime.now();
@@ -73,12 +72,10 @@ public class ReportTestCases {
         payments.add(payment);
     }
 
-    @Test(expected = NullPointerException.class)
     public void callingGenerateReportMethod_WithNullSettings_ShouldThrowNullPointerException() throws ReportManagerException {
         reportManager.generateReport(null);
     }
 
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithNullSettingsParams_ShouldThrowNullPointerException() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention(null);
@@ -90,7 +87,6 @@ public class ReportTestCases {
     }
 
     @SuppressWarnings("unchecked")
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithEmptySettingsParams_ShouldThrowReportManagerException() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention("");
@@ -101,7 +97,6 @@ public class ReportTestCases {
         reportManager.generateReport(settings);
     }
 
-    @Test(expected = ReportManagerException.class)
     public void callingGenerateReportMethod_WithUnsupportedExtension_ShouldThrowReportException() {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileExtention("xyz");
@@ -112,15 +107,13 @@ public class ReportTestCases {
         reportManager.generateReport(settings);
     }
 
-    @Test
     public void callingGenerateReportMethod_WithValidParams_ShouldGenerateReport() throws ReportManagerException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         settings.setFileName("report");
-        settings.setPath(Paths.get("C:/Users/u620/Desktop"));
+        settings.setPath(Paths.get("C:/Users/u620/Desktop/Success"));
         settings.setFileExtention("csv");
         settings.setPayments(payments);
         settings.setTranscriberClass(EnglishTranscription.class);
-        settings.setReportNodeProviderClass(ReportNodeProviderImpl.class);
         reportManager.generateReport(settings);
         settings.setFileExtention("xml");
         reportManager.generateReport(settings);
@@ -178,7 +171,7 @@ public class ReportTestCases {
         }
 
         @Override
-        public LocalDateTime getSettlementDate() {
+        public LocalDateTime getPaymentDate() {
             return date;
         }
 
@@ -204,18 +197,6 @@ public class ReportTestCases {
         public int getId() {
             return 0;
         }
-
-		@Override
-		public PaymentStatus getStatus() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public LocalDateTime getCreationDate() {
-			// TODO Auto-generated method stub
-			return null;
-		}
     }
 
     private class PaymentPurposeDTOMock implements PaymentPurposeDTO {

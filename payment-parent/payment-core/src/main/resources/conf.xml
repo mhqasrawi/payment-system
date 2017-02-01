@@ -2,7 +2,7 @@
     <iban>
         <format>
             <file>
-              C:\Users\trn162\Desktop\payment-system\payment-parent\payment-core\src\main\resources\IBAN_Formats.txt
+                C:\Users\trn166\Desktop\JIP\payment-system\payment-parent\payment-core\src\main\resources\IBAN_Formats.txt
             </file>
         </format>
     </iban>
@@ -14,7 +14,11 @@
     </db>
     <ui>
         <xml>
-            <path>C:\Users\trn162\Desktop\payment-system\payment-parent\payment-core\src\main\resources\ui.xml</path>
+
+            <path>C:\Users\trn166\JIP\Desktop\payment-system\payment-parent\payment-core\src\main\resources\ui.xml</path>
+
+            <path>C:\Users\u612\Desktop\payment\payment-system\payment-parent\payment-core\src\main\resources\ui.xml</path>
+
         </xml>
     </ui>
 
