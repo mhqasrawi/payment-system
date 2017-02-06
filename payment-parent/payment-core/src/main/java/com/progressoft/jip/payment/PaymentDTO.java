@@ -24,12 +24,16 @@ public interface PaymentDTO extends DTO {
 
 	PaymentPurposeDTO getPaymentPurpose();
 
-	PaymentStatus getStatus();
+	PaymentState getState();
 
 	LocalDateTime getCreationDate();
 
+	PaymentStatus getStatus();
+
+	String getStatusReason();
+
 	public enum PaymentStatus {
-		CREATED(1), APPROVED(2), REJECTED(3);
+		SUBMITTED(1), ACCEPTED(2), REJECTED(3);
 
 		private int value;
 
@@ -49,5 +53,29 @@ public interface PaymentDTO extends DTO {
 			}
 			return null;
 		}
+	}
+
+	public enum PaymentState {
+		CREATED(1), APPROVED(2), REJECTED(3);
+
+		private int value;
+
+		private PaymentState(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static PaymentState getState(int value) {
+			for (PaymentState paymentState : PaymentState.values()) {
+				if (paymentState.getValue() == value) {
+					return paymentState;
+				}
+			}
+			return null;
+		}
+
 	}
 }

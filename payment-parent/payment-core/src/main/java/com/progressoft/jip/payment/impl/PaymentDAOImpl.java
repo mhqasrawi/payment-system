@@ -3,6 +3,7 @@ package com.progressoft.jip.payment.impl;
 import com.progressoft.jip.payment.DAOException;
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
@@ -37,7 +38,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 	private String transferCurrencyColumn = "transfer_currency";
 	private String settlementDateColumn = "settlement_date";
 	private String creationDateColumn = "creation_date";
+	private String stateColumn = "payment_state";
 	private String statusColumn = "payment_status";
+	private String statusReasonColumn = "status_reason";
 	private String paymentPurposeShortCodeColumn = "payment_purpose";
 	private IdDAO idDAO;
 
@@ -55,14 +58,16 @@ public class PaymentDAOImpl implements PaymentDAO {
 		String sql = "insert into " + TABLE_NAME + " (" + paymentIdColumn + "," + orderingAccountIDColumn + ","
 				+ beneficiaryIBANIDColumn + "," + beneficiaryNameColumn + "," + paymentAmountColumn + ","
 				+ transferCurrencyColumn + "," + settlementDateColumn + "," + paymentPurposeShortCodeColumn + ", "
-				+ creationDateColumn + "," + statusColumn + ") values(?,?,?,?,?,?,?,?,?,?)";
+				+ creationDateColumn + "," + stateColumn + "," + statusColumn + "," + statusReasonColumn
+				+ ") values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 
 			int update = runner.update(sql, id, paymentDTO.getOrderingAccount().getAccountNumber(),
 					paymentDTO.getBeneficiaryIBAN().getId(), paymentDTO.getBeneficiaryName(),
 					paymentDTO.getPaymentAmount(), paymentDTO.getTransferCurrency().getCurrencyCode(),
 					paymentDTO.getSettlementDate().toString(), paymentDTO.getPaymentPurpose().getShortCode(),
-					paymentDTO.getCreationDate().toString(), paymentDTO.getStatus().getValue());
+					paymentDTO.getCreationDate().toString(), paymentDTO.getState().getValue(),
+					paymentDTO.getStatus().getValue(), paymentDTO.getStatusReason());
 			if (update > 0) {
 				PaymentDTOImpl paymentDTOImpl = new PaymentDTOImpl();
 
@@ -77,7 +82,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 				paymentDTOImpl.setPaymentAmount(paymentDTO.getPaymentAmount());
 				paymentDTOImpl.setSettlementDate(paymentDTO.getSettlementDate());
 				paymentDTOImpl.setCreationDate(paymentDTO.getCreationDate());
+				paymentDTOImpl.setState(paymentDTO.getState());
 				paymentDTOImpl.setStatus(paymentDTO.getStatus());
+				paymentDTOImpl.setStatusReason(paymentDTO.getStatusReason());
 				return paymentDTOImpl;
 			}
 			throw new DAOException("cannot insert payment ");
@@ -113,10 +120,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 			date = (String) paymentMap.get(creationDateColumn);
 			parsedTime = LocalDateTime.parse(date);
 			paymentDTOImpl.setCreationDate(parsedTime);
-			paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) paymentMap.get(statusColumn)));
+			paymentDTOImpl.setState(PaymentState.getState((int) paymentMap.get(stateColumn)));
 			paymentDTOImpl
 					.setPaymentPurpose(paymentPurposeDAO.get((String) paymentMap.get(paymentPurposeShortCodeColumn)));
-
+			paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) paymentMap.get(statusColumn)));
+			paymentDTOImpl.setStatusReason((String) paymentMap.get(statusReasonColumn));
 			return paymentDTOImpl;
 		} catch (SQLException e) {
 			throw new DAOException("error while getting Payment By ID : : " + id, e);
@@ -151,10 +159,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 				date = (String) map.get(creationDateColumn);
 				parsedTime = LocalDateTime.parse(date);
 				paymentDTOImpl.setCreationDate(parsedTime);
-				paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) map.get(statusColumn)));
+				paymentDTOImpl.setState(PaymentState.getState((int) map.get(stateColumn)));
 				paymentDTOImpl
 						.setPaymentPurpose(paymentPurposeDAO.get((String) map.get(paymentPurposeShortCodeColumn)));
-
+				paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) map.get(statusColumn)));
+				paymentDTOImpl.setStatusReason((String) map.get(statusReasonColumn));
 				listOfPayments.add(paymentDTOImpl);
 			}
 			return listOfPayments;
@@ -197,10 +206,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 				date = (String) map.get(creationDateColumn);
 				parsedTime = LocalDateTime.parse(date);
 				paymentDTOImpl.setCreationDate(parsedTime);
-				paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) map.get(statusColumn)));
+				paymentDTOImpl.setState(PaymentState.getState((int) map.get(stateColumn)));
 				paymentDTOImpl
 						.setPaymentPurpose(paymentPurposeDAO.get((String) map.get(paymentPurposeShortCodeColumn)));
-
+				paymentDTOImpl.setStatus(PaymentStatus.getStatus((int) map.get(statusColumn)));
+				paymentDTOImpl.setStatusReason((String) map.get(statusReasonColumn));
 				listOfPayments.add(paymentDTOImpl);
 			}
 			if (!listOfPayments.isEmpty())

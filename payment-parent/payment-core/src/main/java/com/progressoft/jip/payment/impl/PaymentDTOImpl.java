@@ -20,10 +20,12 @@ public class PaymentDTOImpl implements PaymentDTO {
 	private PaymentPurposeDTO paymentPurpose;
 	private LocalDateTime settlementDate;
 	private LocalDateTime creationDate;
+	private PaymentState state;
 	private PaymentStatus status;
+	private String statusReason;
 
-	public void setStatus(PaymentStatus status) {
-		this.status = status;
+	public void setState(PaymentState state) {
+		this.state = state;
 	}
 
 	public void setCreationDate(LocalDateTime creationDate) {
@@ -106,8 +108,8 @@ public class PaymentDTOImpl implements PaymentDTO {
 	}
 
 	@Override
-	public PaymentStatus getStatus() {
-		return status;
+	public PaymentState getState() {
+		return state;
 	}
 
 	@Override
@@ -115,4 +117,21 @@ public class PaymentDTOImpl implements PaymentDTO {
 		return creationDate;
 	}
 
+	@Override
+	public PaymentStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public String getStatusReason() {
+		return statusReason;
+	}
+
+	public void setStatusReason(String statusReason) {
+		this.statusReason = statusReason;
+	}
 }

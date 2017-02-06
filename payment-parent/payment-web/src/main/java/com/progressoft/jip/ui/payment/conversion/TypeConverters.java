@@ -1,7 +1,7 @@
 package com.progressoft.jip.ui.payment.conversion;
 
 import com.progressoft.jip.dependency.ImplementationProvider;
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
