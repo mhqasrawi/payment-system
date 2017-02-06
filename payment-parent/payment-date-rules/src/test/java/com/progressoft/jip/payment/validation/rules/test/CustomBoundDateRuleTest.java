@@ -1,6 +1,6 @@
 package com.progressoft.jip.payment.validation.rules.test;
 
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.customer.CustomerDTO;
@@ -199,7 +199,7 @@ public class CustomBoundDateRuleTest {
         }
 
 		@Override
-		public PaymentStatus getStatus() {
+		public PaymentState getState() {
 			return null;
 		}
 

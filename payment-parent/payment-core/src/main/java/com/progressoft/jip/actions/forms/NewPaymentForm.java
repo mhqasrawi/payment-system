@@ -10,7 +10,7 @@ import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.Payment;
 import com.progressoft.jip.payment.PaymentBuilder;
 import com.progressoft.jip.payment.PaymentDAO;
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
@@ -129,7 +129,7 @@ public class NewPaymentForm extends FormImpl<PaymentMenuContext, PaymentInfo> im
 		}
 
 		@Override
-		public PaymentStatus getStatus() {
+		public PaymentState getState() {
 			return null;
 		}
 

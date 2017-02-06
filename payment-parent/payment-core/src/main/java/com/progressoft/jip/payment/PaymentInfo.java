@@ -1,6 +1,6 @@
 package com.progressoft.jip.payment;
 
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
@@ -25,7 +25,7 @@ public interface PaymentInfo {
 
 	PaymentPurposeDTO getPaymentPurpose();
 
-	PaymentStatus getStatus();
+	PaymentState getState();
 
 	LocalDateTime getCreationDate();
 

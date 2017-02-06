@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.dependency.ImplementationProvider;
 import com.progressoft.jip.payment.PaymentDAO;
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
@@ -96,7 +96,7 @@ public class NewPaymentServlet extends HttpServlet {
 		private IBANDTO beneficiaryIBAN;
 		private BigDecimal paymentAmount;
 		private LocalDateTime creationDate;
-		private PaymentStatus status;
+		private PaymentState state;
 		private Currency transferCurrency;
 
 		public PaymentInfoImpl(PaymentMenuContext context) {
@@ -151,8 +151,8 @@ public class NewPaymentServlet extends HttpServlet {
 		}
 
 		@Override
-		public PaymentStatus getStatus() {
-			return status;
+		public PaymentState getState() {
+			return state;
 		}
 
 		@Override

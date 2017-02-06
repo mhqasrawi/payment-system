@@ -2,6 +2,7 @@ package com.progressoft.jip.test;
 
 import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.AccountDTOImpl;
@@ -167,7 +168,9 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 		paymentDTOImpl.setPaymentPurpose(paymentPurpose);
 		paymentDTOImpl.setSettlementDate(LocalDateTime.now());
 		paymentDTOImpl.setCreationDate(LocalDateTime.now());
-		paymentDTOImpl.setStatus(PaymentStatus.CREATED);
+		paymentDTOImpl.setState(PaymentState.CREATED);
+		paymentDTOImpl.setStatus(PaymentStatus.SUBMITTED);
+		paymentDTOImpl.setStatusReason("NOTHING");
 		return paymentDTOImpl;
 	}
 
