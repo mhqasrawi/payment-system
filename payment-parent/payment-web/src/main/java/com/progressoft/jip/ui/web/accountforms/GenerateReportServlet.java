@@ -1,14 +1,13 @@
 package com.progressoft.jip.ui.web.accountforms;
 
-import com.progressoft.jip.dependency.ImplementationProvider;
-import com.progressoft.jip.payment.PaymentDTO;
-import com.progressoft.jip.payment.report.core.ReportGenerator;
-import com.progressoft.jip.payment.report.core.ReportManager;
-import com.progressoft.jip.payment.report.core.ReportSettingsSpi;
-import com.progressoft.jip.payment.report.impl.ReportNodeProviderImpl;
-import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
-import com.progressoft.jip.payment.transcription.Transcription;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ServiceLoader;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,12 +15,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import com.progressoft.jip.dependency.ImplementationProvider;
+import com.progressoft.jip.payment.PaymentDAO;
+import com.progressoft.jip.payment.PaymentDTO;
+import com.progressoft.jip.payment.report.core.ReportGenerator;
+import com.progressoft.jip.payment.report.core.ReportManager;
+import com.progressoft.jip.payment.report.core.ReportNodeProvider;
+import com.progressoft.jip.payment.report.core.ReportSettingsSpi;
+import com.progressoft.jip.payment.report.impl.ReportSettingsImpl;
+import com.progressoft.jip.payment.transcription.Transcription;
 
 @WebServlet(urlPatterns = "/generateReport")
 public class GenerateReportServlet extends HttpServlet {
@@ -78,7 +80,8 @@ public class GenerateReportServlet extends HttpServlet {
         resp.sendRedirect("/generateReport?success=true");
     }
 
-    private ReportSettingsSpi getReportSettings(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @SuppressWarnings("unchecked")
+	private ReportSettingsSpi getReportSettings(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ReportSettingsImpl settings = new ReportSettingsImpl();
         String fileNameParam = req.getParameter("file-name");
         String extensionParam = req.getParameter("extension");
@@ -92,7 +95,7 @@ public class GenerateReportServlet extends HttpServlet {
             settings.setPath(validatePath(req, resp, fileDirectoryParam));
             settings.setTranscriberClass(clazz);
             settings.setPayments(getPayments());
-            settings.setReportNodeProviderClass(ReportNodeProviderImpl.class);
+            settings.setReportNodeProviderClass(this.implementationProvider.getImplementation(ReportNodeProvider.class).getClass());
         } catch (ClassNotFoundException | InvalidPathException e) {
             redirectAndSetError(req, resp, e);
             return null;
@@ -110,9 +113,8 @@ public class GenerateReportServlet extends HttpServlet {
     }
 
     private Iterable<PaymentDTO> getPayments() {
-        //TODO replace by database payment records
-        ReportTestCases cases = new ReportTestCases();
-        return cases.getMockPayments();
+    	PaymentDAO dao = this.implementationProvider.getImplementation(PaymentDAO.class);
+        return dao.getAll();
     }
 
     private void redirectAndSetError(HttpServletRequest req, HttpServletResponse resp, Exception e) throws ServletException, IOException {

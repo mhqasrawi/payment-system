@@ -23,7 +23,7 @@ public class SesssionValidationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         String requestURI = req.getRequestURI();
-        if ("/pikup_account".equalsIgnoreCase(requestURI) || "/paymentSystem".equalsIgnoreCase(requestURI) ||"/".equalsIgnoreCase(requestURI)) {
+        if (requestURI.contains("/pikup_account") || requestURI.contains("/paymentSystem") ||requestURI.contains("/")) {
             chain.doFilter(request, response);
             return;
         }

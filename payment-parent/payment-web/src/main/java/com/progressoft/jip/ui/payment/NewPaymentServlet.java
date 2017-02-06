@@ -22,6 +22,7 @@ import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.account.dao.AccountDAO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.dao.IBANDAO;
+import com.progressoft.jip.payment.impl.PaymentDTOImpl;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
 import com.progressoft.jip.payment.purpose.service.PaymentPurposePersistenceService;
 import com.progressoft.jip.payment.usecase.LoadAllPaymentPurposeUseCase;
@@ -68,7 +69,7 @@ public class NewPaymentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PaymentInfo info = new PaymentInfoImpl(
-				(PaymentMenuContext) req.getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT))
+				(PaymentMenuContext) req.getSession().getAttribute(PaymentMenuContextConstant.PAYMENT_MENU_CONTEXT))
 						.buildPaymentInfo(req.getParameter("beneficary-iban"), req.getParameter("beneficiary-name"),
 								req.getParameter("payment-amount"), req.getParameter("transfer-currency"),
 								req.getParameter("payment-date"), req.getParameter("payment-purpose"));
@@ -95,8 +96,8 @@ public class NewPaymentServlet extends HttpServlet {
 		private PaymentPurposeDTO paymentPurposeDTO;
 		private IBANDTO beneficiaryIBAN;
 		private BigDecimal paymentAmount;
-		private LocalDateTime creationDate;
-		private PaymentStatus status;
+		private LocalDateTime creationDate = LocalDateTime.now();
+		private PaymentDTOImpl.PaymentStatus status = PaymentDTOImpl.PaymentStatus.CREATED;
 		private Currency transferCurrency;
 
 		public PaymentInfoImpl(PaymentMenuContext context) {
