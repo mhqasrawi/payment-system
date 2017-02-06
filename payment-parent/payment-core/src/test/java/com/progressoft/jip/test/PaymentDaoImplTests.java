@@ -169,7 +169,7 @@ public class PaymentDaoImplTests extends DataSourceConfig {
 		paymentDTOImpl.setSettlementDate(LocalDateTime.now());
 		paymentDTOImpl.setCreationDate(LocalDateTime.now());
 		paymentDTOImpl.setState(PaymentState.CREATED);
-		paymentDTOImpl.setStatus(PaymentStatus.SUBMITTED);
+		paymentDTOImpl.setStatus(PaymentStatus.ACCEPTED);
 		paymentDTOImpl.setStatusReason("NOTHING");
 		return paymentDTOImpl;
 	}

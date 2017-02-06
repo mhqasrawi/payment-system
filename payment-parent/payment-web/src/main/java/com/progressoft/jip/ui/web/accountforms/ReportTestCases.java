@@ -213,6 +213,18 @@ public class ReportTestCases {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public PaymentState getState() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getStatusReason() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 
 	private class PaymentPurposeDTOMock implements PaymentPurposeDTO {

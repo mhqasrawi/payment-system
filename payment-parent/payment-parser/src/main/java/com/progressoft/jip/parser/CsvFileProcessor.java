@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 import java.util.Objects;
 
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.PaymentInfo;
 import com.progressoft.jip.payment.account.AccountDTO;
@@ -131,12 +132,13 @@ public class CsvFileProcessor implements FileProcessor {
 		}
 
 		@Override
-		public PaymentStatus getStatus() {
+		public LocalDateTime getCreationDate() {
 			return null;
 		}
 
 		@Override
-		public LocalDateTime getCreationDate() {
+		public PaymentState getState() {
+			// TODO Auto-generated method stub
 			return null;
 		}
 	}

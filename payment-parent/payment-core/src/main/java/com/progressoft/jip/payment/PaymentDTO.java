@@ -33,7 +33,7 @@ public interface PaymentDTO extends DTO {
 	String getStatusReason();
 
 	public enum PaymentStatus {
-		SUBMITTED(1), ACCEPTED(2), REJECTED(3);
+		ACCEPTED(1), REJECTED(2);
 
 		private int value;
 
@@ -56,7 +56,7 @@ public interface PaymentDTO extends DTO {
 	}
 
 	public enum PaymentState {
-		CREATED(1), APPROVED(2), REJECTED(3);
+		CREATED(1), SUBMITTED(2);
 
 		private int value;
 
