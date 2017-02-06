@@ -16,9 +16,7 @@
     </bean>
 
     <bean id="accountDToImpl" class="com.progressoft.jip.payment.account.AccountDTOImpl"></bean>
-    <bean
-            id="dateRulesValidationProvider"
-            class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl"/>
+    <bean id="dateRulesValidationProvider" class="com.progressoft.jip.payment.validation.rules.DateRulesValidationProviderImpl"/>
     <bean
             id="paymentDao"
             class="com.progressoft.jip.payment.impl.PaymentDAOImpl"/>
@@ -79,7 +77,12 @@
     </bean>
     <bean id="newPaymentPurposeUseCase" class="com.progressoft.jip.payment.usecase.NewPaymentPurposeUseCase">
         <constructor-arg ref="paymentPurposeDAO"/>
-
     </bean>
-
+    <bean id="accountIbanValidation" class="com.progressoft.jip.payment.impl.AccountIbanValidation"></bean>
+    <bean id="dateValidationRule" class="com.progressoft.jip.payment.validation.rules.DateValidationRules"></bean>
+    <bean id="csvFileProcessor" class="com.progressoft.jip.parser.CsvFileProcessor">
+    <property name="accountIbanValidation" ref="accountIbanValidation"></property>
+    <property name="dateValidationRules" ref="dateValidationRule"></property>
+    <property name="accountPersistence" ref="accountPersistenceService"></property>
+    </bean>
 </beans>

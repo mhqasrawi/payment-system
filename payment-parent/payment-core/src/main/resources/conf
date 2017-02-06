@@ -1,5 +1,4 @@
--Dapp.context.location=C://Users//trn162//Desktop//JIP//payment-system//payment-parent//payment-core//src//main//resources//application-context.xml
- -Dconfiguration.file.path=C://Users//trn162//Desktop//JIP//payment-system//payment-parent//payment-core//src//main//resources//conf.xml
- -Dlog4j.configuration=C://Users//trn162//Desktop//JIP//payment-system//payment-parent//payment-core//src//main//resources//log4j.properties
- -Dcurrency.code.file=C://Users//u625//Desktop//JIP//payment-system//payment-parent//payment-core//src//main//resources//currency-code.txt
-
+-Dapp.context.location=C:F://payment//payment-system//payment-parent//payment-core//src//main//resources//application-context.xml
+ -Dconfiguration.file.path=F://payment//payment-system//payment-parent//payment-core//src//main//resources//conf.xml
+ -Dlog4j.configuration=F://payment//payment-system//payment-parent//payment-core//src//main//resources//log4j.properties
+ -Dcurrency.code.file=F://payment//payment-system//payment-parent//payment-core//src//main//resources//currency-code.txt

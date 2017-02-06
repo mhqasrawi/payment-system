@@ -9,7 +9,7 @@
   <dependencies>
   	<dependency>
   		<groupId>com.progressoft.jip.payment</groupId>
-  		<artifactId>payment-core</artifactId>
+  		<artifactId>payment-date-rules</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
