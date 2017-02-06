@@ -10,7 +10,7 @@ import java.util.Currency;
 
 import com.progressoft.jip.PaymentMenuContext;
 import com.progressoft.jip.payment.PaymentInfo;
-import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
+import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.account.AccountDTO;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
@@ -81,7 +81,7 @@ public class CsvFileProcessor implements FileProcessor {
 			}
 
 			@Override
-			public PaymentStatus getStatus() {
+			public PaymentState getState() {
 				return null;
 			}
 

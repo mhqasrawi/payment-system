@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS payment (
   `transfer_currency`       VARCHAR(45)  NOT NULL,
   `settlement_date`            VARCHAR(45)   NOT NULL,
   `creation_date`            VARCHAR(45)   NOT NULL,
+  `payment_state`			INT(11) NOT NULL,
   `payment_status`            INT(11)   NOT NULL,
+  `status_reason`        VARCHAR(255) NOT NULL,
   `payment_purpose`         VARCHAR(45)  NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_payment_1`

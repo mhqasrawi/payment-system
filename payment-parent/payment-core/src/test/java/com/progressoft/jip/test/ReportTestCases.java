@@ -206,13 +206,23 @@ public class ReportTestCases {
         }
 
 		@Override
-		public PaymentStatus getStatus() {
-			return PaymentStatus.CREATED;
+		public PaymentState getState() {
+			return PaymentState.CREATED;
 		}
 
 		@Override
 		public LocalDateTime getCreationDate() {
 			return LocalDateTime.now();
+		}
+
+		@Override
+		public PaymentStatus getStatus() {
+			return null;
+		}
+
+		@Override
+		public String getStatusReason() {
+			return null;
 		}
     }
 
