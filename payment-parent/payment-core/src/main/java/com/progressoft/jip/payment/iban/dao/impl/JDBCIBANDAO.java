@@ -46,13 +46,14 @@ public class JDBCIBANDAO implements IBANDAO {
     }
 
     public IBANDTO get(String iban) {
+    	Map<String, Object> query = null;
         try {
-            Map<String, Object> query = this.queryRunner.query("select * from iban WHERE iban_value = '" + iban + "'", new MapHandler());
+        	query = this.queryRunner.query("select * from iban WHERE iban_value = '" + iban + "'", new MapHandler());
             IBANDTO populateIBANDTO = populateIBANDTO(query);
             if (Objects.isNull(populateIBANDTO))
                 throw new DAOException("cannot get iban  : " + iban);
             return populateIBANDTO;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new DAOException("Error While Fetching IBAN : " + iban, e);
         }
 

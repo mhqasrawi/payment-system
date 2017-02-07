@@ -103,22 +103,22 @@ public class NewPaymentUseCase implements PaymentUseCaseProcessor {
 
 		@Override
 		public PaymentState getState() {
-			return paymentInfo.getState();
+			return PaymentState.CREATED;
 		}
 
 		@Override
 		public LocalDateTime getCreationDate() {
-			return paymentInfo.getCreationDate();
+			return LocalDateTime.now();
 		}
 
 		@Override
 		public PaymentStatus getStatus() {
-			return null;
+			return PaymentStatus.ACCEPTED;
 		}
 
 		@Override
 		public String getStatusReason() {
-			return null;
+			return "Created";
 		}
 
 	}

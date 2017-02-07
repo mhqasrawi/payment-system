@@ -37,6 +37,7 @@ public class ReportNodeProviderImpl implements ReportNodeProvider {
 	
 	@Override
 	public Iterable<ReportNode> getNodes(PaymentDTO payment) {
+		nodes.clear();
 		AccountDTO orderingAccount = payment.getOrderingAccount();
 		addOrderingAccountInfo(orderingAccount);
 		// TODO remove parse

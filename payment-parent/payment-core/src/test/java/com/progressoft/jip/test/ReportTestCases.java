@@ -68,7 +68,9 @@ public class ReportTestCases {
         payment.setDate(date);
         payment.setIban(iban);
         payment.setPaymentPurpose(purpose);
-
+        
+        payments.clear();
+        payments.add(payment);
         payments.add(payment);
         payments.add(payment);
     }
