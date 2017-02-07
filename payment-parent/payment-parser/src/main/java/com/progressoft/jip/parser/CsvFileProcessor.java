@@ -10,6 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.progressoft.jip.payment.PaymentDAO;
 import com.progressoft.jip.payment.PaymentDTO.PaymentState;
 import com.progressoft.jip.payment.PaymentDTO.PaymentStatus;
 import com.progressoft.jip.payment.PaymentInfo;
@@ -18,8 +22,12 @@ import com.progressoft.jip.payment.account.AccountDTOImpl;
 import com.progressoft.jip.payment.account.service.AccountPersistenceService;
 import com.progressoft.jip.payment.iban.IBANDTO;
 import com.progressoft.jip.payment.iban.IBANDTOImpl;
+import com.progressoft.jip.payment.iban.IBANValidationException;
+import com.progressoft.jip.payment.impl.PaymentDTOImpl;
 import com.progressoft.jip.payment.impl.PaymentValidation;
 import com.progressoft.jip.payment.purpose.PaymentPurposeDTO;
+import com.progressoft.jip.payment.purpose.PaymentPurposeDTOImpl;
+import com.progressoft.jip.payment.validation.rules.DateValidationRules.DateValidationRulesException;
 
 public class CsvFileProcessor implements FileProcessor {
 	private static final int ORDERING_ACCOUNT_IBAN = 0;
@@ -35,6 +43,18 @@ public class CsvFileProcessor implements FileProcessor {
 	private PaymentValidation accountIbanValidation;
 	private PaymentValidation dateValidationRules;
 	private AccountPersistenceService accountPersistence;
+	private PaymentDTOImpl paymentDTO;
+	private PaymentDAO paymentDao;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CsvFileProcessor.class);
+
+	public void setPaymentDao(PaymentDAO paymentDao) {
+		this.paymentDao = paymentDao;
+	}
+
+	public void setPaymentDTO(PaymentDTOImpl paymentDTO) {
+		this.paymentDTO = paymentDTO;
+	}
 
 	public void setAccountIbanValidation(PaymentValidation accountIbanValidation) {
 		this.accountIbanValidation = accountIbanValidation;
@@ -53,23 +73,47 @@ public class CsvFileProcessor implements FileProcessor {
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			String line = null;
 			while ((line = reader.readLine()) != null) {
-				String paymentRecord[] = line.split(COMMA_DELIMITER);
-				accountIbanValidation.validate(
-						new PaymentInfoImpl(paymentRecord[ORDERING_ACCOUNT_IBAN], paymentRecord[BENEFICIARY_IBAN]));
+				try {
+					String paymentRecord[] = line.split(COMMA_DELIMITER);
+					accountIbanValidation.validate(
+							new PaymentInfoImpl(paymentRecord[ORDERING_ACCOUNT_IBAN], paymentRecord[BENEFICIARY_IBAN]));
 
-				AccountDTO account = accountPersistence.getAccount(paymentRecord[ORDERING_ACCOUNT_NUMBER]);
-				if (Objects.nonNull(account)) {
-					dateValidationRules.validate(new PaymentInfoImpl(account, paymentRecord[SETTLEMENT_DATE]));
-
+					AccountDTO account = accountPersistence.getAccount(paymentRecord[ORDERING_ACCOUNT_NUMBER]);
+					if (Objects.nonNull(account)) {
+						dateValidationRules.validate(new PaymentInfoImpl(account, paymentRecord[SETTLEMENT_DATE]));
+						initializeNewPayment(paymentRecord, account);
+						paymentDao.save(paymentDTO);
+					}
+				} catch (IBANValidationException | DateValidationRulesException e) {
+					LOGGER.error(e.getMessage());
 				}
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+			throw new IllegalArgumentException(e);
 		}
 	}
 
-	private static class PaymentInfoImpl implements PaymentInfo {
+	private void initializeNewPayment(String[] paymentRecord, AccountDTO account) {
+		paymentDTO.setOrderingAccount(account);
+		IBANDTOImpl ibanDto = new IBANDTOImpl();
+		ibanDto.setIbanValue(paymentRecord[BENEFICIARY_IBAN]);
+		paymentDTO.setBeneficiaryIBAN(ibanDto);
+		paymentDTO.setBeneficiaryName(paymentRecord[BENEFICIARY_NAME]);
+		paymentDTO.setPaymentAmount(new BigDecimal(paymentRecord[PAYMENT_AMOUNT]));
+		PaymentPurposeDTOImpl paymentPurpose = new PaymentPurposeDTOImpl();
+		paymentPurpose.setShortCode(paymentRecord[PAYMENT_PURPOSE]);
+		paymentDTO.setPaymentPurpose(paymentPurpose);
+		paymentDTO.setTransferCurrency(Currency.getInstance(paymentRecord[TRANSFER_CURRENCY]));
+		paymentDTO.setSettlementDate(convertToLocalDateTime(paymentRecord[SETTLEMENT_DATE]));
+		paymentDTO.setCreationDate(LocalDateTime.now());
+		paymentDTO.setState(PaymentState.CREATED);
+		paymentDTO.setStatusReason("");
+		paymentDTO.setStatus(PaymentStatus.EMPTY);
+	}
+
+	private class PaymentInfoImpl implements PaymentInfo {
 		private String orderingIban;
 		private String beneficiaryIban;
 		private AccountDTO orderingAccount;
@@ -126,8 +170,7 @@ public class CsvFileProcessor implements FileProcessor {
 
 		@Override
 		public LocalDateTime getSettlementDate() {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-			LocalDateTime date = LocalDateTime.parse(settlmentDate, formatter);
+			LocalDateTime date = convertToLocalDateTime(settlmentDate);
 			return date;
 		}
 
@@ -138,9 +181,14 @@ public class CsvFileProcessor implements FileProcessor {
 
 		@Override
 		public PaymentState getState() {
-			// TODO Auto-generated method stub
 			return null;
 		}
+	}
+
+	private LocalDateTime convertToLocalDateTime(String settlmentDate) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		LocalDateTime date = LocalDateTime.parse(settlmentDate, formatter);
+		return date;
 	}
 
 }
