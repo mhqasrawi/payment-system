@@ -20,11 +20,14 @@
 		lazy-init="false" init-method="init" />
 	<bean id="dataSource" class="com.progressoft.jip.DefaultDataSource"
 		init-method="config" />
+
 	<bean id="reportNodeProviderImpl"
 		class="com.progressoft.jip.payment.report.impl.ReportNodeProviderImpl" />
 	<bean id="accountPersistenceService"
 		class="com.progressoft.jip.payment.account.service.AccountPersistenceServiceImpl" />
 
+	<bean id="accountPersistenceService"
+		class="com.progressoft.jip.payment.account.service.AccountPersistenceServiceImpl" />
 	<bean id="accountDAO"
 		class="com.progressoft.jip.payment.account.dao.impl.JDBCAccountDAO" />
 	<bean id="IBANPersistenceService"
@@ -65,5 +68,12 @@
 		<property name="accountIbanValidation" ref="accountIbanValidation"></property>
 		<property name="dateValidationRules" ref="dateValidationRule"></property>
 		<property name="accountPersistence" ref="accountPersistenceService"></property>
+		<property name="paymentDTO" ref="paymentDtoImpl"></property>
+		<property name="paymentDao" ref="paymentDaoImpl"></property>
+	</bean>
+	<bean id="paymentDtoImpl" class="com.progressoft.jip.payment.impl.PaymentDTOImpl"></bean>
+	<bean id="paymentDaoImpl" class="com.progressoft.jip.payment.impl.PaymentDAOImpl"></bean>
+	<bean id="eventImpl" class="com.progressoft.jip.watchers.EventImpl">
+		<property name="processor" ref="csvFileProcessor"></property>
 	</bean>
 </beans>
